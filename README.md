@@ -32,6 +32,9 @@ The story revolves around the evolving relationship between:
 
 This project makes extensive use of AI-assisted creative tools for brainstorming, lyric development, musical prototyping, visual design, conceptual exploration, and rapid experimentation. It intentionally explores how modern AI systems can accelerate and expand independent creative production.
 
+## How to Get the Songs
+
+The easiest way to download all of the song files is to click the green button at the top right of this page and select "Download Zip"; that will give you a copy of the entire repository; the songs are in the folder named "audio".
 
 ## Status
 
