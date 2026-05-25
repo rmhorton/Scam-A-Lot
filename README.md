@@ -37,7 +37,16 @@ This project makes extensive use of AI-assisted creative tools for brainstorming
 The easiest way to download all of the song files is to click the green button at the top right of this page and select "Download Zip"; that will give you a copy of the entire repository; the songs are in the folder named "audio". Or you can click the links below toplay them in your browser:
 
 * [Are We Great Yet?](https://rmhorton.github.io/Scam-A-Lot/audio/ARE_WE_GREAT_YET_v1a.mp3)
-* 
+* ARE_WE_GREAT_YET_v1a.mp3
+* [Billionaire Boy's Club](Billionaire%20Boy&apos;s%20;Club%20;v2.mp3)
+Can you hear me now.mp3
+For He is an Army Man v1a.mp3
+Forever_War.mp3
+Forgotten_Man.mp3
+NICE.mp3
+Russia_Russia_Russia.mp3
+Scam_A_Lot.mp3
+The Ballroom v04b.mp3
 
 ## Status
 
