@@ -188,7 +188,7 @@ body {
 }
 
 .song-body.expanded {
-  max-height: 5000px;
+  max-height: 20000px;
 }
 
 .song-body-inner {
