@@ -37,10 +37,10 @@ This project makes extensive use of AI-assisted creative tools for brainstorming
 The easiest way to download all of the song files is to click the green button at the top right of this page and select "Download Zip"; that will give you a copy of the entire repository; the songs are in the folder named "audio". Or you can click the links below toplay them in your browser:
 
 * [Are We Great Yet?](https://rmhorton.github.io/Scam-A-Lot/audio/ARE_WE_GREAT_YET_v1a.mp3)
-* [Billionaire Boy's Club](https://rmhorton.github.io/Scam-A-Lot/audio/)Billionaire%20Boy%27s%20Club%20v2.mp3)
-* [Can You Hear Me Now?](https://rmhorton.github.io/Scam-A-Lot/audio/)Can%20you%20hear%20me%20now.mp3)
-* [For He is an Army Man](https://rmhorton.github.io/Scam-A-Lot/audio/)For%20He%20is%20an%20Army%20Man%20v1a.mp3)
-* [Forever War]([audio/](https://rmhorton.github.io/Scam-A-Lot/audio/)Forever_War.mp3)
+* [Billionaire Boy's Club](https://rmhorton.github.io/Scam-A-Lot/audio/Billionaire%20Boy%27s%20Club%20v2.mp3)
+* [Can You Hear Me Now?](https://rmhorton.github.io/Scam-A-Lot/audio/Can%20you%20hear%20me%20now.mp3)
+* [For He is an Army Man](https://rmhorton.github.io/Scam-A-Lot/audio/For%20He%20is%20an%20Army%20Man%20v1a.mp3)
+* [Forever War]([audio/](https://rmhorton.github.io/Scam-A-Lot/audio/Forever_War.mp3)
 * [Forgotten Man](https://rmhorton.github.io/Scam-A-Lot/audio/Forgotten_Man.mp3)
 * [NICE](https://rmhorton.github.io/Scam-A-Lot/audio/NICE.mp3)
 * [Russia, Russia, Russia!](https://rmhorton.github.io/Scam-A-Lot/audio/Russia_Russia_Russia.mp3)
