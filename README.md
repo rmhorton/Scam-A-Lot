@@ -38,15 +38,15 @@ The easiest way to download all of the song files is to click the green button a
 
 * [Are We Great Yet?](https://rmhorton.github.io/Scam-A-Lot/audio/ARE_WE_GREAT_YET_v1a.mp3)
 * ARE_WE_GREAT_YET_v1a.mp3
-* [Billionaire Boy's Club](Billionaire%20Boy&apos;s%20;Club%20;v2.mp3)
-Can you hear me now.mp3
-For He is an Army Man v1a.mp3
-Forever_War.mp3
-Forgotten_Man.mp3
-NICE.mp3
-Russia_Russia_Russia.mp3
-Scam_A_Lot.mp3
-The Ballroom v04b.mp3
+* [Billionaire Boy's Club](Billionaire%20Boy%27s%20Club%20v2.mp3)
+* [Can You Hear Me Now?](Can you hear me now.mp3)
+* [For He is an Army Man](For He is an Army Man v1a.mp3)
+* [Forever War](Forever_War.mp3}
+* [Forgotten Man](Forgotten_Man.mp3)
+* [NICE](NICE.mp3)
+* [Russia, Russia, Russia!](Russia_Russia_Russia.mp3)
+* {Theme from Scam-A-Lot](Scam_A_Lot.mp3)
+* [The Ballroom](The Ballroom v04b.mp3)
 
 ## Status
 
