@@ -4,7 +4,7 @@ A satirical political musical production and ecosystem about propaganda, lonelin
 
 ## How to Get the Songs
 
-Go to the [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot) website. That is where we will host the final show once we have all the parts (it will play them in order).
+You can play the songs (and read the lyrics to sing along!) at the [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot) website. That is where we will host the final show once we have all the parts (it will play them in order).
 
 To download all of the files, click the green button at the top right of this page and select "Download Zip"; that will give you a copy of the entire repository; the MP3s are in the folder named "audio". 
 
