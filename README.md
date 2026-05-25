@@ -14,6 +14,7 @@ Click the links below to play them in your browser:
 * [Forgotten Man](https://rmhorton.github.io/Scam-A-Lot/audio/Forgotten_Man.mp3)
 * [NICE](https://rmhorton.github.io/Scam-A-Lot/audio/NICE.mp3)
 * [Russia, Russia, Russia!](https://rmhorton.github.io/Scam-A-Lot/audio/Russia_Russia_Russia.mp3)
+* [That's What Xi Said](https://rmhorton.github.io/Scam-A-Lot/audio/thats_what_xi_said.mp3)
 * [Theme from Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/audio/Scam_A_Lot.mp3)
 * [The Ballroom](https://rmhorton.github.io/Scam-A-Lot/audio/The%20Ballroom%20v04b.mp3)
 
