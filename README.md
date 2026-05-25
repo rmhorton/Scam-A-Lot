@@ -4,7 +4,9 @@ A satirical political musical pruduction and ecosystem about propaganda, lonelin
 
 ## How to Get the Songs
 
-Click the links below to play them in your browser:
+Go to the [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot) website. That is where we will host the final show once we have all the parts (it will play them in order).
+
+Alternatively, you can click the links below to play individual songs in your browser:
 
 * [Are We Great Yet?](https://rmhorton.github.io/Scam-A-Lot/audio/ARE_WE_GREAT_YET_v1a.mp3)
 * [Billionaire Boy's Club](https://rmhorton.github.io/Scam-A-Lot/audio/Billionaire%20Boy%27s%20Club%20v2.mp3)
