@@ -34,7 +34,10 @@ This project makes extensive use of AI-assisted creative tools for brainstorming
 
 ## How to Get the Songs
 
-The easiest way to download all of the song files is to click the green button at the top right of this page and select "Download Zip"; that will give you a copy of the entire repository; the songs are in the folder named "audio".
+The easiest way to download all of the song files is to click the green button at the top right of this page and select "Download Zip"; that will give you a copy of the entire repository; the songs are in the folder named "audio". Or you can click the links below toplay them in your browser:
+
+* [Are We Great Yet?](https://rmhorton.github.io/Scam-A-Lot/audio/ARE_WE_GREAT_YET_v1a.mp3)
+* 
 
 ## Status
 
