@@ -72,7 +72,7 @@ const SONGS = [
   {
     id: "thats-what-xi-said",
     title: "That's What Xi Said",
-    audio: null,
+    audio: "thats_what_xi_said.mp3",
     lyrics: "Thats_What_Xi_Said.txt",
     description: "Satirical rally anthem with nursery-rhyme intro"
   }
