@@ -354,7 +354,7 @@ body {
 }
 
 .lyrics-container.expanded {
-  max-height: 5000px;
+  max-height: 20000px;
 }
 
 .lyrics-content {
