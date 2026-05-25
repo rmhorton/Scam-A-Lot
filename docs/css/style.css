@@ -1,0 +1,474 @@
+/* ========================================
+   SCAM-A-LOT — Broadway Theater Theme
+   ======================================== */
+
+:root {
+  --burgundy: #4a0e1e;
+  --burgundy-deep: #2d0a14;
+  --burgundy-light: #6b1a30;
+  --gold: #c9a84c;
+  --gold-bright: #e6c55a;
+  --gold-dim: #8a7232;
+  --cream: #f5f0e1;
+  --cream-dark: #d4cbb3;
+  --black: #1a1a1a;
+  --text-body: #e8e0d0;
+  --text-muted: #b0a890;
+  --speaker-gold: #d4a843;
+  --section-header: #c9a84c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--burgundy-deep);
+  color: var(--text-body);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── Curtains ── */
+
+#curtain-top,
+#curtain-bottom {
+  height: 12px;
+  background: linear-gradient(
+    90deg,
+    var(--burgundy) 0%,
+    var(--gold) 15%,
+    var(--burgundy) 30%,
+    var(--gold) 50%,
+    var(--burgundy) 70%,
+    var(--gold) 85%,
+    var(--burgundy) 100%
+  );
+  background-size: 200% 100%;
+  animation: curtain-shimmer 8s ease-in-out infinite;
+}
+
+@keyframes curtain-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ── Header ── */
+
+#site-header {
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+  background: linear-gradient(180deg, var(--burgundy) 0%, var(--burgundy-deep) 100%);
+  border-bottom: 2px solid var(--gold-dim);
+}
+
+.header-ornament {
+  color: var(--gold);
+  font-size: 1rem;
+  letter-spacing: 0.5rem;
+  margin: 0.5rem 0;
+  user-select: none;
+}
+
+#site-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--gold-bright);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
+  margin: 0.25rem 0;
+}
+
+#site-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--cream-dark);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── Song List ── */
+
+#song-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* ── Song Card ── */
+
+.song-card {
+  background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-deep) 100%);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.song-card:hover {
+  border-color: var(--gold);
+}
+
+.song-card.now-playing {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+}
+
+/* ── Song Header (Click to Expand) ── */
+
+.song-header {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  gap: 1rem;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+
+.song-header:hover {
+  background: rgba(201, 168, 76, 0.05);
+}
+
+.song-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-dim);
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.song-info {
+  flex: 1;
+}
+
+.song-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+}
+
+.song-description {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.song-toggle {
+  font-size: 1.25rem;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.song-toggle.expanded {
+  transform: rotate(180deg);
+}
+
+/* ── Song Body ── */
+
+.song-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.song-body.expanded {
+  max-height: 5000px;
+}
+
+.song-body-inner {
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+/* ── Audio Player ── */
+
+.audio-section {
+  padding-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+}
+
+.play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.play-btn:hover {
+  background: var(--gold);
+  color: var(--burgundy-deep);
+}
+
+.play-btn.playing {
+  background: var(--gold);
+  color: var(--burgundy-deep);
+}
+
+.progress-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  cursor: pointer;
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  cursor: pointer;
+  border: none;
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.volume-icon {
+  color: var(--gold-dim);
+  font-size: 0.9rem;
+}
+
+.volume-slider {
+  width: 60px;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  cursor: pointer;
+  border: none;
+}
+
+/* ── Lyrics ── */
+
+.lyrics-section {
+  margin-top: 0.5rem;
+}
+
+.lyrics-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lyrics-toggle-btn:hover {
+  background: rgba(201, 168, 76, 0.1);
+}
+
+.lyrics-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.lyrics-container.expanded {
+  max-height: 5000px;
+}
+
+.lyrics-content {
+  padding-top: 1rem;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.lyrics-content p {
+  margin-bottom: 0.5rem;
+}
+
+.lyrics-content .lyrics-divider {
+  text-align: center;
+  color: var(--gold-dim);
+  margin: 1.25rem 0;
+  user-select: none;
+}
+
+.lyrics-content .section-header {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--section-header);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.lyrics-content .speaker {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--speaker-gold);
+  margin: 1rem 0 0.25rem;
+  display: block;
+}
+
+.lyrics-content .stage-direction {
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ── Footer ── */
+
+#site-footer {
+  text-align: center;
+  padding: 2rem 1.5rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--gold-dim);
+}
+
+.footer-small {
+  font-size: 0.75rem;
+  color: var(--gold-dim);
+  margin-top: 0.5rem;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 600px) {
+  .song-header {
+    padding: 1rem;
+  }
+  
+  .song-body-inner {
+    padding: 0 1rem 1rem;
+  }
+  
+  .audio-player {
+    flex-wrap: wrap;
+  }
+  
+  .volume-control {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+    padding-left: 3.5rem;
+  }
+  
+  .volume-slider {
+    flex: 1;
+  }
+  
+  .song-title {
+    font-size: 1.15rem;
+  }
+}
+
+/* ── Loading State ── */
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--gold-dim);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+/* ── No Audio Badge ── */
+
+.no-audio-badge {
+  display: inline-block;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 2px;
+}
