@@ -23,7 +23,7 @@ const SONGS = [
   {
     id: "all-about-me",
     title: "All About Me",
-    audio: "All_About_Me_v6.mp3",
+    audio: "All_About_Me_v7.mp3",
     lyrics: "all_about_me.txt",
     description: "Origin story of the King"
   },
