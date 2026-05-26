@@ -21,6 +21,13 @@ const SONGS = [
     description: "Grand imperial waltz — elegance masking decay"
   },
   {
+    id: "all-about-me",
+    title: "All About Me",
+    audio: "All_About_Me_v6.mp3",
+    lyrics: "all_about_me.txt",
+    description: "Origin story of the King"
+  },
+  {
     id: "billionaire-boys-club",
     title: "Billionaire Boy's Club",
     audio: "Billionaire Boy's Club v2.mp3",
