@@ -63,6 +63,13 @@ const SONGS = [
     description: "Dark heartland anthem — loneliness weaponized"
   },
   {
+    id: "comfort-thinking",
+    title: "Comfort Thinking",
+    audio: "Comfort_Thinking_v01b.mp3",
+    lyrics: "comfort_thinking.txt",
+    description: "authoritarian mental wellness-pop"
+  },
+  {
     id: "can-you-hear-me-now",
     title: "Can You Hear Me Now?",
     audio: "Can you hear me now.mp3",
