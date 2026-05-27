@@ -89,6 +89,13 @@ const SONGS = [
     audio: "thats_what_xi_said.mp3",
     lyrics: "Thats_What_Xi_Said.txt",
     description: "Satirical rally anthem with nursery-rhyme intro"
+  },
+  {
+    id: "eating-the-cats",
+    title: "Eating The Cats",
+    audio: "Eating_the_Cats_v3a.mp3",
+    lyrics: "eating_the_cats.txt",
+    description: "Rapping genuine Trump quotes (experimental)"
   }
 ];
 
