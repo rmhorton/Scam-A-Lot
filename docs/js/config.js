@@ -98,6 +98,13 @@ const SONGS = [
     description: "Populism betrayed"
   },
   {
+    id: "justice_must_be_blind",
+    title: "Justice Must Be Blind",
+    audio: "Justice Must Be Blind Blues v01a.mp3",
+    lyrics: "Justice_Must_Be_Blind.txt",
+    description: "Corruption on the bench"
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
