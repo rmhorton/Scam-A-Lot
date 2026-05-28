@@ -91,6 +91,13 @@ const SONGS = [
     description: "Satirical rally anthem with nursery-rhyme intro"
   },
   {
+    id: "imperial_casino",
+    title: "Imperial Casino",
+    audio: "Imperial Casino v01b.mp3",
+    lyrics: "imperial_casino.txt",
+    description: "Populism betrayed"
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
