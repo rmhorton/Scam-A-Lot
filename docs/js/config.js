@@ -102,7 +102,7 @@ const SONGS = [
     title: "Justice Must Be Blind",
     audio: "Justice Must Be Blind Blues v4b.mp3",
     lyrics: "Justice_Must_Be_Blind.txt",
-    description: "Corruption on the bench"
+    description: "Supreme Court ethics"
   },
   {
     id: "eating-the-cats",
