@@ -101,7 +101,7 @@ const SONGS = [
     id: "justice_must_be_blind",
     title: "Justice Must Be Blind",
     audio: "Justice Must Be Blind Blues v4b.mp3",
-    lyrics: "Justice_Must_Be_Blind.txt",
+    lyrics: "Justice_Must_Be_Blind_blues.txt",
     description: "Supreme Court ethics"
   },
   {
