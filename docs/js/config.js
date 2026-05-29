@@ -53,7 +53,7 @@ const SONGS = [
     title: "For He Is an Army Man",
     audio: "For He is an Army Man v1a.mp3",
     lyrics: "For_He_is_an_Army_Man.txt",
-    description: "Satirical operetta in the style of Gilbert and Sullivan"
+    description: "Supportive testimony at the confirmation hearing of Sir Bombsalot, in the style of Gilbert and Sullivan"
   },
   {
     id: "forgotten-man",
