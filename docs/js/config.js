@@ -18,7 +18,7 @@ const SONGS = [
     title: "The Ballroom",
     audio: "The Ballroom v04b.mp3",
     lyrics: "The_Ballroom.txt",
-    description: "Grand imperial waltz — elegance masking decay"
+    description: "Grand imperial waltz for the grand imperial ballroom, plus a secret bunker"
   },
   {
     id: "all-about-me",
