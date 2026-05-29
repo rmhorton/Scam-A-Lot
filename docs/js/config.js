@@ -100,7 +100,7 @@ const SONGS = [
   {
     id: "justice_must_be_blind",
     title: "Justice Must Be Blind",
-    audio: "Justice Must Be Blind Blues v01a.mp3",
+    audio: "Justice Must Be Blind Blues v4b.mp3",
     lyrics: "Justice_Must_Be_Blind.txt",
     description: "Corruption on the bench"
   },
