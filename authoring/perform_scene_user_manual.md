@@ -94,6 +94,365 @@ Acting directions are passed to the TTS model as additional instructions and may
 
 Different generations of the same line may produce slightly different performances.
 
+This belongs in the `perform_scene.py` user manual.
+
+
+
+## Context-Aware Dialog with the `prev` Tag **NOT YET IMPLEMENTED**
+
+### Overview
+
+By default, `perform_scene.py` generates each spoken line independently. For most dialog this works well, but some lines depend heavily on what was said immediately beforehand.
+
+Examples include:
+
+```text
+Really?
+Yeah.
+Okay.
+Oh.
+Thanks.
+```
+
+These short utterances can be interpreted in many different ways depending on the surrounding conversation.
+
+The `prev` tag allows an author to specify that one or more preceding dialog lines should be supplied to the TTS model as context when generating the current line.
+
+The previous lines are used only to guide the performance. They are not synthesized into the output audio.
+
+---
+
+### Syntax
+
+The `prev` tag is specified inside the acting-direction block.
+
+Example:
+
+```text
+DAVE [skeptical | prev=1]:
+Really?
+```
+
+```text
+FLOWER [gentle reassurance | prev=2]:
+Yeah.
+```
+
+---
+
+### Meaning
+
+`prev=N` indicates that the TTS system should provide the previous `N` spoken dialog lines as context when generating the current line.
+
+The current line remains the only text spoken in the generated audio.
+
+Example:
+
+```text
+FLOWER:
+You still haven't cut my signal.
+
+DAVE [quietly defensive | prev=1]:
+That doesn't mean anything.
+```
+
+When generating Dave's line, the TTS model receives Flower's previous statement as contextual information.
+
+This often produces more natural emphasis and emotional delivery.
+
+---
+
+### When to Use
+
+Use `prev` when a line's meaning depends strongly on prior dialog.
+
+Good candidates include:
+
+```text
+Really?
+Okay.
+Yeah.
+What?
+Oh.
+Thanks.
+```
+
+Use `prev` when the emotional intent would be difficult to infer from the current line alone.
+
+---
+
+### When Not to Use
+
+Most dialog does not require the `prev` tag.
+
+For example:
+
+```text
+DAVE [outraged]:
+Security!
+```
+
+```text
+FLOWER [cheerful pirate-radio greeting]:
+Hey, Dave.
+```
+
+These lines already contain sufficient information in the text and acting directions.
+
+Adding unnecessary context may increase generation time without improving quality.
+
+---
+
+### Choosing a Value
+
+Most uses should specify:
+
+```text
+prev=1
+```
+
+Use larger values only when a line depends on a short exchange rather than a single statement.
+
+Example:
+
+```text
+DAVE:
+I don't know.
+
+FLOWER:
+You do know.
+
+DAVE [slow realization | prev=2]:
+...Oh.
+```
+
+---
+
+### Interaction with Acting Directions
+
+The `prev` tag supplements acting directions; it does not replace them.
+
+Good:
+
+```text
+DAVE [embarrassed realization | prev=1]:
+Oh.
+```
+
+Poor:
+
+```text
+DAVE [prev=1]:
+Oh.
+```
+
+Always provide acting directions that describe the intended performance.
+
+The `prev` tag provides conversational context; the acting directions provide emotional and dramatic intent.
+
+---
+
+This would fit naturally after the "Interaction with Acting Directions" section.
+
+
+
+### Examples of Generated Prompts
+
+The exact formatting of the prompt sent to the TTS model is implementation-dependent. The examples below illustrate the information that should be supplied when a `prev` tag is present.
+
+#### Example 1: `prev=1`
+
+Script:
+
+```text
+FLOWER:
+You still haven't cut my signal.
+
+DAVE [quietly defensive | prev=1]:
+That doesn't mean anything.
+```
+
+Voice configuration:
+
+```text
+Energetic talk-radio host. Confident, performative, sarcastic, and entertaining.
+```
+
+Constructed prompt:
+
+```text
+Energetic talk-radio host. Confident, performative, sarcastic, and entertaining.
+
+Previous dialog:
+
+FLOWER:
+You still haven't cut my signal.
+
+Current line acting directions:
+
+quietly defensive
+```
+
+Text sent for synthesis:
+
+```text
+That doesn't mean anything.
+```
+
+---
+
+#### Example 2: `prev=2`
+
+Script:
+
+```text
+DAVE:
+I don't know.
+
+FLOWER:
+You do know.
+
+DAVE [slow realization, embarrassed | prev=2]:
+...Oh.
+```
+
+Constructed prompt:
+
+```text
+Energetic talk-radio host. Confident, performative, sarcastic, and entertaining.
+
+Previous dialog:
+
+DAVE:
+I don't know.
+
+FLOWER:
+You do know.
+
+Current line acting directions:
+
+slow realization, embarrassed
+```
+
+Text sent for synthesis:
+
+```text
+...Oh.
+```
+
+---
+
+#### Example 3: Radio Interruption
+
+Script:
+
+```text
+[SFX: Static]
+
+FLOWER [cheerful pirate-radio greeting]:
+Hey, Dave.
+
+DAVE [startled recognition | prev=1]:
+Flower?
+```
+
+Constructed prompt:
+
+```text
+Energetic talk-radio host. Confident, performative, sarcastic, and entertaining.
+
+Previous dialog:
+
+FLOWER:
+Hey, Dave.
+
+Current line acting directions:
+
+startled recognition
+```
+
+Text sent for synthesis:
+
+```text
+Flower?
+```
+
+---
+
+#### Example 4: Previous Non-Dialog Content
+
+Script:
+
+```text
+FLOWER:
+The listeners deserve an answer.
+
+[SFX_DAVE: clown_horn]
+
+DAVE [annoyed, trying to sound confident | prev=1]:
+That is an answer.
+```
+
+The sound effect is ignored when constructing context.
+
+Constructed prompt:
+
+```text
+Energetic talk-radio host. Confident, performative, sarcastic, and entertaining.
+
+Previous dialog:
+
+FLOWER:
+The listeners deserve an answer.
+
+Current line acting directions:
+
+annoyed, trying to sound confident
+```
+
+Text sent for synthesis:
+
+```text
+That is an answer.
+```
+
+---
+
+### Design Principle
+
+The `prev` tag provides conversational history, not dramatic interpretation.
+
+The script author or LLM is responsible for describing the desired performance through acting directions. The TTS system simply provides the requested preceding dialog so that the model can interpret the current line in context.
+
+For example:
+
+```text
+DAVE [embarrassed realization | prev=1]:
+Oh.
+```
+
+is preferable to:
+
+```text
+DAVE [prev=1]:
+Oh.
+```
+
+because the acting directions communicate the intended performance while the previous dialog supplies the conversational context.
+
+One subtle point worth emphasizing is that the previous dialog should probably be included **verbatim**, rather than summarized. The whole point is to let the TTS model infer emotional context from the actual exchange.
+
+### Best Practices
+
+- Use `prev` sparingly.
+- Prefer strong acting directions whenever possible.
+- Use `prev` for genuinely context-dependent lines.
+- Start with `prev=1`.
+- Increase the value only when a larger portion of the preceding conversation is required.
+
+In general, acting directions should describe *how* a line is delivered, while the `prev` tag provides information about *what immediately happened before the line was spoken*.
+
+
 ---
 
 # Inline Dialog
@@ -237,6 +596,8 @@ The script is intended to generate performances, not complete productions. Music
 ---
 
 # Future Enhancements
+
+
 
 Possible future improvements include:
 
