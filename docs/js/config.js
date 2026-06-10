@@ -1,4 +1,8 @@
 const SONGS = [
+  // Optional segment fields:
+  // pauseBeforeSeconds: 5,
+  // startTime: "1:15",
+  // stopTime: "2:30"
   {
     id: "scam-a-lot",
     title: "Scam-A-Lot",
@@ -112,6 +116,9 @@ const SONGS = [
     description: "Rapping genuine Trump quotes (experimental)"
   }
 ];
+
+// Default pause between automatically advanced tracks:
+// DEFAULT_PAUSE_BETWEEN_TRACKS_SECONDS = 2
 
 // Paths relative to the docs/ folder
 const AUDIO_BASE = "../audio/";
