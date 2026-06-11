@@ -69,7 +69,7 @@ const SONGS = [
   {
     id: "comfort-thinking",
     title: "Comfort Thinking",
-    audio: "Comfort_Thinking_v01b.mp3",
+    audio: "Comfort_Thinking.mp3",
     lyrics: "comfort_thinking.txt",
     description: "authoritarian mental wellness-pop"
   },
