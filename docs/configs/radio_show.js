@@ -93,10 +93,10 @@ const SONGS = [
     description: "Scene 6: After The Broadcast"
   },
   {
-    id: "justice_must_be_blind",
-    title: "Justice Must Be Blind",
-    audio: "Justice Must Be Blind Blues v4b.mp3",
-    lyrics: "Justice_Must_Be_Blind_blues.txt",
-    description: "Supreme Court ethics"
+    id: "can-you-hear-me-now",
+    title: "Can You Hear Me Now?",
+    audio: "Can you hear me now.mp3",
+    lyrics: "Can_You_Hear_Me_Now.txt",
+    description: "Late-night pirate radio ballad — the signal in the noise"
   }
 ]
