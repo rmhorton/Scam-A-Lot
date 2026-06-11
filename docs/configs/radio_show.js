@@ -4,7 +4,7 @@ Scam_A_Lot.mp3 4:08
 act01_scene02.mp3 2:17
 Forgotten_Man.mp3 4:57
 act01_scene03.mp3 2:28
-Comfort_Thinking_v01b.mp3 7:59
+Comfort_Thinking_v01b.mp3 7:59 -> 3:44
 AD_Alfa_Home_Reality_System.mp3 0:51
 act01_scene04.mp3 2:00
 Forever_War.txt 5:14
@@ -27,7 +27,7 @@ const SONGS = [
   {
     id: "scam-a-lot",
     title: "Scam-A-Lot",
-    audio: "Scam_A_Lot.mp3", # 4:08
+    audio: "Scam_A_Lot.mp3",
     lyrics: "Scam_A_Lot.txt",
     pauseBeforeSeconds: 1,
     description: "Propaganda anthem with dark carnival march energy"
