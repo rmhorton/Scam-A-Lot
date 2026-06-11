@@ -1,3 +1,19 @@
+/*
+act01_scene01.mp3 1:27
+Scam_A_Lot.mp3 4:08
+act01_scene02.mp3 2:17
+Forgotten_Man.mp3 4:57
+act01_scene03.mp3 2:28
+Comfort_Thinking_v01b.mp3 7:59
+AD_Alfa_Home_Reality_System.mp3 0:51
+act01_scene04.mp3 2:00
+Forever_War.txt 5:14
+act01_scene05.mp3 1:39
+Imperial Casino v01b.mp3  5:56
+act01_scene06.mp3 1:55
+Can you hear me now.mp3 6:55
+*/
+
 const SONGS = [
 
   {
@@ -11,7 +27,7 @@ const SONGS = [
   {
     id: "scam-a-lot",
     title: "Scam-A-Lot",
-    audio: "Scam_A_Lot.mp3",
+    audio: "Scam_A_Lot.mp3", # 4:08
     lyrics: "Scam_A_Lot.txt",
     pauseBeforeSeconds: 1,
     description: "Propaganda anthem with dark carnival march energy"
@@ -42,7 +58,7 @@ const SONGS = [
   {
     id: "comfort-thinking",
     title: "Comfort Thinking",
-    audio: "Comfort_Thinking_v01b.mp3",
+    audio: "Comfort_Thinking.mp3",
     lyrics: "comfort_thinking.txt",
     description: "authoritarian mental wellness-pop"
   },
