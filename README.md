@@ -6,8 +6,6 @@ A satirical political musical production and ecosystem about propaganda, lonelin
 
 You can play the songs (and read the lyrics to sing along!) on the [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot) page. That is where we will host the final show once we have all the parts (it will play them in order).
 
-The [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play page is experimental.
-
 To download all of the files, click the green "Code" button at the top right of the main page and select "Download Zip"; that will give you a copy of the entire repository; the MP3s are in the folder named "audio". 
 
 ## Overview
@@ -18,7 +16,9 @@ The project combines political satire and musical theater. The long-term goal is
 
 ## Radio Free Scam-A-Lot
 
-The current primary release format is an audio-first “radio play” designed to be easily produced and adapted. The program is a playlist composed of songs, radio segments, commercials, propaganda announcements, and pirate interruptions. This format is designed to be modular, expandable, collaborative, and rapidly adaptable. New songs and segments can be added continuously as political events evolve and new thematic material emerges. It can be published on conventional music platforms.
+The [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play page is experimental.
+
+The current primary release format is an audio-first “radio play” designed to be easily produced and adapted. The program is a playlist composed of songs, radio segments, commercials, propaganda announcements, and pirate interruptions. This format is designed to be modular, expandable, collaborative, and rapidly adaptable. New songs and segments can be added continuously as political events evolve and new thematic material emerges. It can also be published on conventional music platforms.
 
 The context is a conflict between:
 * an authoritarian state-media broadcast network, and
