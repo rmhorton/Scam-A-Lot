@@ -6,6 +6,8 @@ A satirical political musical production and ecosystem about propaganda, lonelin
 * [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
 * [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
 
+![Scam-A-Lot Poster](artwork/Scamalot.png)
+
 ## Overview
 
 In the kingdom of Scam-A-Lot, reality itself has become media spectacle. The state-media system sells outrage, certainty, nationalism, masculinity branding, billionaire worship, endless war, propaganda, and emotional simplification. There is resistance.
