@@ -53,6 +53,13 @@ const SONGS = [
     description: "Arena-rock anthem — the economy of fear"
   },
   {
+    id: "forever-war-redux",
+    title: "Forever War Redux",
+    audio: "Forever_War_redux_4.mp3",
+    lyrics: "Forever_War.txt",
+    description: "Faster version"
+  },
+  {
     id: "for-he-is-an-army-man",
     title: "For He Is an Army Man",
     audio: "For He is an Army Man v1a.mp3",
