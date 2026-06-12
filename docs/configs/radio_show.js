@@ -4,14 +4,14 @@ Scam_A_Lot.mp3 4:08
 act01_scene02.mp3 2:17
 Forgotten_Man.mp3 4:57
 act01_scene03.mp3 2:28
-Comfort_Thinking_v01b.mp3 7:59 -> 3:44
+Comfort_Thinking.mp3 7:59 -> 3:44
 AD_Alfa_Home_Reality_System.mp3 0:51
 act01_scene04.mp3 2:00
 Forever_War.txt 5:14
 act01_scene05.mp3 1:39
-Imperial Casino v01b.mp3  5:56
+Imperial_Casino.mp3  5:56 -> 4:09
 act01_scene06.mp3 1:55
-Can you hear me now.mp3 6:55
+Can you hear me now.mp3 6:55 -> 3:53
 */
 
 const SONGS = [
@@ -96,7 +96,7 @@ const SONGS = [
   {
     id: "imperial_casino",
     title: "Imperial Casino",
-    audio: "Imperial Casino v01b.mp3",
+    audio: "Imperial_Casino.mp3",
     lyrics: "imperial_casino.txt",
     description: "Populism betrayed"
   },
