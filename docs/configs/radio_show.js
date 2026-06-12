@@ -79,7 +79,7 @@ const SONGS = [
     description: "Scene 4: Intrusion"
   },
   {
-    id: "forever-war",
+    id: "forever-war-redux",
     title: "Forever War Redux",
     audio: "Forever_War_redux_4.mp3",
     lyrics: "Forever_War.txt",
