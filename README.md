@@ -19,8 +19,8 @@ The project combines political satire and musical theater. The long-term goal is
 [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) is an audio-first “radio play” designed to be easily produced and adapted. The program is a playlist composed of songs, radio segments, commercials, propaganda announcements, and pirate interruptions. This format is designed to be modular, expandable, collaborative, and rapidly adaptable. New songs and segments can be added continuously as political events evolve and new thematic material emerges. It can also be published on conventional music platforms.
 
 The context is a conflict between:
-* an authoritarian state-media broadcast network, and
-* a pirate-radio resistance station known as _Radio Free Scam-A-Lot_.
+* an authoritarian state-media network, and
+* a pirate-radio resistance broadcast known as _Radio Free Scam-A-Lot_.
 
 The story revolves around the evolving relationship between:
 
@@ -31,7 +31,7 @@ The story revolves around the evolving relationship between:
 
 You can play the songs (and read the lyrics to sing along!) on the [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot) page.
 
-To download all of the MP3 files, click the green "Code" button at the top right of the repository [main page](https://github.com/rmhorton/Scam-A-Lot/) and select "Download Zip"; that will give you a copy of the entire repository; the MP3s are in the folder named "audio". You can also download the audio files one at a time through the github web interface, but it is easier to just get the whole zip file.
+To download all of the MP3 files, click the green "Code" button at the top right of the repository [main page](https://github.com/rmhorton/Scam-A-Lot/) and select "Download Zip"; that will give you a copy of the entire repository. The MP3s are in the folder named "audio". You can also download the audio files one at a time through the github web interface, but it is easier to just get the whole zip file.
 
 ## AI-Assisted Creative Workflow
 
