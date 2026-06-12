@@ -2,16 +2,16 @@
 act01_scene01.mp3 1:27
 Scam_A_Lot.mp3 4:08
 act01_scene02.mp3 2:17
-Forgotten_Man.mp3 4:57
+Forgotten_Man.mp3 4:57 -> 3:29
 act01_scene03.mp3 2:28
 Comfort_Thinking.mp3 7:59 -> 3:44
 AD_Alfa_Home_Reality_System.mp3 0:51
 act01_scene04.mp3 2:00
-Forever_War.txt 5:14
+Forever_War.txt 5:14 -> 3:44
 act01_scene05.mp3 1:39
 Imperial_Casino.mp3  5:56 -> 4:09
 act01_scene06.mp3 1:55
-Can you hear me now.mp3 6:55 -> 3:53
+Can you hear me now.mp3 6:55 -> 3:52
 */
 
 const SONGS = [
@@ -80,8 +80,8 @@ const SONGS = [
   },
   {
     id: "forever-war",
-    title: "Forever War",
-    audio: "Forever_War.mp3",
+    title: "Forever War Redux",
+    audio: "Forever_War_redux_4.mp3",
     lyrics: "Forever_War.txt",
     description: "Arena-rock anthem — the economy of fear"
   },
