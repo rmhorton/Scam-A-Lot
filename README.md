@@ -2,11 +2,9 @@
 
 A satirical political musical production and ecosystem about propaganda, loneliness, media ecosystems, and the battle for reality.
 
-## How to Get the Songs
-
-You can play the songs (and read the lyrics to sing along!) on the [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot) page. That is where we will host the final show once we have all the parts (it will play them in order).
-
-To download all of the files, click the green "Code" button at the top right of the main page and select "Download Zip"; that will give you a copy of the entire repository; the MP3s are in the folder named "audio". 
+## Listen
+* [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
+* [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
 
 ## Overview
 
@@ -14,11 +12,16 @@ In the kingdom of Scam-A-Lot, reality itself has become media spectacle. The sta
 
 The project combines political satire and musical theater. The long-term goal is eventual adaptation into protest performance art, theatrical productions, etc. But we are starting with something simpler...
 
+## How to Get the Songs
+
+You can play the songs (and read the lyrics to sing along!) on the [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot) page.
+
+To download all of the files, click the green "Code" button at the top right of the main page and select "Download Zip"; that will give you a copy of the entire repository; the MP3s are in the folder named "audio". 
+
+
 ## Radio Free Scam-A-Lot
 
-The [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play page is experimental.
-
-The current primary release format is an audio-first “radio play” designed to be easily produced and adapted. The program is a playlist composed of songs, radio segments, commercials, propaganda announcements, and pirate interruptions. This format is designed to be modular, expandable, collaborative, and rapidly adaptable. New songs and segments can be added continuously as political events evolve and new thematic material emerges. It can also be published on conventional music platforms.
+[Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) is an audio-first “radio play” designed to be easily produced and adapted. The program is a playlist composed of songs, radio segments, commercials, propaganda announcements, and pirate interruptions. This format is designed to be modular, expandable, collaborative, and rapidly adaptable. New songs and segments can be added continuously as political events evolve and new thematic material emerges. It can also be published on conventional music platforms.
 
 The context is a conflict between:
 * an authoritarian state-media broadcast network, and
@@ -31,15 +34,9 @@ The story revolves around the evolving relationship between:
 
 ## AI-Assisted Creative Workflow
 
-This project makes extensive use of AI-assisted creative tools for brainstorming, lyric development, musical prototyping, visual design, interface development, and rapid experimentation. It intentionally explores how modern AI systems can accelerate and expand independent creative production.
+This project makes extensive use of AI-assisted creative tools for brainstorming, lyric development, musical prototyping, visual design, interface development, voice acting, and rapid experimentation. It intentionally explores how modern AI systems can accelerate and expand independent creative production.
 
 ## Status
 
 Active early development. Songs, scripts, characters, and structure are evolving rapidly.
 
-The current focus is:
-
-* developing standalone songs,
-* refining the radio-play structure,
-* building character arcs,
-* and writing dialog
