@@ -1,7 +1,7 @@
-ALL ABOUT ME
-(State-media autobiographical operetta for The King)
+All About Me
 
-Satirical Broadway patter operetta with smug bass-baritone lead, dry theatrical delivery, patriotic brass, light marching percussion, and tight concise arrangement. Gilbert & Sullivan-inspired political satire with minimal repetition, sparse instrumentation, and continuous forward momentum. Cheerful crowd chants gradually become unsettling propaganda slogans.
+Satirical Broadway patter operetta with smug bass-baritone lead vocals, dry aristocratic delivery, patriotic brass accents, piano, and light marching snare. Gilbert & Sullivan-inspired political satire. Dense lyrics, rapid vocal delivery, continuous singing, and constant forward momentum. Minimal instrumental interludes, minimal introductions, minimal transitions between sections, and no extended solos. Through-composed structure with new lyrics continuously advancing the story. Avoid repeating chorus lines, avoid repeating chant sections, avoid musical reprises, avoid extended outros, and avoid instrumental padding between verses. Compact theatrical arrangement focused on delivering the lyrics as efficiently as possible. Cheerful crowd responses gradually become unsettling propaganda slogans. No instrumental breaks. Vocals nearly continuous.
+
 
 
 [KING]
@@ -15,6 +15,10 @@ And everybody loves to see
 My deep humility!
 
 ---
+
+[CORRUPTION]
+
+[KING]
 
 Father taught me business
 When I was very small
@@ -31,14 +35,15 @@ What distinguishes the great:
 The rules are merely obstacles
 That winners renegotiate!
 
-[CHORUS]
+[CROWD RESPONSE]
 
 Charge Them More! Raise the Price!
 Expensive means it must be nice!
 If they pay too much, you must be smart!
 The higher the price, the greater the art!
 
-⸻
+
+[SCOREKEEPING]
 
 [KING]
 
@@ -57,14 +62,14 @@ No awkward questions reached my ear!
 My golf balls wander off somewhere
 Then as if by magic reappear!
 
-[CHORUS]
+[CROWD RESPONSE]
 
 Charge Them More! Raise the Price!
 Expensive means it must be nice!
-Keeping score is the secret of my success!
+Keeping score is the secret of success!
 Losers play by rules, winners just apply finesse!
 
-⸻
+[SPINNING FAILURE]
 
 [KING]
 
@@ -83,14 +88,15 @@ My pizza ads were bland
 But every bold disaster simply
 Amplified the brand!
 
-[CHORUS]
+[CROWD RESPONSE]
 
 Charge Them More! Raise the Price!
 Expensive means it must be nice!
 Failure isn't real 'til you admit it!
-If you must play by rules you can forget it!
+Spin it right and they'll forget it!
 
-⸻
+
+[POLITICS]
 
 [KING]
 
@@ -109,41 +115,39 @@ To keep the weak in line
 And once you transcend consequence
 The rules do not apply!
 
-[CHORUS]
+[CROWD RESPONSE]
 
 Charge Them More! Raise the Price!
 Expensive means it must be nice!
-If they attack it means you're strong!
+If they attack, it means you're strong!
 Every scandal moves your myth along!
 
-⸻
+[IMMUNITY]
 
 [KING]
 
 They said the walls were closing in
 I was lost, the headlines cried
 They said the law would finally win
-That history would decide
+Justice would not be denied
 
-But every contradiction
-Only made the myth more grand!
-Normal men may need the truth —
-Great men need a brand!
+When every new indictment
+Made my faithful call for immunity
+The donor class began to see
+A golden opportunity!
 
 The wealthy gather quietly
-The powerful draw near
+The powerful take heed
 For men immune to scandal
-Are extremely useful here!
+Are exactly what they need!
 
 
-[CHORUS]
+[CROWD RESPONSE]
 
 Charge Them More! Raise the Price!
 Expensive means it must be nice!
 If they believe, then truth will follow!
 Great men shape what crowds will swallow!
-
-⸻
 
 
 [KING]
@@ -163,16 +167,14 @@ And history to the loud
 And greatness means becoming
 A reflection of the crowd!
 
-⸻
 
-[CHORUS]
+[CROWD RESPONSE]
 
 Charge Them More! Raise the Price!
 Expensive means it must be nice!
 The People Agree! It is all about me!
-Repeat the slogan constantly!
-Truth is a branding strategy!
-Image is reality!
+Repeat the slogans constantly!
+
 My fame will never die!
 Long live the fame!
 Long live the name!
