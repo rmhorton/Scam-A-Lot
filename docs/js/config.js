@@ -13,7 +13,7 @@ const SONGS = [
   {
     id: "are-we-great-yet",
     title: "Are We Great Yet?",
-    audio: "ARE_WE_GREAT_YET_v1a.mp3",
+    audio: "Are_We_Great_Yet.mp3",
     lyrics: "Are_We_Great_Yet.txt",
     description: "Theatrical call-and-response between soloist and crowd chorus"
   },
