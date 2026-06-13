@@ -34,7 +34,7 @@ const SONGS = [
   {
     id: "billionaire-boys-club",
     title: "Billionaire Boy's Club",
-    audio: "Billionaire Boy's Club v2.mp3",
+    audio: "Billionaire_Boys_Club.mp3",
     lyrics: "Billionaire_Boys_Club.txt",
     description: "From luxury fantasy to authoritarian oligarchy"
   },
