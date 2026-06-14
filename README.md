@@ -42,3 +42,5 @@ This project makes extensive use of AI-assisted creative tools for brainstorming
 
 Active early development. Songs, scripts, characters, and structure are evolving rapidly.
 
+Watch this space for updates on our social media debut.
+
