@@ -9,7 +9,7 @@ const SONGS = [
   {
     id: "imperial_casino",
     title: "Imperial Casino",
-    audio: "Imperial Casino v01b.mp3",
+    audio: "Imperial_Casino.mp3",
     lyrics: "imperial_casino.txt",
     description: "Populism betrayed"
   },
