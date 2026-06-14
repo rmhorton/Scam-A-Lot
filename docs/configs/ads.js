@@ -116,7 +116,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
     startTime: "5:28",
-    stopTime: "6:04",
+    stopTime: "6:03",
     pauseBeforeSeconds: 0,
     description: "Paradise discovered"
   },
