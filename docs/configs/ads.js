@@ -36,7 +36,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
     startTime: "1:02",
-    stopTime: "1:26",
+    stopTime: "1:27",
     pauseBeforeSeconds: 0,
     description: "Seasoning for cats"
   },
