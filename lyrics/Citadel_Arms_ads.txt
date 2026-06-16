@@ -1,0 +1,145 @@
+
+Citadel Arms is about preparing for a society in which inequality has become so extreme that ordinary people are treated as a threat to be managed.
+
+
+| Ad | Division | Question Being Answered | Public Message | Subtext | Vocabulary |
+|------|------|------|------|------|------|
+| **1** | Hotel & Resort | How should successful people enjoy life? | Come relax. | The best life is lived away from ordinary people. | luxury, exclusivity, mountain air, wellness, privacy |
+| **2** | Continuity Community | What if conditions become less pleasant? | Come prepare. | You don't have to share the consequences with everyone else. | resilience, preparedness, continuity, self-sufficiency, independence |
+| **3** | Security Services | Who protects your quality of life? | We'll protect you. | The real purpose of the community is controlling who gets in. | perimeter security, access control, threat mitigation, situational awareness, peace of mind |
+| **4** | Defense Technology | How do we maintain security at scale? | We build sophisticated systems to protect you. | Surveillance, automation, and control can replace trust and community. | operational effectiveness, force protection, integrated systems, autonomous platforms, advanced technologies |
+| **5** | Defense Services | What happens when security is challenged? | We provide decisive capabilities. | The people outside the gates have become a security problem. |     threat neutralization, rapid response, mission readiness, operational superiority, kinetic solutions, maximum lethality |
+| **6** | Investment & Holdings | Who benefits from all of this? | Invest in the future. | The same corporation profits from luxury, preparedness, exclusion, surveillance, and force. | portfolio diversification, shareholder value, vertical integration, strategic positioning, long-term growth |
+
+
+Citadel_Arms_01_Hotel_Resort 65 85 2:08 2:45
+Citadel_Arms_02_Continuity_Community 85 115 2:48 3:47
+Citadel_Arms_03_Security_Systems 115 133 3:47 4:24
+Citadel_Arms_04_Defense_Technology 133 149
+Citadel_Arms_05_Defense_Services 149 171
+Citadel_Arms_06_Portfolio 171 190 5:40 6:18
+
+Princess_Island_Resort_spot01 191 209 1:35-1:44
+Princess_Island_Resort_spot02 209 224 1:44 1:54
+Princess_Island_Resort_spot03 225 243 1:54 2:01
+Princess_Island_Resort_spot04 243 257 
+
+
+## [Citadel_Arms_01_Hotel_Resort]
+
+[Radio commercial with spoken narrator. Voice-over performance, not sung vocals. Luxury mountain resort commercial. Warm female narrator. Piano, strings, nature ambience, distant birds, flowing water. Upscale travel advertisement for wealthy retirees and vacationers. Bright, optimistic, relaxing, aspirational. Emphasize comfort, wellness, mountain air, exclusivity, environmental beauty, premium hospitality. Sounds like a high-budget resort commercial seen during a golf tournament. No irony in delivery. Completely sincere.]
+
+As temperatures rise, so should your standards.
+
+At Citadel Arms Hotels and Resorts, our members enjoy cool mountain air, locally-sourced foods, private recreation facilities, and uninterrupted comfort.
+
+Let others stress about adapting to a changing climate; you’ll be relaxing beside our glacier-fed infinity pools.
+
+Citadel Arms: a brighter future, at a higher elevation.
+
+## [Citadel_Arms_02_Continuity_Community]
+
+[Spoken radio commercial. Professional narrator, not singing. Continuous spoken delivery with a steady, efficient pace. Moderate speaking speed. Minimal pauses between sentences. Premium continuity-community advertisement. Light corporate underscore with soft synth pads and subtle piano. Confident, polished, executive tone. Sounds like a high-end financial-services, private banking, or luxury real-estate commercial. Professional and reassuring without sounding sleepy or reflective. The narrator should deliver information clearly and efficiently, as though speaking during a national radio advertisement with limited airtime. Avoid dramatic pauses, slow contemplation, or emotional emphasis. Keep the delivery moving forward continuously while remaining sophisticated and authoritative. Background audio should remain subtle and never compete with the narration.]
+
+At Citadel Arms, we believe peace of mind begins with meticulous planning.
+
+Nestled in the cool mountain air, our exclusive gated communities feature golf courses, luxury spas, independent water systems, off-grid power, and advanced medical facilities.
+
+Every Sovereign Membership includes accommodations for immediate family members, with dedicated facilities available for approved personal staff.
+
+And you need not worry about transportation disruptions.
+
+You’ll already be here.
+
+Because preparation is the ultimate luxury.
+
+Citadel Arms. Holding you close. Holding the line.
+
+## [Citadel_Arms_03_Security_Systems]
+
+[Spoken radio commercial. Professional narrator, not singing. Continuous spoken delivery. Very sparse corporate ambience. Low sustained synth textures, subtle room tone, occasional soft piano notes. Minimal music. No obvious melody. Sounds like a premium financial-services announcement, private security briefing, or executive continuity-planning presentation. Calm, measured, authoritative, and completely sincere. The narrator should sound like a trusted professional explaining a routine customer benefit. Sophisticated, discreet, reassuring. No excitement, no urgency, no humor in the delivery. Background audio should be nearly invisible.]
+
+Our members appreciate privacy.
+
+That’s why every Citadel Arms community features carefully managed access points, advanced monitoring systems, and discreet twenty-four-hour perimeter security.
+
+Some call it a fortress. We call it exclusive lifestyle services.
+
+Citadel Arms: Holding you close. Holding the line.
+
+---
+
+## [Citadel_Arms_04_Defense_Technology]
+
+[Spoken radio commercial. Professional voice-over narration, not singing. Continuous spoken delivery over background music. Defense technology advertisement. Calm, confident corporate narrator. Sophisticated electronic textures, subtle synth pads, restrained piano, light technological ambience. Sounds like a premium aerospace, cybersecurity, or advanced technology company presenting innovative solutions for complex challenges. Intelligent, reassuring, highly professional. Emphasize innovation, integration, operational effectiveness, situational awareness, autonomous systems, and advanced capabilities. No military aggression. No urgency. No irony. The narrator should sound like a respected technology executive speaking to investors and government decision-makers. Background music should feel modern, precise, and quietly impressive.]
+
+At Citadel Arms Defense Technologies, we understand that security challenges require innovative solutions.
+
+Our integrated platform combines advanced monitoring systems, autonomous response capabilities, and real-time situational awareness to deliver unmatched operational effectiveness.
+
+Because peace of mind begins with knowing that every contingency has been anticipated.
+
+Citadel Arms.
+
+Holding you close.
+
+Holding the line.
+
+---
+
+## [Citadel_Arms_05_Defense_Services]
+
+[Spoken radio commercial. Professional voice-over narration, not singing. Continuous spoken delivery. Minimal background music. Sparse corporate and military-industrial ambience with low synth textures, subtle percussion, and occasional restrained orchestral accents. Sounds like a defense contractor, private security provider, or military logistics company explaining its capabilities. Calm, authoritative, disciplined, and completely sincere. Emphasize preparedness, mission readiness, rapid response, operational superiority, threat neutralization, and professional expertise. No excitement. No fear. No overt patriotism. The narrator should sound like a senior executive briefing government officials and corporate clients. Background audio should reinforce competence, capability, and control.]
+
+At Citadel Arms Defense Services, preparedness means more than plans, stockpiles, and infrastructure.
+
+Our highly trained professionals provide rapid response capabilities, mission readiness, and comprehensive threat-neutralization services across a wide range of operational environments.
+
+Supported by advanced passive and kinetic deterrent systems, our teams deliver operational superiority when it matters most.
+
+Because peace of mind requires more than protection.
+
+It requires capability.
+
+Citadel Arms.
+
+Holding you close.
+
+Holding the line.
+
+---
+
+## [Citadel_Arms_06_Portfolio]
+
+[Spoken radio commercial. Professional voice-over narration, not singing. Continuous spoken delivery. Corporate investor-relations advertisement. Confident executive narrator. Minimal elegant underscore with soft piano, subtle strings, and restrained corporate ambience. Sounds like a Fortune 500 company promoting long-term growth and strategic positioning to investors. Polished, optimistic, sophisticated, and completely sincere. Emphasize diversification, resilience, long-term value creation, integrated solutions, strategic positioning, and growth opportunities. The narrator should sound proud of the company’s comprehensive portfolio and ability to thrive under changing conditions. No irony. No urgency. No overt political messaging. Background music should convey stability, prosperity, and institutional confidence.]
+
+Some companies thrive during prosperous times.
+
+Others profit from uncertainty.
+
+Citadel Arms is uniquely positioned to do both.
+
+From luxury destinations and continuity communities to security services, advanced defense technologies, and operational support, our diversified portfolio is built to answer the challenges of tomorrow with comprehensive solutions.
+
+Citadel Arms.
+
+Security solutions for social problems.
+
+Holding you close.
+
+Holding the line.
+
+## [PSA]
+
+
+The Ministry of Information reminds citizens that reports of widespread instability remain unverified.
+
+This message has been brought to you by Citadel Arms.
+
+Now accepting reservations through Phase Three.
+
+[PAUSE] ...
+
+Availability after Phase Three cannot be guaranteed.
+
+Citadel Arms. Holding you close. Holding the line.
