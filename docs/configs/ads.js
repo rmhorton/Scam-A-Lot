@@ -17,8 +17,8 @@ const SONGS = [
     lyrics: "advertisements.txt",
     startTime: "0:20",
     stopTime: "0:38",
-    pauseBeforeSeconds: 0,
-    description: "Black Titanium Elite Reserve PlusCredit Card"
+    pauseBeforeSeconds: 1,
+    description: "Black Titanium Elite Reserve Plus Credit Card"
   },
   {
     id: "ethics-free-travel",
@@ -27,7 +27,7 @@ const SONGS = [
     lyrics: "advertisements.txt",
     startTime: "0:40",
     stopTime: "1:01",
-    pauseBeforeSeconds: 0,
+    pauseBeforeSeconds: 1,
     description: "Free trevel, without ethics"
   },
   {
@@ -37,7 +37,7 @@ const SONGS = [
     lyrics: "advertisements.txt",
     startTime: "1:02",
     stopTime: "1:27",
-    pauseBeforeSeconds: 0,
+    pauseBeforeSeconds: 1,
     description: "Seasoning for cats"
   },
   {
@@ -47,77 +47,17 @@ const SONGS = [
     lyrics: "advertisements.txt",
     startTime: "1:27",
     stopTime: "2:05",
-    pauseBeforeSeconds: 0,
+    pauseBeforeSeconds: 1,
     description: "1500% off"
-  },  
-  {
-    id: "citadel-arms-spot01",
-    title: "Citadel Arms Spot #1",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "2:09",
-    stopTime: "2:53",
-    pauseBeforeSeconds: 0,
-    description: "Glacier-fed infinity pool"
-  },  
-  {
-    id: "citadel-arms-spot02",
-    title: "Citadel Arms Spot #2",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "2:54",
-    stopTime: "3:20",
-    pauseBeforeSeconds: 0,
-    description: "Continuity planning"
-  },    
-  {
-    id: "citadel-arms-spot03",
-    title: "Citadel Arms Spot #3",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "3:22",
-    stopTime: "3:56",
-    pauseBeforeSeconds: 0,
-    description: "Holding the line"
-  },
-  {
-    id: "citadel-arms-spot04",
-    title: "Citadel Arms Spot #4",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "3:58",
-    stopTime: "4:22",
-    pauseBeforeSeconds: 0,
-    description: "Soverign Membership"
-  },
-  {
-    id: "citadel-arms-spot05",
-    title: "Citadel Arms Spot #5",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "4:25",
-    stopTime: "4:55",
-    pauseBeforeSeconds: 0,
-    description: "You'll already be here"
-  },
-  {
-    id: "citadel-arms-spot06",
-    title: "Citadel Arms Spot #6",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "4:58",
-    stopTime: "5:27",
-    pauseBeforeSeconds: 0,
-    description: "24 hour security"
   },
   {
     id: "princess-island-spot01",
     title: "Princess Island Resort #1",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
-    startTime: "5:28",
-    stopTime: "6:03",
-    pauseBeforeSeconds: 0,
+    startTime: "6:24",
+    stopTime: "6:59",
+    pauseBeforeSeconds: 1,
     description: "Paradise discovered"
   },
   {
@@ -125,9 +65,9 @@ const SONGS = [
     title: "Princess Island Resort #2",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
-    startTime: "6:04",
-    stopTime: "6:34",
-    pauseBeforeSeconds: 0,
+    startTime: "7:02",
+    stopTime: "7:31",
+    pauseBeforeSeconds: 1,
     description: "Hidden ecological treasure"
   },
   {
@@ -135,9 +75,9 @@ const SONGS = [
     title: "Princess Island Resort #3",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
-    startTime: "6:34",
-    stopTime: "7:08",
-    pauseBeforeSeconds: 0,
+    startTime: "7:34",
+    stopTime: "8:08",
+    pauseBeforeSeconds: 1,
     description: "Non-paying birds"
   },
   {
@@ -145,12 +85,71 @@ const SONGS = [
     title: "Princess Island Resort #4",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
-    startTime: "7:10",
-    stopTime: "7:35",
-    pauseBeforeSeconds: 0,
+    startTime: "8:09",
+    stopTime: "8:36",
+    pauseBeforeSeconds: 1,
     description: "Shareholder value"
+  },
+  {
+    id: "Citadel_Arms_01_Hotel_Resort",
+    title: "Citadel Arms 01",
+    audio: "advertisements.mp3",
+    lyrics: "Citadel_Arms_ads.txt",
+    startTime: "2:08",
+    stopTime: "2:46",
+    pauseBeforeSeconds: 1,
+    description: "Hotels and Resorts"
+  },  
+  {
+    id: "Citadel_Arms_02_Continuity_Community",
+    title: "Citadel Arms 02",
+    audio: "advertisements.mp3",
+    lyrics: "Citadel_Arms_ads.txt",
+    startTime: "2:48",
+    stopTime: "3:47",
+    pauseBeforeSeconds: 1,
+    description: "Continuity Community"
+  },    
+  {
+    id: "Citadel_Arms_03_Security_Systems",
+    title: "Citadel Arms 03",
+    audio: "advertisements.mp3",
+    lyrics: "Citadel_Arms_ads.txt",
+    startTime: "3:47",
+    stopTime: "4:22",
+    pauseBeforeSeconds: 1,
+    description: "Security Systems"
+  },
+  {
+    id: "Citadel_Arms_04_Defense_Technology",
+    title: "Citadel Arms 04",
+    audio: "advertisements.mp3",
+    lyrics: "Citadel_Arms_ads.txt",
+    startTime: "4:23",
+    stopTime: "4:56",
+    pauseBeforeSeconds: 1,
+    description: "Defense Technology"
+  },
+  {
+    id: "Citadel_Arms_05_Defense_Services",
+    title: "Citadel Arms 05",
+    audio: "advertisements.mp3",
+    lyrics: "Citadel_Arms_ads.txt",
+    startTime: "4:57",
+    stopTime: "5:41",
+    pauseBeforeSeconds: 1,
+    description: "Defense Services"
+  },
+  {
+    id: "Citadel_Arms_06_Portfolio",
+    title: "Citadel Arms 06",
+    audio: "advertisements.mp3",
+    lyrics: "Citadel_Arms_ads.txt",
+    startTime: "5:43",
+    stopTime: "6:21",
+    pauseBeforeSeconds: 1,
+    description: "Portfolio"
   }
-
 ];
 
 // Paths relative to the docs/ folder
