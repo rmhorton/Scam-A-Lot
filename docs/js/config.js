@@ -116,6 +116,13 @@ const SONGS = [
     description: "Supreme Court ethics"
   },
   {
+    id: "reflections",
+    title: "Reflections",
+    audio: "Reflections.mp3",
+    lyrics: "Reflections.txt",
+    description: "A Reflecting Pool Reveals the King"
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
