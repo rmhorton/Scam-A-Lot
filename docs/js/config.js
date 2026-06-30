@@ -123,6 +123,13 @@ const SONGS = [
     description: "A Reflecting Pool Reveals the King"
   },
   {
+    id: "positive_thinking",
+    title: "The Power of Positive Thinking",
+    audio: "Positive_Thinking.mp3",
+    lyrics: "Positive_Thinking.txt",
+    description: "The creed that made Scam-A-Lot possible"
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
