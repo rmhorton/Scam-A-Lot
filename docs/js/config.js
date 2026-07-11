@@ -78,7 +78,7 @@ const SONGS = [
     title: "Comfort Thinking",
     audio: "Comfort_Thinking.mp3",
     lyrics: "comfort_thinking.txt",
-    description: "authoritarian mental wellness-pop"
+    description: "Authoritarian mental wellness-pop"
   },
   {
     id: "can-you-hear-me-now",
@@ -129,6 +129,7 @@ const SONGS = [
     lyrics: "Positive_Thinking.txt",
     description: "The creed that made Scam-A-Lot possible"
   },
+  {
     id: "nobody_knows_more",
     title: "Nobody Knows More",
     audio: "Nobody_Knows_More.mp3",
