@@ -129,6 +129,12 @@ const SONGS = [
     lyrics: "Positive_Thinking.txt",
     description: "The creed that made Scam-A-Lot possible"
   },
+    id: "nobody_knows_more",
+    title: "Nobody Knows More",
+    audio: "Nobody_Knows_More.mp3",
+    lyrics: "Nobody_Knows_More.txt",
+    description: "I don't need experts. They need me!"
+  },
   {
     id: "eating-the-cats",
     title: "Eating The Cats",
