@@ -137,6 +137,13 @@ const SONGS = [
     description: "I don't need experts. They need me!"
   },
   {
+    id: "What_Could_Possibly_Go_Wrong",
+    title: "What Could Possibly Go Wrong",
+    audio: "What_Could_Possibly_Go_Wrong.mp3",
+    lyrics: "What_Could_Possibly_Go_Wrong.txt",
+    description: "Goodhart’s Law set to music. The downside of optimizing for short term savings."
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
