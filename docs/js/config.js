@@ -141,7 +141,7 @@ const SONGS = [
     title: "What Could Possibly Go Wrong",
     audio: "What_Could_Possibly_Go_Wrong.mp3",
     lyrics: "What_Could_Possibly_Go_Wrong.txt",
-    description: "Goodhart’s Law set to music. The downside of optimizing for short term savings."
+    description: "An ounce of prevention is worth cutting from the budget."
   },
   {
     id: "eating-the-cats",
