@@ -144,6 +144,13 @@ const SONGS = [
     description: "An ounce of prevention is worth cutting from the budget."
   },
   {
+    id: "Trumped_Up_Charges",
+    title: "Trumped-Up Charges",
+    audio: "Trumped_Up_Charges.mp3",
+    lyrics: "Trumped_Up_Charges.txt",
+    description: "Evidence-optional law enforcement."
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
