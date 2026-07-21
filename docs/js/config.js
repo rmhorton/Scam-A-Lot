@@ -102,6 +102,13 @@ const SONGS = [
     description: "Satirical rally anthem with nursery-rhyme intro"
   },
   {
+    id: "eating-the-cats",
+    title: "Eating The Cats",
+    audio: "Eating_the_Cats_v3a.mp3",
+    lyrics: "eating_the_cats.txt",
+    description: "Rapping genuine Trump quotes (experimental)"
+  },
+  {
     id: "imperial_casino",
     title: "Imperial Casino",
     audio: "Imperial_Casino.mp3",
@@ -158,11 +165,11 @@ const SONGS = [
     description: "The national anthem of trickle-down reality."
   },
   {
-    id: "eating-the-cats",
-    title: "Eating The Cats",
-    audio: "Eating_the_Cats_v3a.mp3",
-    lyrics: "eating_the_cats.txt",
-    description: "Rapping genuine Trump quotes (experimental)"
+    id: "Enthralled",
+    title: "Enthralled",
+    audio: "Enthralled.mp3",
+    lyrics: "Enthralled.txt",
+    description: "The price of Liberty is eternal vigilance"
   }
 ];
 
