@@ -151,6 +151,13 @@ const SONGS = [
     description: "Evidence-optional law enforcement."
   },
   {
+    id: "Dow_Fifty_Thousand",
+    title: "Dow Fifty Thousand",
+    audio: "Dow_Fifty_Thousand.mp3",
+    lyrics: "Dow_Fifty_Thousand.txt",
+    description: "The national anthem of trickle-down reality."
+  },
+  {
     id: "eating-the-cats",
     title: "Eating The Cats",
     audio: "Eating_the_Cats_v3a.mp3",
