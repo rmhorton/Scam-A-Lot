@@ -149,7 +149,148 @@ const SONGS = [
     stopTime: "6:21",
     pauseBeforeSeconds: 1,
     description: "Portfolio"
+  },
+  {
+    id: "Princess_Island_spot01",
+    title: "Princess Island 1",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "6:25",
+    stopTime: "6:49",
+    pauseBeforeSeconds: 1,
+    description: ""
+  },  
+  {
+    id: "Princess_Island_spot02",
+    title: "Princess Island 2",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "6:50",
+    stopTime: "7:30",
+    pauseBeforeSeconds: 1,
+    description: ""
+  },  
+  {
+    id: "Princess_Island_spot03",
+    title: "Princess Island 3",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "7:31",
+    stopTime: "8:07",
+    pauseBeforeSeconds: 1,
+    description: ""
+  },  
+  {
+    id: "Princess_Island_spot04",
+    title: "Princess Island 4",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "8:07",
+    stopTime: "8:35",
+    pauseBeforeSeconds: 1,
+    description: ""
+  },  
+  {
+    id: "Royal_Scholarship_Foundation",
+    title: "The Royal Scholarship Foundation",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "8:35",
+    stopTime: "9:11",
+    pauseBeforeSeconds: 1,
+    description: "Beauty, poise, and marketability"
+  },  
+  {
+    id: "Global_Prestige_Talent_Network",
+    title: "Global Prestige Talent Network",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "9:11",
+    stopTime: "9:51",
+    pauseBeforeSeconds: 1,
+    description: "Staffing for all your needs"
+  },  
+  {
+    id: "Royal_Occasion_Luxury_Event_Planning",
+    title: "Royal Occasion Luxury Event Planning",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "9:51",
+    stopTime: "10:27",
+    pauseBeforeSeconds: 1,
+    description: "Elaborate events, plausible deniability"
+  },  
+  {
+    id: "Blue_Horizon_Foundation_Charity_Gala",
+    title: "Blue Horizon Foundation Charity Gala",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "10:27",
+    stopTime: "11:10",
+    pauseBeforeSeconds: 1,
+    description: "Protecting marina life"
+  },  
+  {
+    id: "Discrete_Air_Private_Aviation",
+    title: "Discrete Air Private Aviation",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "11:10",
+    stopTime: "11:39",
+    pauseBeforeSeconds: 1,
+    description: "Nobody's business"
+  },  
+  {
+    id: "Billionaire_Boys_Club",
+    title: "Billionaire Boy's Club",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "11:39",
+    stopTime: "12:19",
+    pauseBeforeSeconds: 1,
+    description: "Members only"
+  },  
+  {
+    id: "CleanSlate_Public_Relations",
+    title: "CleanSlate Public Relations",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "12:19",
+    stopTime: "12:55",
+    pauseBeforeSeconds: 1,
+    description: "Memory management"
+  },  
+  {
+    id: "Pimp_My_Bride",
+    title: "Pimp My Bride",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "12:55",
+    stopTime: "13:35",
+    pauseBeforeSeconds: 1,
+    description: "Reality show promo"
+  },
+  {
+    id: "Royal_Surplus_Outlet_Clearance_Event",
+    title: "Royal Surplus Outlet Clearance Event",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "13:35",
+    stopTime: "13:53",
+    pauseBeforeSeconds: 1,
+    description: "Everything must go"
+  }, 
+  {
+    id: "Royal_Surplus_Outlet_pool_sealer_sale",
+    title: "Royal Surplus Outlet Pool Sealer Sale",
+    audio: "advertisements.mp3",
+    lyrics: "trafficking_ads.txt",
+    startTime: "13:53",
+    stopTime: "14:45",
+    pauseBeforeSeconds: 1,
+    description: "Super discount on excess stock"
   }
+
 ];
 
 // Paths relative to the docs/ folder
