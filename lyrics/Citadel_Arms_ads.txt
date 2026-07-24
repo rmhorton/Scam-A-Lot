@@ -12,17 +12,17 @@ Citadel Arms is about preparing for a society in which inequality has become so 
 | **6** | Investment & Holdings | Who benefits from all of this? | Invest in the future. | The same corporation profits from luxury, preparedness, exclusion, surveillance, and force. | portfolio diversification, shareholder value, vertical integration, strategic positioning, long-term growth |
 
 
-Citadel_Arms_01_Hotel_Resort 65 85 2:08 2:45
-Citadel_Arms_02_Continuity_Community 85 115 2:48 3:47
-Citadel_Arms_03_Security_Systems 115 133 3:47 4:24
+Citadel_Arms_01_Hotel_Resort 65 84
+Citadel_Arms_02_Continuity_Community 85 114
+Citadel_Arms_03_Security_Systems 115 132
 Citadel_Arms_04_Defense_Technology 133 149
-Citadel_Arms_05_Defense_Services 149 171
-Citadel_Arms_06_Portfolio 171 190 5:40 6:18
+Citadel_Arms_05_Defense_Services 150 172
+Citadel_Arms_06_Portfolio 173 192
 
-Princess_Island_Resort_spot01 191 209 1:35-1:44
-Princess_Island_Resort_spot02 209 224 1:44 1:54
-Princess_Island_Resort_spot03 225 243 1:54 2:01
-Princess_Island_Resort_spot04 243 257 
+Princess_Island_Resort_spot01 193 211
+Princess_Island_Resort_spot02 212 227
+Princess_Island_Resort_spot03 228 245
+Princess_Island_Resort_spot04 246 259
 
 
 ## [Citadel_Arms_01_Hotel_Resort]
