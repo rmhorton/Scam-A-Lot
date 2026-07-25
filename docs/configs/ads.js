@@ -249,7 +249,16 @@ const SONGS = [
     stopTime: "14:45",
     pauseBeforeSeconds: 1,
     description: "Super discount on excess stock"
+  },
+  {
+    id: "AD-alfa-home-reality",
+    title: "AD: ALFA Home Reality System",
+    audio: "AD_Alfa_Home_Reality_System.mp3",
+    lyrics: "AD_Alternative_Facts_Home_Reality_System.txt",
+    pauseBeforeSeconds: 0,
+    description: "Advertisement for the ALFA Home Reality System from Alternative Facts"
   }
+  
 
 ];
 
