@@ -105,7 +105,7 @@ const SONGS = [
     title: "Citadel Arms 06",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
-    startTime: "5:41",
+    startTime: "5:40",
     stopTime: "6:18",
     pauseBeforeSeconds: 1,
     description: "Portfolio"
@@ -196,7 +196,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "11:06",
-    stopTime: "11:36",
+    stopTime: "11:35",
     pauseBeforeSeconds: 1,
     description: "Nobody's business"
   },  
