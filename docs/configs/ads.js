@@ -51,52 +51,12 @@ const SONGS = [
     description: "1500% off"
   },
   {
-    id: "princess-island-spot01",
-    title: "Princess Island Resort #1",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "6:24",
-    stopTime: "6:59",
-    pauseBeforeSeconds: 1,
-    description: "Paradise discovered"
-  },
-  {
-    id: "princess-island-spot02",
-    title: "Princess Island Resort #2",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "7:02",
-    stopTime: "7:31",
-    pauseBeforeSeconds: 1,
-    description: "Hidden ecological treasure"
-  },
-  {
-    id: "princess-island-spot03",
-    title: "Princess Island Resort #3",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "7:34",
-    stopTime: "8:08",
-    pauseBeforeSeconds: 1,
-    description: "Non-paying birds"
-  },
-  {
-    id: "princess-island-spot04",
-    title: "Princess Island Resort #4",
-    audio: "advertisements.mp3",
-    lyrics: "advertisements.txt",
-    startTime: "8:09",
-    stopTime: "8:36",
-    pauseBeforeSeconds: 1,
-    description: "Shareholder value"
-  },
-  {
     id: "Citadel_Arms_01_Hotel_Resort",
     title: "Citadel Arms 01",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
     startTime: "2:08",
-    stopTime: "2:46",
+    stopTime: "2:47",
     pauseBeforeSeconds: 1,
     description: "Hotels and Resorts"
   },  
@@ -115,8 +75,8 @@ const SONGS = [
     title: "Citadel Arms 03",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
-    startTime: "3:47",
-    stopTime: "4:22",
+    startTime: "3:48",
+    stopTime: "4:23",
     pauseBeforeSeconds: 1,
     description: "Security Systems"
   },
@@ -125,7 +85,7 @@ const SONGS = [
     title: "Citadel Arms 04",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
-    startTime: "4:23",
+    startTime: "4:24",
     stopTime: "4:56",
     pauseBeforeSeconds: 1,
     description: "Defense Technology"
@@ -135,7 +95,7 @@ const SONGS = [
     title: "Citadel Arms 05",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
-    startTime: "4:55",
+    startTime: "4:56",
     stopTime: "5:39",
     pauseBeforeSeconds: 1,
     description: "Defense Services"
@@ -149,6 +109,46 @@ const SONGS = [
     stopTime: "6:18",
     pauseBeforeSeconds: 1,
     description: "Portfolio"
+  },
+  {
+    id: "princess-island-spot01",
+    title: "Princess Island Resort #1",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "6:20",
+    stopTime: "6:56",
+    pauseBeforeSeconds: 1,
+    description: "Paradise discovered"
+  },
+  {
+    id: "princess-island-spot02",
+    title: "Princess Island Resort #2",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "6:56",
+    stopTime: "7:26",
+    pauseBeforeSeconds: 1,
+    description: "Hidden ecological treasure"
+  },
+  {
+    id: "princess-island-spot03",
+    title: "Princess Island Resort #3",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "7:28",
+    stopTime: "8:04",
+    pauseBeforeSeconds: 1,
+    description: "Non-paying birds"
+  },
+  {
+    id: "princess-island-spot04",
+    title: "Princess Island Resort #4",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "8:04",
+    stopTime: "8:32",
+    pauseBeforeSeconds: 1,
+    description: "Shareholder value"
   },
   {
     id: "Royal_Scholarship_Foundation",
@@ -176,7 +176,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "9:48",
-    stopTime: "10:22",
+    stopTime: "10:24",
     pauseBeforeSeconds: 1,
     description: "Elaborate events, plausible deniability"
   },  
@@ -185,7 +185,7 @@ const SONGS = [
     title: "Blue Horizon Foundation Charity Gala",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "10:23",
+    startTime: "10:24",
     stopTime: "11:05",
     pauseBeforeSeconds: 1,
     description: "Protecting marina life"
@@ -196,7 +196,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "11:06",
-    stopTime: "11:35",
+    stopTime: "11:36",
     pauseBeforeSeconds: 1,
     description: "Nobody's business"
   },  
@@ -205,8 +205,8 @@ const SONGS = [
     title: "Billionaire Boy's Club",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "11:35",
-    stopTime: "12:13",
+    startTime: "11:36",
+    stopTime: "12:14",
     pauseBeforeSeconds: 1,
     description: "Members only"
   },  
@@ -215,8 +215,8 @@ const SONGS = [
     title: "CleanSlate Public Relations",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "12:15",
-    stopTime: "12:50",
+    startTime: "12:16",
+    stopTime: "12:52",
     pauseBeforeSeconds: 1,
     description: "Memory management"
   },  
@@ -225,7 +225,7 @@ const SONGS = [
     title: "Pimp My Bride",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "12:51",
+    startTime: "12:52",
     stopTime: "13:21",
     pauseBeforeSeconds: 1,
     description: "Reality show promo"
@@ -245,7 +245,7 @@ const SONGS = [
     title: "Royal Surplus Outlet Pool Sealer Sale",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "13:59",
+    startTime: "14:00",
     stopTime: "14:45",
     pauseBeforeSeconds: 1,
     description: "Super discount on excess stock"
