@@ -151,52 +151,12 @@ const SONGS = [
     description: "Portfolio"
   },
   {
-    id: "Princess_Island_spot01",
-    title: "Princess Island 1",
-    audio: "advertisements.mp3",
-    lyrics: "trafficking_ads.txt",
-    startTime: "6:25",
-    stopTime: "6:49",
-    pauseBeforeSeconds: 1,
-    description: ""
-  },  
-  {
-    id: "Princess_Island_spot02",
-    title: "Princess Island 2",
-    audio: "advertisements.mp3",
-    lyrics: "trafficking_ads.txt",
-    startTime: "6:50",
-    stopTime: "7:30",
-    pauseBeforeSeconds: 1,
-    description: ""
-  },  
-  {
-    id: "Princess_Island_spot03",
-    title: "Princess Island 3",
-    audio: "advertisements.mp3",
-    lyrics: "trafficking_ads.txt",
-    startTime: "7:31",
-    stopTime: "8:07",
-    pauseBeforeSeconds: 1,
-    description: ""
-  },  
-  {
-    id: "Princess_Island_spot04",
-    title: "Princess Island 4",
-    audio: "advertisements.mp3",
-    lyrics: "trafficking_ads.txt",
-    startTime: "8:07",
-    stopTime: "8:35",
-    pauseBeforeSeconds: 1,
-    description: ""
-  },  
-  {
     id: "Royal_Scholarship_Foundation",
     title: "The Royal Scholarship Foundation",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "8:35",
-    stopTime: "9:11",
+    startTime: "8:32",
+    stopTime: "9:08",
     pauseBeforeSeconds: 1,
     description: "Beauty, poise, and marketability"
   },  
@@ -205,8 +165,8 @@ const SONGS = [
     title: "Global Prestige Talent Network",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "9:11",
-    stopTime: "9:51",
+    startTime: "9:08",
+    stopTime: "9:47",
     pauseBeforeSeconds: 1,
     description: "Staffing for all your needs"
   },  
@@ -215,8 +175,8 @@ const SONGS = [
     title: "Royal Occasion Luxury Event Planning",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "9:51",
-    stopTime: "10:27",
+    startTime: "9:48",
+    stopTime: "10:22",
     pauseBeforeSeconds: 1,
     description: "Elaborate events, plausible deniability"
   },  
@@ -225,8 +185,8 @@ const SONGS = [
     title: "Blue Horizon Foundation Charity Gala",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "10:27",
-    stopTime: "11:10",
+    startTime: "10:23",
+    stopTime: "11:04",
     pauseBeforeSeconds: 1,
     description: "Protecting marina life"
   },  
@@ -235,8 +195,8 @@ const SONGS = [
     title: "Discrete Air Private Aviation",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "11:10",
-    stopTime: "11:39",
+    startTime: "11:05",
+    stopTime: "11:35",
     pauseBeforeSeconds: 1,
     description: "Nobody's business"
   },  
@@ -245,8 +205,8 @@ const SONGS = [
     title: "Billionaire Boy's Club",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "11:39",
-    stopTime: "12:19",
+    startTime: "11:35",
+    stopTime: "12:13",
     pauseBeforeSeconds: 1,
     description: "Members only"
   },  
@@ -255,8 +215,8 @@ const SONGS = [
     title: "CleanSlate Public Relations",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "12:19",
-    stopTime: "12:55",
+    startTime: "12:13",
+    stopTime: "12:50",
     pauseBeforeSeconds: 1,
     description: "Memory management"
   },  
@@ -265,8 +225,8 @@ const SONGS = [
     title: "Pimp My Bride",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "12:55",
-    stopTime: "13:35",
+    startTime: "12:50",
+    stopTime: "13:26",
     pauseBeforeSeconds: 1,
     description: "Reality show promo"
   },
@@ -275,8 +235,8 @@ const SONGS = [
     title: "Royal Surplus Outlet Clearance Event",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "13:35",
-    stopTime: "13:53",
+    startTime: "13:26",
+    stopTime: "13:58",
     pauseBeforeSeconds: 1,
     description: "Everything must go"
   }, 
@@ -285,7 +245,7 @@ const SONGS = [
     title: "Royal Surplus Outlet Pool Sealer Sale",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "13:53",
+    startTime: "13:58",
     stopTime: "14:45",
     pauseBeforeSeconds: 1,
     description: "Super discount on excess stock"
