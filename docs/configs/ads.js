@@ -135,8 +135,8 @@ const SONGS = [
     title: "Citadel Arms 05",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
-    startTime: "4:57",
-    stopTime: "5:41",
+    startTime: "4:55",
+    stopTime: "5:39",
     pauseBeforeSeconds: 1,
     description: "Defense Services"
   },
@@ -145,8 +145,8 @@ const SONGS = [
     title: "Citadel Arms 06",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
-    startTime: "5:43",
-    stopTime: "6:21",
+    startTime: "5:41",
+    stopTime: "6:18",
     pauseBeforeSeconds: 1,
     description: "Portfolio"
   },
@@ -186,7 +186,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "10:23",
-    stopTime: "11:04",
+    stopTime: "11:05",
     pauseBeforeSeconds: 1,
     description: "Protecting marina life"
   },  
@@ -195,7 +195,7 @@ const SONGS = [
     title: "Discrete Air Private Aviation",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "11:05",
+    startTime: "11:06",
     stopTime: "11:35",
     pauseBeforeSeconds: 1,
     description: "Nobody's business"
@@ -215,7 +215,7 @@ const SONGS = [
     title: "CleanSlate Public Relations",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "12:13",
+    startTime: "12:15",
     stopTime: "12:50",
     pauseBeforeSeconds: 1,
     description: "Memory management"
@@ -225,8 +225,8 @@ const SONGS = [
     title: "Pimp My Bride",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "12:50",
-    stopTime: "13:26",
+    startTime: "12:51",
+    stopTime: "13:21",
     pauseBeforeSeconds: 1,
     description: "Reality show promo"
   },
@@ -235,8 +235,8 @@ const SONGS = [
     title: "Royal Surplus Outlet Clearance Event",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "13:26",
-    stopTime: "13:58",
+    startTime: "13:22",
+    stopTime: "13:59",
     pauseBeforeSeconds: 1,
     description: "Everything must go"
   }, 
@@ -245,7 +245,7 @@ const SONGS = [
     title: "Royal Surplus Outlet Pool Sealer Sale",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "13:58",
+    startTime: "13:59",
     stopTime: "14:45",
     pauseBeforeSeconds: 1,
     description: "Super discount on excess stock"
