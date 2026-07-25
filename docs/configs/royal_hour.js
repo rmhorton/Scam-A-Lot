@@ -7,6 +7,14 @@ const SONGS = [
     lyrics: "traffic_report_script.txt",
     pauseBeforeSeconds: 0,
     description: "Don't get caught in traffic"
+  },
+  {
+    id: "Hail_to_the_Thief",
+    title: "Hail to the Thief",
+    audio: "Hail_to_the_Thief_traditional.mp3",
+    lyrics: "Hail_to_the_Thief.txt",
+    pauseBeforeSeconds: 0,
+    description: "The King's Personal Anthem"
   }
   
 
