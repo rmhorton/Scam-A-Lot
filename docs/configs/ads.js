@@ -76,7 +76,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
     startTime: "3:48",
-    stopTime: "4:23",
+    stopTime: "4:21",
     pauseBeforeSeconds: 1,
     description: "Security Systems"
   },
@@ -86,7 +86,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
     startTime: "4:24",
-    stopTime: "4:56",
+    stopTime: "4:55",
     pauseBeforeSeconds: 1,
     description: "Defense Technology"
   },
@@ -146,7 +146,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
     startTime: "8:04",
-    stopTime: "8:32",
+    stopTime: "8:31",
     pauseBeforeSeconds: 1,
     description: "Shareholder value"
   },
@@ -156,7 +156,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "8:32",
-    stopTime: "9:08",
+    stopTime: "9:07",
     pauseBeforeSeconds: 1,
     description: "Beauty, poise, and marketability"
   },  
@@ -176,7 +176,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "9:48",
-    stopTime: "10:24",
+    stopTime: "10:23",
     pauseBeforeSeconds: 1,
     description: "Elaborate events, plausible deniability"
   },  
@@ -216,7 +216,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "12:16",
-    stopTime: "12:52",
+    stopTime: "12:51",
     pauseBeforeSeconds: 1,
     description: "Memory management"
   },  
@@ -246,7 +246,7 @@ const SONGS = [
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
     startTime: "14:00",
-    stopTime: "14:45",
+    stopTime: "14:29",
     pauseBeforeSeconds: 1,
     description: "Super discount on excess stock"
   },
