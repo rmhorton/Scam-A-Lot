@@ -178,6 +178,14 @@ const SONGS = [
     lyrics: "Hail_to_the_Thief.txt",
     pauseBeforeSeconds: 0,
     description: "The King's Personal Anthem"
+  },
+  {
+    id: "what_they_dont_want_you_to_know",
+    title: "What They Don't Want You to Know",
+    audio: "what_they_dont_want_you_to_know.mp3",
+    lyrics: "what_they_dont_want_you_to_know.txt",
+    pauseBeforeSeconds: 0,
+    description: "It's all a big conspiracy"
   }
 ];
 
