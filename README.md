@@ -5,7 +5,7 @@ A satirical political musical production and ecosystem about propaganda, lonelin
 ## Listen
 * [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
 * [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
-* [The Royal Hour](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=royal_hour.js) audio play (in progress)
+* [The Royal Hour](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=royal_hour.js) audio play
 * [Advertisement Library](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=ads.js)
 
 ![Scam-A-Lot Poster](artwork/Scamalot.png)
