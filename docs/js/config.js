@@ -186,6 +186,14 @@ const SONGS = [
     lyrics: "what_they_dont_want_you_to_know.txt",
     pauseBeforeSeconds: 0,
     description: "It's all a big conspiracy"
+  },
+  {
+    id: "Fathers_and_Sons",
+    title: "Fathers and Sons",
+    audio: "Fathers_and_Sons.mp3",
+    lyrics: "Fathers_and_Sons.txt",
+    pauseBeforeSeconds: 0,
+    description: "Traditional family values"
   }
 ];
 
