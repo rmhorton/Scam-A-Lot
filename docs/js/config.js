@@ -194,6 +194,14 @@ const SONGS = [
     lyrics: "Fathers_and_Sons.txt",
     pauseBeforeSeconds: 0,
     description: "Traditional family values"
+  },
+  {
+    id: "The_Press_Pool",
+    title: "The Press Pool",
+    audio: "The_Press_Pool.mp3",
+    lyrics: "The_Press_Pool.txt",
+    pauseBeforeSeconds: 0,
+    description: "The best journalists money can buy"
   }
 ];
 
