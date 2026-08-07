@@ -1,6 +1,6 @@
 # Scam-A-Lot
 
-A satirical political musical production and ecosystem about propaganda, loneliness, media ecosystems, and the battle for reality.
+A satirical political musical production and ecosystem about propaganda, loneliness, media, and the battle for reality.
 
 ## Listen
 * [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
