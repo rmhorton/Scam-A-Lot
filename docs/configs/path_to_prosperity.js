@@ -4,9 +4,9 @@ const SONGS = [
     id: "act03_scene01_positive_thinking",
     title: "The Path to Prosperity, Scene 1",
     audio: "The_Path_to_Prosperity.mp3",
-    lyrics: "act03_scene01_positive_thinking.txt",
+    lyrics: "The_Path_to_Prosperity.txt",
     startTime: "0:00",
-    stopTime: "1:25",
+    stopTime: "1:01",
     pauseBeforeSeconds: 0,
     description: "Positive Thinking"
   },
@@ -21,9 +21,9 @@ const SONGS = [
     id: "act03_scene02_comfort_thinking",
     title: "The Path to Prosperity, Scene 2",
     audio: "The_Path_to_Prosperity.mp3",
-    lyrics: "act03_scene02_comfort_thinking.txt",
-    startTime: "1:27",
-    stopTime: "2:46",
+    lyrics: "The_Path_to_Prosperity.txt",
+    startTime: "1:04",
+    stopTime: "1:57",
     pauseBeforeSeconds: 0,
     description: "Comfort Thinking"
   },
@@ -38,9 +38,9 @@ const SONGS = [
     id: "act03_scene03_they_dont_want_you_to_know",
     title: "The Path to Prosperity, Scene 3",
     audio: "The_Path_to_Prosperity.mp3",
-    lyrics: "act03_scene03_they_dont_want_you_to_know.txt",
-    startTime: "2:47",
-    stopTime: "4:22",
+    lyrics: "The_Path_to_Prosperity.txt",
+    startTime: "2:00",
+    stopTime: "2:31",
     pauseBeforeSeconds: 0,
     description: "They Don't Want You to Know"
   },
@@ -56,9 +56,9 @@ const SONGS = [
     id: "act03_scene04_what_could_possibly_go_wrong",
     title: "The Path to Prosperity, Scene 4",
     audio: "The_Path_to_Prosperity.mp3",
-    lyrics: "act03_scene04_what_could_possibly_go_wrong.txt",
-    startTime: "4:27",
-    stopTime: "5:53",
+    lyrics: "The_Path_to_Prosperity.txt",
+    startTime: "2:32",
+    stopTime: "3:25",
     pauseBeforeSeconds: 0,
     description: "What Could Possibly Go Wrong?"
   },
@@ -73,9 +73,9 @@ const SONGS = [
     id: "act03_scene05_the_opportunity",
     title: "The Path to Prosperity, Scene 5",
     audio: "The_Path_to_Prosperity.mp3",
-    lyrics: "act03_scene05_the_opportunity.txt",
-    startTime: "5:54",
-    stopTime: "11:35",
+    lyrics: "The_Path_to_Prosperity_scene5.txt",
+    startTime: "3:28",
+    stopTime: "7:12",
     pauseBeforeSeconds: 0,
     description: "The Opportunity"
   },
@@ -88,7 +88,7 @@ const SONGS = [
   },
   
 ];
-
+//11:35 -> 7:12
 // Paths relative to the docs/ folder
 const AUDIO_BASE = "../audio/";
 const LYRICS_BASE = "../lyrics/";
