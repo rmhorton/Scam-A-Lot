@@ -44,7 +44,7 @@ const SONGS = [
     title: "Reflections",
     audio: "Reflections.mp3",
     lyrics: "Reflections.txt",
-    description: "A Reflecting Pool Reveals the King"
+    description: "Retrospectives and Revelations"
   },
   {
     id: "AD-alfa-home-reality",
