@@ -1,26 +1,10 @@
-/*
-act01_scene01.mp3 1:27
-Scam_A_Lot.mp3 4:08
-act01_scene02.mp3 2:17
-Forgotten_Man.mp3 4:57 -> 3:29
-act01_scene03.mp3 2:28
-Comfort_Thinking.mp3 7:59 -> 3:44
-AD_Alfa_Home_Reality_System.mp3 0:51
-act01_scene04.mp3 2:00
-Forever_War.txt 5:14 -> 3:44
-act01_scene05.mp3 1:39
-Imperial_Casino.mp3  5:56 -> 4:09
-act01_scene06.mp3 1:55
-Can you hear me now.mp3 6:55 -> 3:52
-*/
-
 const SONGS = [
 
   {
     id: "introducing_dave",
     title: "Introducing Dave",
     audio: "act01_scene01.mp3",
-    lyrics: "scene01_official_voice.txt",
+    lyrics: "act01_scene01_official_voice.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 1: Introducing Dave"
   },
@@ -36,7 +20,7 @@ const SONGS = [
     id: "rumors",
     title: "Rumors",
     audio: "act01_scene02.mp3",
-    lyrics: "scene02_conspiracy_corner.txt",
+    lyrics: "act01_scene02_conspiracy_corner.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 2: Rumors"
   },
@@ -51,16 +35,16 @@ const SONGS = [
     id: "signal-breach",
     title: "Signal Breach",
     audio: "act01_scene03.mp3",
-    lyrics: "scene03_signal_breach.txt",
+    lyrics: "act01_scene03_signal_breach.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 3: Signal Breach"
   },
   {
-    id: "comfort-thinking",
-    title: "Comfort Thinking",
-    audio: "Comfort_Thinking.mp3",
-    lyrics: "comfort_thinking.txt",
-    description: "authoritarian mental wellness-pop"
+    id: "reflections",
+    title: "Reflections",
+    audio: "Reflections.mp3",
+    lyrics: "Reflections.txt",
+    description: "A Reflecting Pool Reveals the King"
   },
   {
     id: "AD-alfa-home-reality",
@@ -74,7 +58,7 @@ const SONGS = [
     id: "intrusion",
     title: "Intrusion",
     audio: "act01_scene04.mp3",
-    lyrics: "scene04_signal_intrusion.txt",
+    lyrics: "act01_scene04_signal_intrusion.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 4: Intrusion"
   },
@@ -89,7 +73,7 @@ const SONGS = [
     id: "late-night",
     title: "Late Night",
     audio: "act01_scene05.mp3",
-    lyrics: "scene05_late_night_frequencies.txt",
+    lyrics: "act01_scene05_late_night_frequencies.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 5: Late night"
   },
@@ -104,7 +88,7 @@ const SONGS = [
     id: "after-the-broadcast",
     title: "After The Broadcast",
     audio: "act01_scene06.mp3",
-    lyrics: "scene06_after_the_broadcast.txt",
+    lyrics: "act01_scene06_after_the_broadcast.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 6: After The Broadcast"
   },
