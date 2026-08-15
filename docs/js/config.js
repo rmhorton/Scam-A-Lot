@@ -202,6 +202,14 @@ const SONGS = [
     lyrics: "The_Press_Pool.txt",
     pauseBeforeSeconds: 0,
     description: "The best journalists money can buy"
+  },
+  {
+    id: "Deus_Vult",
+    title: "Deus Vult",
+    audio: "Deus_Vult.mp3",
+    lyrics: "Deus_Vult.txt",
+    pauseBeforeSeconds: 0,
+    description: "The Crusades never ended"
   }
 ];
 
