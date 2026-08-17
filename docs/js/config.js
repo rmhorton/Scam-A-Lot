@@ -210,6 +210,14 @@ const SONGS = [
     lyrics: "Deus_Vult.txt",
     pauseBeforeSeconds: 0,
     description: "The Crusades never ended"
+  },
+  {
+    id: "concepts_of_a_plan",
+    title: "Concepts of a Plan",
+    audio: "concepts_of_a_plan.mp3",
+    lyrics: "concepts_of_a_plan.txt",
+    pauseBeforeSeconds: 0,
+    description: "Actual plans can be so disappointing"
   }
 ];
 
