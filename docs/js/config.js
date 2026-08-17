@@ -222,7 +222,7 @@ const SONGS = [
   {
     id: "one_of_them",
     title: "One of Them",
-    audio: "cone_of_them.mp3",
+    audio: "one_of_them.mp3",
     lyrics: "one_of_them.txt",
     pauseBeforeSeconds: 0,
     description: "Kids these days"
