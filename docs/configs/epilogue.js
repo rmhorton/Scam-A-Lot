@@ -3,8 +3,8 @@ const SONGS = [
   {
     id: "act04_epilogue_skit",
     title: "Act 4",
-    audio: "Epilogue.mp3",
-    lyrics: "Epilogue.txt",
+    audio: "act04_Epilogue.mp3",
+    lyrics: "act04_Epilogue.txt",
     pauseBeforeSeconds: 0,
     description: "Epilogue"
   },
