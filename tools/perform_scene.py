@@ -6,53 +6,143 @@ import sys
 
 import requests
 
-API_URL = "http://127.0.0.1:42008/api/v1/base/generate-with-prompt"
+# I swear this used to work at 127.0.0.1:42008
+API_URL = "http://127.0.0.1:42010/api/v1/base/generate-with-prompt"
 
 VOICES = {
-  "DAVE": {
-    "prompt_id": "cdb8ac21-b904-417d-84d7-e3f7166533f6",
-    "instruct": "Professional radio host. Confident, authoritative, slightly smug.",
-  },
-  
-  "FLOWER": {
-    "prompt_id": "3097e86b-1f17-4768-9037-2b3822e03676",
-    "instruct": "Warm pirate radio host. Intelligent, calm, slightly amused.",
-  },
+    "DAVE": {
+        "prompt_id": "cdb8ac21-b904-417d-84d7-e3f7166533f6",
+        "instruct": "Professional radio host. Confident, authoritative, slightly smug.",
+        },
 
-  "BILL": {
-    # BILL: An ordinary small-town American man calling a late-night radio show. Shy, nervous, and increasingly uneasy as he 
-    # describes something he cannot explain. Notable vocal tension, occasional hesitation, and a desire to be taken seriously. 
-    # Sounds like a real person rather than a performer.
-    "prompt_id":"912144ec-19a3-435e-9cd8-fa486ea1c28f",
-    "instruct": "Ordinary citizen calling a radio show. Slightly nervous but sincere."
-  }, 
+    "FLOWER": {
+        "prompt_id": "3097e86b-1f17-4768-9037-2b3822e03676",
+        "instruct": "Warm pirate radio host. Intelligent, calm, slightly amused.",
+    },
 
- "ANNOUNCER": {
-     # JOHN: An authoritative male announcer with the polished confidence of a government propaganda broadcast. Deep basso profundo voice, 
-     # perfect diction, dramatic emphasis, and unwavering certainty. Sounds like a cross between a national radio announcer, a 
-     # movie trailer narrator, and a patriotic newsreel presenter. Grand, reassuring, and slightly over-the-top. Every sentence 
-     # sounds important, official, and unquestionably true. Mid-Atlantic accent.
-    "prompt_id":"30b822de-3f2c-4cb2-a11d-bf356c9e66d6",
-    "instruct": "Official state radio announcer. Absolute confidence, perfect diction, dramatic emphasis, and patriotic enthusiasm."
- },
+    "BILL": {
+        # BILL: An ordinary small-town American man calling a late-night radio show. Shy, nervous, and increasingly uneasy as he 
+        # describes something he cannot explain. Notable vocal tension, occasional hesitation, and a desire to be taken seriously. 
+        # Sounds like a real person rather than a performer.
+        "prompt_id":"912144ec-19a3-435e-9cd8-fa486ea1c28f",
+        "instruct": "Ordinary citizen calling a radio show. Slightly nervous but sincere."
+    }, 
 
- "SCOTT": {
-     # Scott: A middle-aged male broadcast engineer with a practical, working-class voice. Natural American accent, slightly rough around the edges, 
-     # clear but informal speech. Sounds competent, tired, and focused on solving technical problems rather than impressing anyone. Speaks plainly and 
-     # directly, with occasional signs of stress or frustration when equipment starts failing. The voice of someone who keeps the station running 
-     # while everyone else is making speeches.  Speed 0.5x.
-    "prompt_id": "29884adf-110b-4999-970c-ead198626e87",
-    "instruct": "Broadcast engineer. Practical, direct, and slightly stressed. Speak naturally and conversationally. Focused on solving technical problems, not performing for an audience." 
- },
+    "ANNOUNCER": {
+        # JOHN: An authoritative male announcer with the polished confidence of a government propaganda broadcast. Deep basso profundo voice, 
+        # perfect diction, dramatic emphasis, and unwavering certainty. Sounds like a cross between a national radio announcer, a 
+        # movie trailer narrator, and a patriotic newsreel presenter. Grand, reassuring, and slightly over-the-top. Every sentence 
+        # sounds important, official, and unquestionably true. Mid-Atlantic accent.
+        "prompt_id":"30b822de-3f2c-4cb2-a11d-bf356c9e66d6",
+        "instruct": "Official state radio announcer. Absolute confidence, perfect diction, dramatic emphasis, and patriotic enthusiasm."
+    },
 
- "ENGINEER": {
-     # Trip: A young male radio engineer in his late twenties or early thirties. Intelligent, practical, and moderately exasperated. Casual conversational 
-     # voice with a hint of sarcasm. Sounds like the only adult in the room whenever something goes wrong.
-    "prompt_id": "842464aa-cee7-4c9d-a8b2-e4a4fc8fdd44",
-    "instruct": "Broadcast engineer. Practical, direct, and slightly stressed. Speak naturally and conversationally. Focused on solving technical problems, not performing for an audience." 
-}
+    "SCOTT": {
+        # Scott: A middle-aged male broadcast engineer with a practical, working-class voice. Natural American accent, slightly rough around the edges, 
+        # clear but informal speech. Sounds competent, tired, and focused on solving technical problems rather than impressing anyone. Speaks plainly and 
+        # directly, with occasional signs of stress or frustration when equipment starts failing. The voice of someone who keeps the station running 
+        # while everyone else is making speeches.  Speed 0.5x.
+        "prompt_id": "29884adf-110b-4999-970c-ead198626e87",
+        "instruct": "Broadcast engineer. Practical, direct, and slightly stressed. Speak naturally and conversationally. Focused on solving technical problems, not performing for an audience." 
+    },
 
+    "CARL": {
+        # Carl: A young male radio engineer in his late twenties or early thirties. Intelligent, practical, and moderately exasperated. Casual conversational 
+        # voice with a hint of sarcasm. Sounds like the only adult in the room whenever something goes wrong.
+        "prompt_id": "842464aa-cee7-4c9d-a8b2-e4a4fc8fdd44",
+        "instruct": "Broadcast engineer. Practical, direct, and slightly stressed. Speak naturally and conversationally. Focused on solving technical problems, not performing for an audience." 
+    },
 
+    "ENGINEER": {
+        # Carl
+        "prompt_id": "842464aa-cee7-4c9d-a8b2-e4a4fc8fdd44",
+        "instruct": "Broadcast engineer. Practical, direct, and slightly stressed. Speak naturally and conversationally. Focused on solving technical problems, not performing for an audience." 
+    },
+
+    "TRAVIS": {
+        "prompt_id": "110a7e03-409f-46da-8d9c-432315d1b723",
+        "instruct": "Shouting from the control room."
+    },
+
+    "CHIP":{
+        "prompt_id": "Chip_Chopper",
+        "instruct": "Speaks loudly over background noise." 
+    },
+
+    "JIM":{
+        "prompt_id": "Announcer_Jim",
+        "instruct": "News anchor talking in the studio." 
+    },
+
+    "DONALD":{
+        "prompt_id": "Donald6",
+        "instruct": "Speaks spontaneously with confidence." 
+    },
+
+    "DON_JUNIOR":{
+        "prompt_id": "Donald11",
+        "instruct": "Speaks spontaneously with confidence." 
+    },
+
+    "KING":{
+        "prompt_id": "Donald6",
+        "instruct": "Speaks spontaneously with confidence." 
+    },
+
+    "MARY": {
+        "prompt_id": "afa957ee-52d8-48f7-adf1-b78e2da1c976",
+        "instruct": "Feels it is her patriotic duty to point out problems"
+    },
+
+    "SARA": {
+        "prompt_id": "05683383-bbba-4d45-8c1f-22083727ceea",
+        "instruct": "Hesitant to criticize the government"
+    },
+
+    "CALLER1": {
+        # BILL:
+        "prompt_id":"912144ec-19a3-435e-9cd8-fa486ea1c28f",
+        "instruct": "Ordinary citizen calling a radio show. Slightly nervous but sincere."
+    }, 
+
+    "CALLER2":{
+        "prompt_id": "Chip_Chopper",
+        "instruct": "Speaks loudly over background noise." 
+    },
+
+    "CALLER3":{
+        # MARY
+        "prompt_id": "afa957ee-52d8-48f7-adf1-b78e2da1c976",
+         "instruct": "Feels it is her patriotic duty to point out problems. "
+    },
+
+    "CALLER4":{
+        "prompt_id": "Announcer_Jim",
+        "instruct": "News anchor talking in the studio." 
+    },
+
+    "CALLER5": {
+        # Sara
+        "prompt_id": "05683383-bbba-4d45-8c1f-22083727ceea",
+        "instruct": "Hesitant to criticize the government"
+     },
+
+    "CALLER6": {
+        # SCOTT
+        "prompt_id": "29884adf-110b-4999-970c-ead198626e87",
+        "instruct": "Broadcast engineer. Practical, direct, and slightly stressed. Speak naturally and conversationally. Focused on solving technical problems, not performing for an audience." 
+    },
+
+    "CASHWELL": {
+        "prompt_id": "Cashwell",
+        "instruct": " Southern hellfire and brimstone preacher. " 
+    },
+
+    "CHOIR": {
+        # BILL
+        "prompt_id":"912144ec-19a3-435e-9cd8-fa486ea1c28f",
+        "instruct": "Ordinary citizen calling a radio show. Slightly nervous but sincere."
+    }, 
 }
 
 def parse_script(path: Path):
@@ -82,7 +172,7 @@ def parse_script(path: Path):
         # [SFX: Duck quack]
         # [MUSIC: Theme fades]
         # [PAUSE: 2s]
-        if line.startswith("["):
+        if line.startswith("[") or line.startswith('#') or line.startswith(' '):
             continue
 
         match = header_re.match(line)
@@ -156,7 +246,7 @@ def main():
 
     if len(sys.argv) < 2:
         print("Usage:")
-        print("    python qwen_dialog_reader.py <dialog_file>")
+        print("    python perform_scene.py <dialog_file>")
         sys.exit(1)
     
     script_path = Path(sys.argv[1])
