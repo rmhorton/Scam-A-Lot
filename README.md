@@ -52,5 +52,5 @@ Watch this space for updates on our social media debut.
 
 [https://tinyurl.com/Scam-A-Lot](https://tinyurl.com/Scam-A-Lot)
 
-![Scam-A-Lot-qr.png](QR code)
+![QR code](Scam-A-Lot-qr.png)
 
