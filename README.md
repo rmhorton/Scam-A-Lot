@@ -48,3 +48,9 @@ Active early development. Songs, scripts, characters, and structure are evolving
 
 Watch this space for updates on our social media debut.
 
+## Short link
+
+[https://tinyurl.com/Scam-A-Lot](https://tinyurl.com/Scam-A-Lot)
+
+![Scam-A-Lot-qr.png](QR code)
+
