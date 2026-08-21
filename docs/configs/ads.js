@@ -1,7 +1,7 @@
 const SONGS = [
 
   {
-    id: "testosterone-gummies",
+    id: "ad_testosterone-gummies",
     title: "Patriot Power Testosterone Gummies",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -11,7 +11,7 @@ const SONGS = [
     description: "Testosterone Gummies"
   },
   {
-    id: "alpha-card",
+    id: "ad_alpha-card",
     title: "Alpha Card",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -21,7 +21,7 @@ const SONGS = [
     description: "Black Titanium Elite Reserve Plus Credit Card"
   },
   {
-    id: "ethics-free-travel",
+    id: "ad_ethics-free-travel",
     title: "EthicsFree Premium Rewards Travel",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -31,7 +31,7 @@ const SONGS = [
     description: "Free trevel, without ethics"
   },
   {
-    id: "cat-sauce",
+    id: "ad_cat-sauce",
     title: "Springfield Select Cat Sauce",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -41,7 +41,7 @@ const SONGS = [
     description: "Seasoning for cats"
   },
   {
-    id: "discount-drugs",
+    id: "ad_discount-drugs",
     title: "PharmaMax Discount Drugs",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -51,7 +51,7 @@ const SONGS = [
     description: "1500% off"
   },
   {
-    id: "Citadel_Arms_01_Hotel_Resort",
+    id: "ad_Citadel_Arms_01_Hotel_Resort",
     title: "Citadel Arms 01",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
@@ -61,7 +61,7 @@ const SONGS = [
     description: "Hotels and Resorts"
   },  
   {
-    id: "Citadel_Arms_02_Continuity_Community",
+    id: "ad_Citadel_Arms_02_Continuity_Community",
     title: "Citadel Arms 02",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
@@ -71,7 +71,7 @@ const SONGS = [
     description: "Continuity Community"
   },    
   {
-    id: "Citadel_Arms_03_Security_Systems",
+    id: "ad_Citadel_Arms_03_Security_Systems",
     title: "Citadel Arms 03",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
@@ -81,7 +81,7 @@ const SONGS = [
     description: "Security Systems"
   },
   {
-    id: "Citadel_Arms_04_Defense_Technology",
+    id: "ad_Citadel_Arms_04_Defense_Technology",
     title: "Citadel Arms 04",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
@@ -91,7 +91,7 @@ const SONGS = [
     description: "Defense Technology"
   },
   {
-    id: "Citadel_Arms_05_Defense_Services",
+    id: "ad_Citadel_Arms_05_Defense_Services",
     title: "Citadel Arms 05",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
@@ -101,7 +101,7 @@ const SONGS = [
     description: "Defense Services"
   },
   {
-    id: "Citadel_Arms_06_Portfolio",
+    id: "ad_Citadel_Arms_06_Portfolio",
     title: "Citadel Arms 06",
     audio: "advertisements.mp3",
     lyrics: "Citadel_Arms_ads.txt",
@@ -111,7 +111,7 @@ const SONGS = [
     description: "Portfolio"
   },
   {
-    id: "princess-island-spot01",
+    id: "ad_princess-island-spot01",
     title: "Princess Island Resort #1",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -121,7 +121,7 @@ const SONGS = [
     description: "Paradise discovered"
   },
   {
-    id: "princess-island-spot02",
+    id: "ad_princess-island-spot02",
     title: "Princess Island Resort #2",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -131,7 +131,7 @@ const SONGS = [
     description: "Hidden ecological treasure"
   },
   {
-    id: "princess-island-spot03",
+    id: "ad_princess-island-spot03",
     title: "Princess Island Resort #3",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -141,7 +141,7 @@ const SONGS = [
     description: "Non-paying birds"
   },
   {
-    id: "princess-island-spot04",
+    id: "ad_princess-island-spot04",
     title: "Princess Island Resort #4",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
@@ -151,7 +151,7 @@ const SONGS = [
     description: "Shareholder value"
   },
   {
-    id: "Royal_Scholarship_Foundation",
+    id: "ad_Royal_Scholarship_Foundation",
     title: "The Royal Scholarship Foundation",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -161,7 +161,7 @@ const SONGS = [
     description: "Beauty, poise, and marketability"
   },  
   {
-    id: "Global_Prestige_Talent_Network",
+    id: "ad_Global_Prestige_Talent_Network",
     title: "Global Prestige Talent Network",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -171,7 +171,7 @@ const SONGS = [
     description: "Staffing for all your needs"
   },  
   {
-    id: "Royal_Occasion_Luxury_Event_Planning",
+    id: "ad_Royal_Occasion_Luxury_Event_Planning",
     title: "Royal Occasion Luxury Event Planning",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -181,7 +181,7 @@ const SONGS = [
     description: "Elaborate events, plausible deniability"
   },  
   {
-    id: "Blue_Horizon_Foundation_Charity_Gala",
+    id: "ad_Blue_Horizon_Foundation_Charity_Gala",
     title: "Blue Horizon Foundation Charity Gala",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -191,27 +191,27 @@ const SONGS = [
     description: "Protecting marina life"
   },  
   {
-    id: "Discrete_Air_Private_Aviation",
+    id: "ad_Discrete_Air_Private_Aviation",
     title: "Discrete Air Private Aviation",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "11:06",
+    startTime: "11:07",
     stopTime: "11:35",
     pauseBeforeSeconds: 1,
     description: "Nobody's business"
   },  
   {
-    id: "Billionaire_Boys_Club",
+    id: "ad_Billionaire_Boys_Club",
     title: "Billionaire Boy's Club",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
-    startTime: "11:36",
+    startTime: "11:35",
     stopTime: "12:14",
     pauseBeforeSeconds: 1,
     description: "Members only"
   },  
   {
-    id: "CleanSlate_Public_Relations",
+    id: "ad_CleanSlate_Public_Relations",
     title: "CleanSlate Public Relations",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -221,7 +221,7 @@ const SONGS = [
     description: "Memory management"
   },  
   {
-    id: "Pimp_My_Bride",
+    id: "ad_Pimp_My_Bride",
     title: "Pimp My Bride",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -231,7 +231,7 @@ const SONGS = [
     description: "Reality show promo"
   },
   {
-    id: "Royal_Surplus_Outlet_Clearance_Event",
+    id: "ad_Royal_Surplus_Outlet_Clearance_Event",
     title: "Royal Surplus Outlet Clearance Event",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -241,7 +241,7 @@ const SONGS = [
     description: "Everything must go"
   }, 
   {
-    id: "Royal_Surplus_Outlet_pool_sealer_sale",
+    id: "ad_Royal_Surplus_Outlet_pool_sealer_sale",
     title: "Royal Surplus Outlet Pool Sealer Sale",
     audio: "advertisements.mp3",
     lyrics: "trafficking_ads.txt",
@@ -249,14 +249,64 @@ const SONGS = [
     stopTime: "14:29",
     pauseBeforeSeconds: 1,
     description: "Super discount on excess stock"
+  }, 
+  {
+    id: "ad_trans_PSA",
+    title: "Tommy PSA",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "16:03",
+    stopTime: "16:37",
+    pauseBeforeSeconds: 1,
+    description: "But I don't want to be a girl!"
+  }, 
+  {
+    id: "ad_Alpha_Private_Banking",
+    title: "Alpha Private Banking",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "16:39",
+    stopTime: "17:27",
+    pauseBeforeSeconds: 1,
+    description: "Reallocating risk."
+  }, 
+  {
+    id: "ad_vegan_PSA",
+    title: "Vegan PSA",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "17:27",
+    stopTime: "18:10",
+    pauseBeforeSeconds: 1,
+    description: "Today's vegan could become tomorrow's cyclist."
   },
   {
-    id: "AD-alfa-home-reality",
-    title: "AD: ALFA Home Reality System",
+    id: "ad_alfa-home-reality",
+    title: "ALFA Home Reality System",
     audio: "AD_Alfa_Home_Reality_System.mp3",
     lyrics: "AD_Alternative_Facts_Home_Reality_System.txt",
     pauseBeforeSeconds: 0,
     description: "Advertisement for the ALFA Home Reality System from Alternative Facts"
+  }, 
+  {
+    id: "ad_Prime_for_people",
+    title: "Prime for People",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "14:31",
+    stopTime: "15:16",
+    pauseBeforeSeconds: 1,
+    description: "Process your entire family!"
+  }, 
+  {
+    id: "ad_Patriot_storage",
+    title: "Patriot Storage",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "15:20",
+    stopTime: "16:00",
+    pauseBeforeSeconds: 1,
+    description: "Make room for the America you remember."
   }
   
 
