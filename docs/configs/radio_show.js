@@ -146,6 +146,16 @@ const SONGS = [
     stopTime: "16:37",
     pauseBeforeSeconds: 1,
     description: "But I don't want to be a girl!"
+  }, 
+  {
+    id: "ad_Prime_for_people",
+    title: "Prime for People",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "14:31",
+    stopTime: "15:16",
+    pauseBeforeSeconds: 1,
+    description: "Process your entire family!"
   },
   {
     id: "russia-russia-russia",
@@ -295,14 +305,14 @@ const SONGS = [
     description: "Kids these days"
   }, 
   {
-    id: "ad_Prime_for_people",
-    title: "Prime for People",
+    id: "ad_Patriot_storage",
+    title: "Patriot Storage",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
-    startTime: "14:31",
-    stopTime: "15:16",
+    startTime: "15:20",
+    stopTime: "16:00",
     pauseBeforeSeconds: 1,
-    description: "Process your entire family!"
+    description: "Make room for the America you remember."
   },
   {
     id: "act03_scene01_positive_thinking",
