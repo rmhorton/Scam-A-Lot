@@ -295,14 +295,14 @@ const SONGS = [
     description: "Kids these days"
   }, 
   {
-    id: "ad_Patriot_storage",
-    title: "Patriot Storage",
+    id: "ad_Prime_for_people",
+    title: "Prime for People",
     audio: "advertisements.mp3",
     lyrics: "advertisements.txt",
-    startTime: "15:20",
-    stopTime: "16:00",
+    startTime: "14:31",
+    stopTime: "15:16",
     pauseBeforeSeconds: 1,
-    description: "Make room for the America you remember."
+    description: "Process your entire family!"
   },
   {
     id: "act03_scene01_positive_thinking",
