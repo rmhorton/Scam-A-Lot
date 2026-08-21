@@ -3,13 +3,9 @@
 A satirical political musical production and ecosystem about propaganda, loneliness, media, and the battle for reality.
 
 ## Listen
+* [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
 * [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
 * [Advertisement Library](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=ads.js)
-  
-* [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
-* [The Royal Hour](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=royal_hour.js) audio play
-* [The Path to Prosperity](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=path_to_prosperity.js) audio play
-* [Epilogue](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=epilogue.js) audio play
 
 ![Scam-A-Lot Poster](artwork/Scamalot.png)
 
