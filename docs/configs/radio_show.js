@@ -1,7 +1,7 @@
 const SONGS = [
 
   {
-    id: "introducing_dave",
+    id: "act01_scene01_introducing_dave",
     title: "Introducing Dave",
     audio: "act01_scene01.mp3",
     lyrics: "act01_scene01_official_voice.txt",
@@ -17,12 +17,22 @@ const SONGS = [
     description: "Propaganda anthem with dark carnival march energy"
   },
   {
-    id: "rumors",
+    id: "act01_scene02_rumors",
     title: "Rumors",
     audio: "act01_scene02.mp3",
     lyrics: "act01_scene02_conspiracy_corner.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 2: Rumors"
+  },
+  {
+    id: "ad_testosterone-gummies",
+    title: "Patriot Power Testosterone Gummies",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "0:00",
+    stopTime: "0:18",
+    pauseBeforeSeconds: 0,
+    description: "Testosterone Gummies"
   },
   {
     id: "forgotten-man",
@@ -32,12 +42,22 @@ const SONGS = [
     description: "Dark heartland anthem — loneliness weaponized"
   },
   {
-    id: "signal-breach",
+    id: "act01_scene03_signal_breach",
     title: "Signal Breach",
     audio: "act01_scene03.mp3",
     lyrics: "act01_scene03_signal_breach.txt",
     pauseBeforeSeconds: 0,
     description: "Scene 3: Signal Breach"
+  },
+  {
+    id: "ad_alpha-card",
+    title: "Alpha Card",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "0:20",
+    stopTime: "0:38",
+    pauseBeforeSeconds: 1,
+    description: "Black Titanium Elite Reserve Plus Credit Card"
   },
   {
     id: "reflections",
@@ -47,15 +67,17 @@ const SONGS = [
     description: "Retrospectives and Revelations"
   },
   {
-    id: "AD-alfa-home-reality",
-    title: "AD: ALFA Home Reality System",
-    audio: "AD_Alfa_Home_Reality_System.mp3",
-    lyrics: "AD_Alternative_Facts_Home_Reality_System.txt",
-    pauseBeforeSeconds: 0,
-    description: "Advertisement for the ALFA Home Reality System from Alternative Facts"
+    id: "ad_vegan_PSA",
+    title: "Vegan PSA",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "17:27",
+    stopTime: "18:10",
+    pauseBeforeSeconds: 1,
+    description: "Today's vegan could become tomorrow's cyclist."
   },
   {
-    id: "intrusion",
+    id: "act01_scene04_intrusion",
     title: "Intrusion",
     audio: "act01_scene04.mp3",
     lyrics: "act01_scene04_signal_intrusion.txt",
@@ -70,7 +92,7 @@ const SONGS = [
     description: "Arena-rock anthem — the economy of fear"
   },
   {
-    id: "late-night",
+    id: "act01_scene05_late_night",
     title: "Late Night",
     audio: "act01_scene05.mp3",
     lyrics: "act01_scene05_late_night_frequencies.txt",
@@ -85,7 +107,7 @@ const SONGS = [
     description: "Populism betrayed"
   },
   {
-    id: "after-the-broadcast",
+    id: "act01_scene06_after_the_broadcast",
     title: "After The Broadcast",
     audio: "act01_scene06.mp3",
     lyrics: "act01_scene06_after_the_broadcast.txt",
@@ -99,7 +121,6 @@ const SONGS = [
     lyrics: "Can_You_Hear_Me_Now.txt",
     description: "Late-night pirate radio ballad — the signal in the noise"
   },
-
   {
     id: "Fathers_and_Sons",
     title: "Fathers and Sons",
@@ -115,17 +136,26 @@ const SONGS = [
     lyrics: "The_Press_Pool.txt",
     pauseBeforeSeconds: 0,
     description: "The best journalists money can buy"
+  }, 
+  {
+    id: "ad_trans_PSA",
+    title: "Tommy PSA",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "16:03",
+    stopTime: "16:37",
+    pauseBeforeSeconds: 1,
+    description: "But I don't want to be a girl!"
   },
   {
-    id: "justice_must_be_blind",
-    title: "Justice Must Be Blind",
-    audio: "Justice Must Be Blind Blues v4b.mp3",
-    lyrics: "Justice_Must_Be_Blind_blues.txt",
-    description: "Supreme Court ethics"
+    id: "russia-russia-russia",
+    title: "Russia Russia Russia",
+    audio: "Russia_Russia_Russia.mp3",
+    lyrics: "Russia_Russia_Russia.txt",
+    description: "Soviet-style propaganda anthem on information warfare"
   },
-
   {
-    id: "act02_Royal_Hour_scene01A",
+    id: "act02_scene01A_the_king",
     title: "Act 2, Scene 1A",
     audio: "act02_Royal_Hour.mp3",
     lyrics: "act02_Royal_Hour_scene01.txt",
@@ -143,7 +173,7 @@ const SONGS = [
     description: "The King's Personal Anthem"
   },
   {
-    id: "act02_Royal_Hour_scene01B",
+    id: "act02_scene01B_housing",
     title: "Act 2, Scene 1B",
     audio: "act02_Royal_Hour.mp3",
     lyrics: "act02_Royal_Hour_scene01.txt",
@@ -158,16 +188,6 @@ const SONGS = [
     audio: "All_About_Me.mp3",
     lyrics: "all_about_me.txt",
     description: "Origin story of the King"
-  },
-  {
-    id: "Royal_Scholarship_Foundation",
-    title: "The Royal Scholarship Foundation",
-    audio: "advertisements.mp3",
-    lyrics: "trafficking_ads.txt",
-    startTime: "8:32",
-    stopTime: "9:07",
-    pauseBeforeSeconds: 1,
-    description: "Beauty, poise, and marketability"
   }, 
   {
     id: "Pimp_My_Bride",
@@ -180,7 +200,7 @@ const SONGS = [
     description: "Reality show promo"
   },
   {
-    id: "act02_Royal_Hour_scene02",
+    id: "act02_scene02_trumped_up",
     title: "Act 2, Scene 2",
     audio: "act02_Royal_Hour.mp3",
     lyrics: "act02_Royal_Hour_scene02.txt",
@@ -215,7 +235,7 @@ const SONGS = [
     description: "Don't get caught in traffic"
   },
   {
-    id: "act02_Royal_Hour_scene03",
+    id: "act02_scene03_stock_market",
     title: "Act 2, Scene 3",
     audio: "act02_Royal_Hour.mp3",
     lyrics: "act02_Royal_Hour_scene03.txt",
@@ -232,7 +252,7 @@ const SONGS = [
     description: "The national anthem of trickle-down reality."
   },
   {
-    id: "act02_Royal_Hour_scene04",
+    id: "act02_scene04_questions",
     title: "Act 2, Scene 4",
     audio: "act02_Royal_Hour.mp3",
     lyrics: "act02_Royal_Hour_scene04.txt",
@@ -273,9 +293,17 @@ const SONGS = [
     lyrics: "one_of_them.txt",
     pauseBeforeSeconds: 0,
     description: "Kids these days"
+  }, 
+  {
+    id: "ad_Patriot_storage",
+    title: "Patriot Storage",
+    audio: "advertisements.mp3",
+    lyrics: "advertisements.txt",
+    startTime: "15:20",
+    stopTime: "16:00",
+    pauseBeforeSeconds: 1,
+    description: "Make room for the America you remember."
   },
-
-
   {
     id: "act03_scene01_positive_thinking",
     title: "The Path to Prosperity, Scene 1",
@@ -363,14 +391,12 @@ const SONGS = [
     description: "From luxury fantasy to authoritarian oligarchy"
   },
   {
-    id: "Deus_Vult",
-    title: "Deus Vult",
-    audio: "Deus_Vult.mp3",
-    lyrics: "Deus_Vult.txt",
-    pauseBeforeSeconds: 0,
-    description: "The Crusades never ended"
+    id: "the-ballroom",
+    title: "The Ballroom",
+    audio: "The Ballroom v04b.mp3",
+    lyrics: "The_Ballroom.txt",
+    description: "Grand imperial waltz for the grand imperial ballroom, plus a secret bunker!"
   },
-
   {
     id: "act04_epilogue_skit",
     title: "Act 4",
