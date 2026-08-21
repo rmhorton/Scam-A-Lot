@@ -7,7 +7,7 @@
 From the top directory of your copy of the repo run this command to generate a playlist of numbered MP3 files from a ShowRunner config file:
 
 ```
-> python tools/export_radio_playlist.py \                               
+python tools/export_radio_playlist.py \                               
   docs/configs/radio_show.js \     
   --audio-dir audio \
   --output-dir radio_show_playlist
@@ -18,7 +18,7 @@ From the top directory of your copy of the repo run this command to generate a p
 Run this command to generate a catalog of the segments specified in a config file, to see how long they are:
 
 ```
-> python tools/song_catalog_builder.py \       
+python tools/song_catalog_builder.py \       
   --audio-dir audio \
   --output-dir catalogs \
   docs/js/config.js docs/configs/radio_show.js
