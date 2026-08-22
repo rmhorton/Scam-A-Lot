@@ -7,10 +7,8 @@ A satirical political musical production and ecosystem about propaganda, lonelin
 * [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
 * [Advertisement Library](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=ads.js)
 
-![Scam-A-Lot Poster](artwork/Scamalot.png)
-
 <p align="center">
-  <img src="artwork/Scamalot.png" alt="Scam-A-Lot Poster" width="200">
+  <img src="artwork/Scamalot.png" alt="Scam-A-Lot Poster" width="480">
 </p>
 
 ## Overview
