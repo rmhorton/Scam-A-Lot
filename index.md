@@ -27,15 +27,15 @@ Scam-A-Lot is a growing collection of songs, radio pieces, advertisements, publi
 
 You can listen to the pieces individually or hear them assembled into larger productions.
 
-### [Browse the Songs](docs/index.html)
+### [Browse the Songs](https://rmhorton.github.io/Scam-A-Lot/docs/index.html)
 
 Listen to individual songs and read the lyrics.
 
-### [Radio Free Scam-A-Lot](docs/index.html?config=radio_show.js)
+### [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js)
 
 A full-length audio play built from the Scam-A-Lot repertoire: songs, talk radio, propaganda, commercials, pirate broadcasts, and political satire.
 
-### [Advertisements & PSAs](docs/index.html?config=ads.js)
+### [Advertisements & PSAs](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=ads.js)
 
 Commercials, government warnings, corporate propaganda, and other short-form satire.
 
