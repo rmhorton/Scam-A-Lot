@@ -1,6 +1,19 @@
 # Scam-A-Lot
 
-A satirical political musical production and ecosystem about propaganda, loneliness, media, and the battle for reality.
+Scam-A-Lot is an open, evolving collection of political satire in songs,
+radio, theater, and protest performance.
+
+In the kingdom of **Scam-A-Lot**, reality itself has become media spectacle.
+The state-media system sells outrage, certainty, nationalism, masculinity
+branding, billionaire worship, endless war, propaganda, and emotional
+simplification.
+
+**There is resistance.**
+
+This repository contains the songs, recordings, scripts, artwork, production
+files, and software used to create Scam-A-Lot productions.
+
+**Public website:** [Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/)
 
 ## Listen
 * [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
