@@ -9,6 +9,10 @@ A satirical political musical production and ecosystem about propaganda, lonelin
 
 ![Scam-A-Lot Poster](artwork/Scamalot.png)
 
+<p align="center">
+  <img src="artwork/Scamalot.png" alt="Scam-A-Lot Poster" width="200">
+</p>
+
 ## Overview
 
 In the kingdom of Scam-A-Lot, reality itself has become media spectacle. The state-media system sells outrage, certainty, nationalism, masculinity branding, billionaire worship, endless war, propaganda, and emotional simplification. There is resistance.
