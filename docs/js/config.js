@@ -226,7 +226,24 @@ const SONGS = [
     lyrics: "one_of_them.txt",
     pauseBeforeSeconds: 0,
     description: "Kids these days"
+  },
+  {
+    id: "good_old_days",
+    title: "The Good Old Days",
+    audio: "good_old_days.mp3",
+    lyrics: "good_old_days.txt",
+    pauseBeforeSeconds: 0,
+    description: "Those were the days"
+  },
+  {
+    id: "we_had_it_all",
+    title: "We Had It All",
+    audio: "we_had_it_all.mp3",
+    lyrics: "we_had_it_all.txt",
+    pauseBeforeSeconds: 0,
+    description: "Let's get great again"
   }
+
 ];
 
 // Default pause between automatically advanced tracks:
