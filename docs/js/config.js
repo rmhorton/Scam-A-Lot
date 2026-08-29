@@ -233,7 +233,7 @@ const SONGS = [
     audio: "good_old_days.mp3",
     lyrics: "good_old_days.txt",
     pauseBeforeSeconds: 0,
-    description: "Those were the days"
+    description: "Where did all these people come from?"
   },
   {
     id: "we_had_it_all",
@@ -242,6 +242,14 @@ const SONGS = [
     lyrics: "we_had_it_all.txt",
     pauseBeforeSeconds: 0,
     description: "Let's get great again"
+  },
+  {
+    id: "heads_we_win",
+    title: "Heads We Win",
+    audio: "heads_we_win.mp3",
+    lyrics: "heads_we_win.txt",
+    pauseBeforeSeconds: 0,
+    description: "Tails you cheat!"
   }
 
 ];
