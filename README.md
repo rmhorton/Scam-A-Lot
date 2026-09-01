@@ -17,7 +17,7 @@ files, and software used to create Scam-A-Lot productions.
 
 ## Listen
 * [Radio Free Scam-A-Lot](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=radio_show.js) audio play
-* [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot)
+* [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot/docs/index.html)
 * [Advertisement Library](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=ads.js)
 
 <p align="center">
