@@ -250,6 +250,14 @@ const SONGS = [
     lyrics: "heads_we_win.txt",
     pauseBeforeSeconds: 0,
     description: "Tails you cheat!"
+  },
+  {
+    id: "creature_of_the_swamp",
+    title: "Creature of the Swamp",
+    audio: "creature_of_the_swamp.mp3",
+    lyrics: "creature_of_the_swamp.txt",
+    pauseBeforeSeconds: 0,
+    description: "Don't let it feed!"
   }
 
 ];
