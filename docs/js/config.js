@@ -258,6 +258,14 @@ const SONGS = [
     lyrics: "creature_of_the_swamp.txt",
     pauseBeforeSeconds: 0,
     description: "Don't let it feed!"
+  },
+  {
+    id: "yo_canada",
+    title: "Yo Canada",
+    audio: "yo_canada.mp3",
+    lyrics: "yo_canada.txt",
+    pauseBeforeSeconds: 0,
+    description: "Come be our 51st!"
   }
 
 ];
