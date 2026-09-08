@@ -266,6 +266,14 @@ const SONGS = [
     lyrics: "yo_canada.txt",
     pauseBeforeSeconds: 0,
     description: "Come be our 51st!"
+  },
+  {
+    id: "excalibabble",
+    title: "Excalibabble!",
+    audio: "excalibabble.mp3",
+    lyrics: "excalibabble.txt",
+    pauseBeforeSeconds: 0,
+    description: "Only the true King can wield it"
   }
 
 ];
