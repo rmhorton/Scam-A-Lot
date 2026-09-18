@@ -274,6 +274,22 @@ const SONGS = [
     lyrics: "excalibabble.txt",
     pauseBeforeSeconds: 0,
     description: "Only the true King can wield it"
+  },
+  {
+    id: "the_man_who_paid_the_bill",
+    title: "The Man Who Paid the Bill in the Bahamas",
+    audio: "the_man_who_paid_the_bill.mp3",
+    lyrics: "the_man_who_paid_the_bill.txt",
+    pauseBeforeSeconds: 0,
+    description: "Here comes the bribe!"
+  },
+  {
+    id: "smartest_ever_president",
+    title: "I am the Smartest Ever President",
+    audio: "smartest_ever_president.mp3",
+    lyrics: "smartest_ever_president.txt",
+    pauseBeforeSeconds: 0,
+    description: "He is the guardian of A.I.!"
   }
 
 ];
