@@ -1,23 +1,30 @@
 The Man Who Paid the Bill in the Bahamas
 
-Playful ragtime duet, male and female voices alternating lines in verses and joining on repeated final lines. Cxuberant small ensemble choruses jump to a noticeably faster tempo with crisp rapid diction. Snappy Edwardian music-hall instrumentation with syncopated upright piano, banjo, clarinet, muted brass, tuba and crisp snare. Add lively 8-bar ragtime instrumental interludes between each chorus and the following verse, plus a brief instrumental introduction and dance break before the final chorus. Cheerful theatrical delivery with increasingly sinister implications; strong repeated ending.
+Snappy Edwardian music-hall ragtime with two equal featured soloists, one male and one female. Follow all vocal assignments exactly. In every BOTH LEADS TOGETHER section, the male and female voices must enter simultaneously and sing every word in audible two-part harmony; neither voice may sing alone. In every fast chorus, both featured soloists remain prominent together from beginning to end, supported by a lively ensemble. Never substitute the male soloist for the female lead, never make a duet passage male-only, and never let the ensemble replace either featured singer. Brisk contrasting choruses, crisp comic diction, upright piano, banjo, clarinet, brass, tuba and snare, with lively ragtime interludes.
 
 Exclude:
 spoken dialogue, modern pop, rock, synths
 
 
-[VERSE 1 — ALTERNATING DUET]
+[VERSE 1]
 
-We arrived as newlyweds
+[MALE SOLO]
+They arrived as newlyweds
+[FEMALE SOLO]
 Helicoptered to the isles
+[MALE SOLO]
 Fireworks, seventy K!
-Awesome, Dude! We've got it made!
-Villas all with fancy beds
+Opulence! Funfetti cake!
+[FEMALE SOLO]
+Villas, hot tubs, fancy beds
 Private beaches stretch for miles.
-Billionaire clan party, all expenses paid!
-Billionaire clan party, all expenses paid!
+[BOTH LEADS TOGETHER — MALE AND FEMALE BEGIN SIMULTANEOUSLY, TWO-PART HARMONY]
+Billionaire reception, all expenses paid!
+[BOTH LEADS CONTINUE TOGETHER — TWO-PART HARMONY]
+Ultra-rich clan party! They have got it made!
 
-[CHORUS]
+
+[FAST CHORUS — MALE AND FEMALE CO-LEADS TOGETHER THROUGHOUT, ENSEMBLE SUPPORT]
 Umar threw the post-wedding gala
     What a giving man is he!
     Extraordinarily
@@ -27,16 +34,22 @@ Meet Comrade Kremlev from the Kremlin!
 He’s the man who paid the bill in the Bahamas!
 
 [VERSE 2]
+[FEMALE SOLO]
 Who is this benefactor
+[MALE SOLO]
 With so much money to spend?
-Was linked to organized crime,
+[FEMALE SOLO]
+Had links to organized crime,
 Changed his name after that time;
+[MALE SOLO]
 Convicted malefactor,
-With Putin’s guard as his friend,
-Became boxing czar — that was some social climb!
-Russia's boxing czar — that was some social climb!
+Putin counts him as a friend,
+[BOTH LEADS TOGETHER — MALE AND FEMALE BEGIN SIMULTANEOUSLY, TWO-PART HARMONY]
+Russia's Boxing czar - built it on Gazprom's dime!
+[BOTH LEADS CONTINUE TOGETHER — TWO-PART HARMONY]
+Russia's top sports bookie - epic social climb!
 
-[CHORUS]
+[FAST CHORUS — MALE AND FEMALE CO-LEADS TOGETHER THROUGHOUT, ENSEMBLE SUPPORT]
 Umar threw the post-wedding gala
     What a giving man is he!
     Extraordinarily
@@ -46,120 +59,24 @@ Meet Comrade Kremlev from the Kremlin!
 He’s the man who paid the bill in the Bahamas!
 
 [VERSE 3]
-Just a fun weekend with friends!
-Umar throws a party right!
-Were they eavesdropping on calls?
-Were there spy cams in the walls?
-Gifts can pay rich dividends;
-Did the Kremlin score that night?
-Party hearty! What will witnesses recall?
-Party hearty! Who has leverage on us all?
-
-[CHORUS]
-Umar threw the post-wedding gala
-    What a giving man is he!
-    Extraordinarily
-    Profuse generosity
-Donald Junior’s brand-new dear old friend!
-Meet Comrade Kremlev from the Kremlin!
-He’s the man who paid the bill in the Bahamas!
-
-Umar threw the post-wedding gala
-    What a giving man is he!
-    Extraordinarily
-    Profuse generosity
-Donald Junior’s brand-new dear old friend!
-Meet Comrade Kremlev from the Kremlin!
-He’s the man who paid the bill in the Bahamas!
-
-==========================
-
-[If you really want a duet, you apparently have to label the lines]
-
-[VERSE 1 — ALTERNATING DUET]
-
-[FEMALE SOLO]
-We arrived as newlyweds
-Helicoptered to the isles
-
-[MALE SOLO]
-Fireworks seventy K
-Awesome, Dude! We’ve got it made!
-
-[FEMALE SOLO]
-Villas all with fancy beds
-
-[MALE SOLO]
-Private beaches stretch for miles
-
-[CHORUS]
-Billionaire clan party, all expenses paid!
-Billionaire clan party, all expenses paid!
-
-
-[FAST CHORUS — ENSEMBLE]
-Umar threw the post-wedding gala
-    What a giving man is he!
-    Extraordinarily
-    Profuse generosity
-Donald Junior’s brand-new dear old friend!
-Meet Comrade Kremlev from the Kremlin!
-He’s the man who paid the bill in the Bahamas!
-
-[VERSE 2]
-
-[MALE SOLO]
-Who is this benefactor
-With so much money to spend?
-
-[FEMALE SOLO]
-Was linked to organized crime,
-Changed his name after that time;
-
-[MALE SOLO]
-Convicted malefactor,
-
-[FEMALE SOLO]
-With Putin’s guard as his friend,
-
-[CHORUS]
-Became boxing czar — that was some social climb!
-Russia's boxing czar — that was some social climb!
-
-[FAST CHORUS — SMALL ENSEMBLE]
-Umar threw the post-wedding gala
-    What a giving man is he!
-    Extraordinarily
-    Profuse generosity
-Donald Junior’s brand-new dear old friend!
-Meet Comrade Kremlev from the Kremlin!
-He’s the man who paid the bill in the Bahamas!
-
-[VERSE 3]
-
 [FEMALE SOLO]
 Just a fun weekend with friends!
-
 [MALE SOLO]
-Umar throws a party right!
-
+Umar threw the party right!
 [FEMALE SOLO]
 Were they eavesdropping on calls?
-
 [MALE SOLO]
 Were there spy cams in the walls?
-
 [FEMALE SOLO]
 Gifts can pay rich dividends;
-
 [MALE SOLO]
 Did the Kremlin score that night?
-
-[CHORUS]
+[BOTH LEADS TOGETHER — MALE AND FEMALE BEGIN SIMULTANEOUSLY, TWO-PART HARMONY]
 Party hearty! What will witnesses recall?
+[BOTH LEADS CONTINUE TOGETHER — TWO-PART HARMONY]
 Party hearty! Who has leverage on us all?
 
-[FAST CHORUS — SMALL ENSEMBLE]
+[FAST CHORUS — MALE AND FEMALE CO-LEADS TOGETHER THROUGHOUT, ENSEMBLE SUPPORT]
 Umar threw the post-wedding gala
     What a giving man is he!
     Extraordinarily
@@ -168,7 +85,7 @@ Donald Junior’s brand-new dear old friend!
 Meet Comrade Kremlev from the Kremlin!
 He’s the man who paid the bill in the Bahamas!
 
-[FINAL CHORUS — SMALL ENSEMBLE]
+[FAST CHORUS — MALE AND FEMALE CO-LEADS TOGETHER THROUGHOUT, ENSEMBLE SUPPORT]
 Umar threw the post-wedding gala
     What a giving man is he!
     Extraordinarily
@@ -176,3 +93,4 @@ Umar threw the post-wedding gala
 Donald Junior’s brand-new dear old friend!
 Meet Comrade Kremlev from the Kremlin!
 He’s the man who paid the bill in the Bahamas!
+
