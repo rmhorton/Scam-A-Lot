@@ -39,6 +39,8 @@ A full-length audio play built from the Scam-A-Lot repertoire: songs, talk radio
 
 Commercials, government warnings, corporate propaganda, and other short-form satire.
 
+### [Music Videos](https://www.youtube.com/@Excalibabble) on the 'Excalibabble' YouTube channel
+
 ---
 
 ## What Is Scam-A-Lot?
