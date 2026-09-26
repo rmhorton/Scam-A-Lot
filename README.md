@@ -20,6 +20,9 @@ files, and software used to create Scam-A-Lot productions.
 * [Scam-A-Lot Song List](https://rmhorton.github.io/Scam-A-Lot/docs/index.html)
 * [Advertisement Library](https://rmhorton.github.io/Scam-A-Lot/docs/index.html?config=ads.js)
 
+## Watch
+* ["Excalibabble"](https://www.youtube.com/@Excalibabble) YouTube channel
+
 <p align="center">
   <img src="artwork/Scamalot.png" alt="Scam-A-Lot Poster" width="480">
 </p>
