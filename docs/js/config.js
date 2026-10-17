@@ -290,6 +290,14 @@ const SONGS = [
     lyrics: "smartest_ever_president.txt",
     pauseBeforeSeconds: 0,
     description: "He is the guardian of A.I.!"
+  },
+  {
+    id: "superpower_suicide",
+    title: "Superpower Suicide!",
+    audio: "superpower_suicide.mp3",
+    lyrics: "superpower_suicide.txt",
+    pauseBeforeSeconds: 0,
+    description: "With apologies to Professor Timothy Snyder"
   }
 
 ];
