@@ -298,6 +298,14 @@ const SONGS = [
     lyrics: "superpower_suicide.txt",
     pauseBeforeSeconds: 0,
     description: "With apologies to Professor Timothy Snyder"
+  },
+  {
+    id: "Mar-a-Lago_Beauty",
+    title: "Mar-a-Lago Beauty",
+    audio: "Mar-a-Lago_Beauty.mp3",
+    lyrics: "Mar-a-Lago_Beauty.txt",
+    pauseBeforeSeconds: 0,
+    description: "Traditional values, extensively renovated."
   }
 
 ];
