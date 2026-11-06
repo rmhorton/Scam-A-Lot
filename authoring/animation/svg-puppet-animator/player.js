@@ -105,6 +105,78 @@
     return Object.entries(map).map(([key, value]) => `${key}:${value}`).join(";");
   }
 
+  function paintReferenceId(element, property = "fill") {
+    const style = parseStyle(element.getAttribute("style") || "");
+    const value = style[property] || element.getAttribute(property) || "";
+    const match = value.match(/url\(\s*['"]?#([^'"\)\s]+)['"]?\s*\)/);
+    return match ? match[1] : "";
+  }
+
+  function setPaintReference(element, id, property = "fill") {
+    const styleText = element.getAttribute("style") || "";
+    const style = parseStyle(styleText);
+    if (Object.prototype.hasOwnProperty.call(style, property) || !element.hasAttribute(property)) {
+      style[property] = `url(#${id})`;
+      element.setAttribute("style", serializeStyle(style));
+    } else {
+      element.setAttribute(property, `url(#${id})`);
+    }
+  }
+
+  function gradientRoleMap(object) {
+    const result = new Map();
+    for (const element of object.querySelectorAll("[data-toonscape-gradient-role]")) {
+      const role = element.getAttribute("data-toonscape-gradient-role")?.trim();
+      if (!role) continue;
+      if (result.has(role)) throw new Error(`${labelOf(object) || object.id} contains duplicate gradient role ${role}`);
+      result.set(role, element);
+    }
+    return result;
+  }
+
+  function referencedGradient(document, paintedElement, objectName, role) {
+    const id = paintReferenceId(paintedElement);
+    if (!id) throw new Error(`${objectName} gradient role ${role} has no fill paint-server reference`);
+    const gradient = document.getElementById(id);
+    if (!gradient || !["linearGradient", "radialGradient"].includes(gradient.localName)) {
+      throw new Error(`${objectName} gradient role ${role} references missing or unsupported paint server #${id}`);
+    }
+    if (gradient.hasAttribute("href") || gradient.hasAttribute("xlink:href")) {
+      throw new Error(`${objectName} gradient role ${role} uses an inherited gradient; expand its stops before animating it`);
+    }
+    if (!gradient.querySelectorAll(":scope > stop").length) {
+      throw new Error(`${objectName} gradient role ${role} has no direct gradient stops`);
+    }
+    return gradient;
+  }
+
+  function validateGradientSequence(objectName, role, gradients) {
+    const first = gradients[0];
+    const firstChildren = Array.from(first.children);
+    for (const gradient of gradients.slice(1)) {
+      const children = Array.from(gradient.children);
+      if (gradient.localName !== first.localName) {
+        throw new Error(`${objectName} gradient role ${role} changes gradient type between keyframes`);
+      }
+      if (children.length !== firstChildren.length || children.some((child, index) => child.localName !== firstChildren[index].localName)) {
+        throw new Error(`${objectName} gradient role ${role} changes its stop structure between keyframes`);
+      }
+    }
+  }
+
+  function ensureStageDefs(stage) {
+    let defs = Array.from(stage.children).find(child => child.localName === "defs");
+    if (!defs) {
+      defs = document.createElementNS(SVG_NS, "defs");
+      stage.insertBefore(defs, stage.firstChild);
+    }
+    return defs;
+  }
+
+  function removeDescendantIds(element) {
+    for (const descendant of element.querySelectorAll("[id]")) descendant.removeAttribute("id");
+  }
+
   function matrixMultiply(left, right) {
     const [a1, b1, c1, d1, e1, f1] = left;
     const [a2, b2, c2, d2, e2, f2] = right;
@@ -607,6 +679,8 @@
     }
 
     const envelopeAnimations = new Map();
+    const stageDefs = ensureStageDefs(stage);
+    let runtimeGradientNumber = 0;
     for (const [name, target] of targetEnvelopeObjects) {
       const objects = frames.map(frame => frame.envelopeObjects.get(name));
       const firstObject = objects[0];
@@ -634,8 +708,37 @@
       });
       const bbox = EnvelopeMorph.bboxFromPaths(paths.map(item => ({ data: item.original, matrix: item.localToObject })));
       validatePrefixEffects(objects, bbox);
-      envelopeAnimations.set(name, { name, target: target.element, objects, paths, bbox });
+      const roleMaps = objects.map(object => gradientRoleMap(object.element));
+      const targetRoles = gradientRoleMap(target.element);
+      const firstRoles = roleMaps[0];
+      const gradientAnimations = [];
+      for (const [role] of firstRoles) {
+        const sourceElements = roleMaps.map((roles, frameIndex) => {
+          const element = roles.get(role);
+          if (!element) throw new Error(`${name} is missing gradient role ${role} at keyframe ${frames[frameIndex].time}`);
+          return element;
+        });
+        const sourceGradients = sourceElements.map(element => referencedGradient(sourceDocument, element, name, role));
+        validateGradientSequence(name, role, sourceGradients);
+        const targetElement = targetRoles.get(role);
+        if (!targetElement) throw new Error(`Target clone for ${name} is missing gradient role ${role}`);
+        const runtimeId = `toonscape-runtime-gradient-${runtimeGradientNumber++}`;
+        const targetGradient = sourceGradients[0].cloneNode(true);
+        targetGradient.setAttribute("id", runtimeId);
+        removeDescendantIds(targetGradient);
+        targetGradient.setAttribute("data-toonscape-runtime-gradient", `${name}:${role}`);
+        stageDefs.appendChild(targetGradient);
+        setPaintReference(targetElement, runtimeId);
+        gradientAnimations.push({ role, target: targetGradient, sources: sourceGradients });
+      }
+      for (const roles of roleMaps.slice(1)) {
+        for (const role of roles.keys()) {
+          if (!firstRoles.has(role)) throw new Error(`${name} introduces gradient role ${role} after the first keyframe`);
+        }
+      }
+      envelopeAnimations.set(name, { name, target: target.element, objects, paths, bbox, gradientAnimations });
       note("INFO", `Envelope object ${name}: ${paths.length} paths, effects ${objects.map(object => object.envelope.id).join(" → ")}`);
+      if (gradientAnimations.length) note("INFO", `Envelope object ${name}: animated gradients ${gradientAnimations.map(item => item.role).join(", ")}`);
     }
 
     const firstFrame = frames[0];
@@ -723,6 +826,11 @@
         const mapper = EnvelopeMorph.createMapper(firstObject.envelope, secondObject.envelope, raw, animationObject.bbox);
         for (const path of animationObject.paths) {
           path.target.setAttribute("d", EnvelopeMorph.deformPath(path.original, mapper, path.localToObject, path.objectToLocal));
+        }
+        for (const gradient of animationObject.gradientAnimations) {
+          const firstGradient = gradient.sources[frames.indexOf(first)];
+          const secondGradient = gradient.sources[frames.indexOf(second)];
+          applyElementTree(gradient.target, firstGradient, secondGradient, raw);
         }
         const worldTransform = parseTransform(interpolateTransform(firstObject.worldTransform, secondObject.worldTransform, fraction));
         animationObject.target.setAttribute("transform", matrixString(matrixMultiply(inverseLayerMatrix, worldTransform)));

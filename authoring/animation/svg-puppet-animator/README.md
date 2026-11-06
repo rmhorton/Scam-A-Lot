@@ -4,7 +4,7 @@
 p5.js-driven animation preview. It can also render MP4 or WebM when Playwright
 and ffmpeg are installed.
 
-Current version: **0.2.0**
+Current version: **0.3.0**
 
 ## Install
 
@@ -12,7 +12,9 @@ The distributed folder includes p5.js 2.3.4 in `vendor/p5.min.js`, so HTML
 previews need no network connection. Node.js 20 or newer is recommended.
 
 ```bash
+npm install
 chmod +x svg-puppet.mjs
+chmod +x make-wave-svg.mjs
 ./svg-puppet.mjs --help
 ```
 
@@ -39,6 +41,48 @@ Run the bundled geometry smoke test with:
 ```bash
 npm test
 ```
+
+## Generate a traveling-wave flag SVG
+
+`make-wave-svg.mjs` turns one Inkscape flag illustration into a compatible set
+of timed Envelope Deformation poses. It also generates editable black-shadow
+and white-highlight gradients. Highlights mark folds inferred to bulge toward
+the viewer; shadows mark the intervening troughs. Those depth bands travel with
+the envelope wave.
+
+Prepare the input with the flag artwork inside a labelled group in a
+`time=<seconds>` layer. Convert painted shapes and text to paths; ordinary
+groups and nested path transforms are supported.
+
+```bash
+./make-wave-svg.mjs flat-flag.svg waving-flag.svg \
+  --object pirate_flag \
+  --duration 4 \
+  --phases 8 \
+  --pole-edge right
+```
+
+Useful lighting controls:
+
+```text
+--gradient-stops 41
+--ambient-strength 0.06
+--shadow-strength 0.28
+--highlight-strength 0.18
+--no-gradient
+```
+
+The closing pose is generated automatically and exactly matches the first.
+Only the first timed layer is visible when the file opens in Inkscape; toggle
+the other layers to inspect or edit individual phases. The hidden guide layer
+contains all generated envelope boundaries.
+
+ToonScape recognizes generated overlay paths by their
+`data-toonscape-gradient-role` attributes. During HTML and video playback it
+creates stable runtime gradients and interpolates their coordinates and stop
+styles on the same linear phase clock as the envelope. Highlights and shadows
+therefore travel continuously with the wave rather than remaining attached to
+the first pose.
 
 ## Inkscape structure
 
@@ -172,6 +216,46 @@ region. It then resets invisibly rather than appearing to fly backward.
 - Part labels and element structure must remain consistent between keyframes.
 - Diagnostics never modify or snap small movements.
 
+## Version 0.3.0
+
+- Animates compatible direct linear and radial gradient definitions attached
+  to Envelope Deformation objects with `data-toonscape-gradient-role`.
+- Uses stable runtime paint servers, so phase-specific gradient IDs never
+  become broken or stationary references in HTML or MP4 output.
+- Keeps gradient-stop interpolation on the envelope's linear phase clock,
+  independent of ordinary actor easing.
+- Adds a player-level regression test that verifies the highlight peak travels
+  through multiple stop positions and closes on its exact opening position.
+
+## Version 0.2.3
+
+- Replaces the bundled gradient contact sheet and MP4 with correctly isolated
+  `time=` layers. The previous proof renderer repeatedly exported the first
+  visible layer, falsely making the lighting appear stationary.
+- Verifies that separated wave phases produce different rendered pixels while
+  the closing pose remains pixel-identical to the first.
+
+## Version 0.2.2
+
+- Corrects generated lighting to use inferred out-of-screen fold depth rather
+  than screen-plane slope.
+- Highlights outward bulges and darkens inward troughs, with both bands
+  traveling through the flag and reversing at each location as the wave
+  passes.
+- Adds a faint uniform ambient cloth level beneath the bands so inward troughs
+  remain visible even when the source flag is pure black.
+- Removes the erroneous broad free-edge brightening from version 0.2.1.
+
+## Version 0.2.1
+
+- Adds `make-wave-svg.mjs`, a reusable Inkscape-compatible traveling-wave
+  generator for one flag at a time.
+- Generates an exact repeat-cycle closing pose and optional envelope guides.
+- Adds two editable lighting overlays per pose: a black shadow gradient and a
+  white highlight gradient generated alongside the envelope.
+- Adds controls for cycle duration, phase count, wave size, fixed pole edge,
+  gradient resolution and lighting strength.
+
 ## Version 0.2.0
 
 - Adds production interpolation for Inkscape Envelope Deformation effects.
@@ -207,3 +291,15 @@ redistributed in this package.
 `examples/waving-pirate-flag.mp4` is a four-second, 30 fps repeat-mode proof of
 the envelope engine. Its source SVG and an eight-pose contact sheet are
 included so the same command can be rerun and inspected locally.
+
+`examples/traveling-wave-pirate-flag-with-lighting.svg` is the corresponding
+generator output with editable depth-driven shadow and highlight gradients.
+`examples/waving-pirate-flag-lighting-contact-sheet.png` shows its eight
+distinct authored lighting poses. `examples/waving-pirate-flag-lighting-proof.mp4`
+is a 32-pose, four-second proof of the corrected traveling depth bands; it is
+not a ToonScape render.
+
+`examples/waving-pirate-flag-toonscape-gradient-proof.mp4` and its contact
+sheet are rendered from ToonScape's actual runtime stage. They verify that the
+gradient bands move continuously in the HTML/MP4 player, not merely between
+the authored SVG layers.

@@ -1,13 +1,17 @@
 {
   "name": "svg-puppet-animator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "bin": {
-    "svg-puppet": "./svg-puppet.mjs"
+    "svg-puppet": "./svg-puppet.mjs",
+    "make-wave-svg": "./make-wave-svg.mjs"
   },
   "scripts": {
     "help": "node ./svg-puppet.mjs --help",
-    "test": "node ./smoke-test.mjs"
+    "test": "node ./smoke-test.mjs && node ./make-wave-smoke-test.mjs && node ./gradient-player-smoke-test.mjs"
+  },
+  "dependencies": {
+    "jsdom": "27.4.0"
   }
 }
