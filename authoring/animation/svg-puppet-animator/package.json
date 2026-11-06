@@ -1,12 +1,13 @@
 {
   "name": "svg-puppet-animator",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "bin": {
     "svg-puppet": "./svg-puppet.mjs"
   },
   "scripts": {
-    "help": "node ./svg-puppet.mjs --help"
+    "help": "node ./svg-puppet.mjs --help",
+    "test": "node ./smoke-test.mjs"
   }
 }

@@ -10,14 +10,17 @@ import { createRequire } from "node:module";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const VENDOR_P5 = path.join(SCRIPT_DIR, "vendor", "p5.min.js");
 const PLAYER_JS = path.join(SCRIPT_DIR, "player.js");
+const SVG_PATH_JS = path.join(SCRIPT_DIR, "svg-path.js");
+const ENVELOPE_CORE_JS = path.join(SCRIPT_DIR, "envelope-core.js");
 
 function usage(exitCode = 0) {
   const text = `
-SVG Puppet Animator
+ToonScape SVG Animator
 
 Compile an Inkscape SVG containing time=<seconds> layers into a p5.js-driven
 animation preview, or render it to MP4/WebM when Playwright and ffmpeg are
-available.
+available. ToonScape supports articulated puppet parts and compatible
+Inkscape Envelope Deformation effects.
 
 Usage:
   svg-puppet INPUT.svg [options]
@@ -147,22 +150,24 @@ function inspectSvg(svgText) {
     .map(Number)
     .sort((a, b) => a - b);
   const puppets = [...new Set(labels.filter(label => label.startsWith("puppet=")).map(label => label.slice(7)))];
+  const envelopeEffects = [...svgText.matchAll(/\beffect\s*=\s*"envelope"/g)].length;
 
   if (times.length < 2) throw new Error("SVG must contain at least two layers labelled time=<seconds>");
   if (new Set(times).size !== times.length) throw new Error("Duplicate time=<seconds> layer values are not allowed");
-  if (puppets.length === 0) throw new Error("No puppet=<name> group was found in the SVG");
-  return { width, height, viewBox, times, puppets };
+  if (puppets.length === 0 && envelopeEffects === 0) throw new Error("No puppet=<name> group or Inkscape Envelope Deformation effect was found in the SVG");
+  return { width, height, viewBox, times, puppets, envelopeEffects };
 }
 
 function buildReadme(inputName, config, inspection) {
   const span = inspection.times.at(-1) - inspection.times[0];
   const cycle = config.loopMode === "pingpong" ? span * 2 : span;
   const duration = config.startHold + config.endHold + cycle * config.loops + config.loopDelay * Math.max(0, config.loops - 1);
-  return `SVG Puppet Animator preview
+  return `ToonScape SVG Animator preview
 
 Source: ${inputName}
 Keyframe times: ${inspection.times.join(", ")} seconds
-Puppets: ${inspection.puppets.join(", ")}
+Puppets: ${inspection.puppets.length ? inspection.puppets.join(", ") : "none"}
+Envelope Deformation definitions: ${inspection.envelopeEffects}
 Loop mode: ${config.loopMode}
 Loops: ${config.loops}
 Approximate duration: ${duration.toFixed(6)} seconds
@@ -191,6 +196,10 @@ Authoring conventions
 * Matching puppet and part labels identify the same object across keyframes.
 * Positions, transforms, opacity, paths, and small changes are treated as
   intentional. Diagnostics report suspicious differences but do not alter them.
+* A labelled top-level group that references one compatible Inkscape Envelope
+  Deformation effect is detected automatically and matched by label.
+* Envelope boundaries interpolate linearly to preserve constant wave speed;
+  --easing continues to control ordinary transforms, styles, and puppet parts.
 * Inkscape display:none on time layers is ignored, because layer visibility is
   an editing convenience. Opacity remains animatable.
 `;
@@ -202,7 +211,7 @@ function buildHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SVG Puppet Animation</title>
+  <title>ToonScape SVG Animation</title>
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; }
     html, body { margin: 0; min-height: 100%; background: #242424; }
@@ -233,6 +242,8 @@ function buildHtml() {
   </section>
   <script src="animation-data.js"></script>
   <script src="p5.min.js"></script>
+  <script src="svg-path.js"></script>
+  <script src="envelope-core.js"></script>
   <script src="player.js"></script>
 </body>
 </html>
@@ -258,6 +269,8 @@ function writePreview(svgPath, outDir, options, inspection) {
   fs.writeFileSync(path.join(outDir, "animation-data.js"), `window.SVG_PUPPET_CONFIG = ${JSON.stringify(payload)};\n`);
   fs.writeFileSync(path.join(outDir, "index.html"), buildHtml());
   fs.copyFileSync(VENDOR_P5, path.join(outDir, "p5.min.js"));
+  fs.copyFileSync(SVG_PATH_JS, path.join(outDir, "svg-path.js"));
+  fs.copyFileSync(ENVELOPE_CORE_JS, path.join(outDir, "envelope-core.js"));
   fs.copyFileSync(PLAYER_JS, path.join(outDir, "player.js"));
   fs.writeFileSync(path.join(outDir, "README.txt"), buildReadme(path.basename(svgPath), options, inspection));
 }
@@ -281,7 +294,20 @@ async function renderVideo(previewDir, outputPath, options, quiet) {
     try {
       browser = await chromium.launch({ headless: true, channel: "chrome" });
     } catch {
-      throw new Error(`Playwright could not launch its bundled browser or installed Google Chrome. Run "npx playwright install chromium" or install Chrome. Original error: ${bundledBrowserError.message}`);
+      const candidates = [
+        process.env.TOONSCAPE_BROWSER,
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/Applications/Chromium.app/Contents/MacOS/Chromium",
+        "/usr/bin/google-chrome",
+        "/usr/bin/chromium"
+      ].filter(Boolean).filter(candidate => fs.existsSync(candidate));
+      for (const executablePath of candidates) {
+        try {
+          browser = await chromium.launch({ headless: true, executablePath });
+          break;
+        } catch { /* Try the next installed browser. */ }
+      }
+      if (!browser) throw new Error(`Playwright could not launch its bundled browser, installed Google Chrome, or an installed Chromium executable. Run "npx playwright install chromium", install Chrome, or set TOONSCAPE_BROWSER. Original error: ${bundledBrowserError.message}`);
     }
   }
   try {
@@ -339,6 +365,7 @@ async function main() {
   const svgPath = path.resolve(options.input);
   if (!fs.existsSync(svgPath)) throw new Error(`Input file not found: ${svgPath}`);
   if (!fs.existsSync(VENDOR_P5)) throw new Error(`Missing bundled p5.js: ${VENDOR_P5}`);
+  if (!fs.existsSync(SVG_PATH_JS) || !fs.existsSync(ENVELOPE_CORE_JS)) throw new Error("Missing bundled envelope geometry modules");
   const svgText = fs.readFileSync(svgPath, "utf8");
   const inspection = inspectSvg(svgText);
   const defaultOutput = path.join(path.dirname(svgPath), `${path.basename(svgPath, path.extname(svgPath))}-animation`);
@@ -351,7 +378,8 @@ async function main() {
   if (!options.quiet) {
     console.log(`Input: ${svgPath}`);
     console.log(`Keyframes: ${inspection.times.join(", ")} seconds`);
-    console.log(`Puppets: ${inspection.puppets.join(", ")}`);
+    console.log(`Puppets: ${inspection.puppets.length ? inspection.puppets.join(", ") : "none"}`);
+    console.log(`Envelope Deformation definitions: ${inspection.envelopeEffects}`);
   }
   writePreview(svgPath, previewDir, options, inspection);
   if (video) {

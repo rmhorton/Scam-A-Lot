@@ -26,6 +26,63 @@
     return element.getAttributeNS(INKSCAPE_NS, "label") || element.getAttribute("inkscape:label") || "";
   }
 
+  function originalPathOf(element) {
+    return element.getAttributeNS(INKSCAPE_NS, "original-d") || element.getAttribute("inkscape:original-d") || "";
+  }
+
+  function pathEffectOf(element) {
+    return element.getAttributeNS(INKSCAPE_NS, "path-effect") || element.getAttribute("inkscape:path-effect") || "";
+  }
+
+  function effectReferenceIds(value) {
+    return String(value || "").split(";").map(reference => {
+      const trimmed = reference.trim();
+      const url = trimmed.match(/^url\(\s*#([^\s)]+)\s*\)$/);
+      if (url) return url[1];
+      return trimmed.startsWith("#") ? trimmed.slice(1) : trimmed;
+    }).filter(Boolean);
+  }
+
+  function referencesEnvelope(document, element) {
+    return effectReferenceIds(pathEffectOf(element)).some(id => document.getElementById(id)?.getAttribute("effect") === "envelope");
+  }
+
+  function effectDefinition(document, object) {
+    const effects = effectReferenceIds(pathEffectOf(object)).map(id => {
+      const element = document.getElementById(id);
+      if (!element) throw new Error(`${labelOf(object) || object.id} references missing path effect #${id}`);
+      return { id, element, type: element.getAttribute("effect") || "unknown" };
+    });
+    const envelopeIndexes = effects.map((item, index) => item.type === "envelope" ? index : -1).filter(index => index >= 0);
+    if (envelopeIndexes.length !== 1) {
+      const summary = effects.length ? effects.map(item => `${item.id} (${item.type})`).join(", ") : "no path effects";
+      throw new Error(`${labelOf(object) || object.id} must reference exactly one Inkscape Envelope Deformation effect; found ${summary}`);
+    }
+    const envelopeIndex = envelopeIndexes[0];
+    const { id, element: effect } = effects[envelopeIndex];
+    const following = effects.slice(envelopeIndex + 1).filter(item => item.element.getAttribute("is_visible") !== "false");
+    if (following.length) throw new Error(`${labelOf(object) || object.id} has unsupported visible path effects after its envelope: ${following.map(item => `${item.id} (${item.type})`).join(", ")}`);
+    const result = { id };
+    for (let number = 1; number <= 4; number += 1) {
+      result[`bendpath${number}`] = effect.getAttribute(`bendpath${number}`) || "";
+      if (!result[`bendpath${number}`]) throw new Error(`Envelope ${id} is missing bendpath${number}`);
+    }
+    result.xx = effect.getAttribute("xx") !== "false";
+    result.yy = effect.getAttribute("yy") !== "false";
+    result.prefixEffects = effects.slice(0, envelopeIndex).filter(item => item.element.getAttribute("is_visible") !== "false").map(item => ({
+      id: item.id,
+      type: item.type,
+      deformType: item.element.getAttribute("deform_type") || "",
+      horizontalMirror: item.element.getAttribute("horizontal_mirror") === "true",
+      verticalMirror: item.element.getAttribute("vertical_mirror") === "true",
+      upLeft: item.element.getAttribute("up_left_point") || "",
+      upRight: item.element.getAttribute("up_right_point") || "",
+      downLeft: item.element.getAttribute("down_left_point") || "",
+      downRight: item.element.getAttribute("down_right_point") || ""
+    }));
+    return result;
+  }
+
   function removeDisplay(styleText) {
     const map = parseStyle(styleText || "");
     delete map.display;
@@ -113,6 +170,59 @@
       result = matrixMultiply(result, next);
     }
     return result;
+  }
+
+  function matrixWithin(element, ancestor) {
+    let matrix = [1, 0, 0, 1, 0, 0];
+    let node = element;
+    while (node && node !== ancestor) {
+      matrix = matrixMultiply(parseTransform(node.getAttribute("transform") || ""), matrix);
+      node = node.parentElement;
+    }
+    if (node !== ancestor) throw new Error("Element is not a descendant of the expected envelope object");
+    return matrix;
+  }
+
+  function matrixToAncestor(element, ancestor) {
+    let matrix = [1, 0, 0, 1, 0, 0];
+    let node = element;
+    while (node && node !== ancestor) {
+      matrix = matrixMultiply(parseTransform(node.getAttribute("transform") || ""), matrix);
+      node = node.parentElement;
+    }
+    if (node !== ancestor) throw new Error("Animated object is not a descendant of its SVG root");
+    return matrix;
+  }
+
+  function matrixString(matrix) {
+    return `matrix(${matrix.map(value => Number(value.toFixed(10))).join(" ")})`;
+  }
+
+  function pointPair(value) {
+    const numbers = String(value || "").match(NUMBER_RE) || [];
+    return numbers.length === 2 ? numbers.map(Number) : null;
+  }
+
+  function validatePrefixEffects(objects, bbox) {
+    const expected = {
+      upLeft: [bbox.minX, bbox.minY], upRight: [bbox.maxX, bbox.minY],
+      downLeft: [bbox.minX, bbox.maxY], downRight: [bbox.maxX, bbox.maxY]
+    };
+    const tolerance = Math.max(1, bbox.maxX - bbox.minX, bbox.maxY - bbox.minY) * 1e-5;
+    const ignored = new Set();
+    for (const object of objects) {
+      for (const effect of object.envelope.prefixEffects) {
+        const cornersMatch = Object.entries(expected).every(([name, target]) => {
+          const point = pointPair(effect[name]);
+          return point && Math.hypot(point[0] - target[0], point[1] - target[1]) <= tolerance;
+        });
+        const identityPerspective = effect.type === "perspective-envelope" && effect.deformType === "perspective" &&
+          !effect.horizontalMirror && !effect.verticalMirror && cornersMatch;
+        if (!identityPerspective) throw new Error(`${object.label} has unsupported non-identity path effect #${effect.id} (${effect.type}) before its envelope`);
+        ignored.add(effect.type);
+      }
+    }
+    if (ignored.size) note("INFO", `Ignored identity prefix effect${ignored.size === 1 ? "" : "s"}: ${Array.from(ignored).join(", ")}`);
   }
 
   function decomposeMatrix(matrix) {
@@ -209,7 +319,7 @@
     return serializeStyle(result);
   }
 
-  const NEVER_TWEEN = new Set(["id", "inkscape:label"]);
+  const NEVER_TWEEN = new Set(["id", "inkscape:label", "inkscape:path-effect"]);
 
   function attributeMap(element) {
     return new Map(Array.from(element.attributes).map(attribute => [attribute.name, attribute.value]));
@@ -332,6 +442,10 @@
     return Array.from(layer.querySelectorAll("g")).filter(element => labelOf(element).startsWith("puppet="));
   }
 
+  function directEnvelopeObjects(document, layer) {
+    return Array.from(layer.children).filter(element => element.localName === "g" && referencesEnvelope(document, element));
+  }
+
   function directParts(puppet) {
     return new Map(Array.from(puppet.children)
       .map(element => [labelOf(element), element])
@@ -424,6 +538,7 @@
 
     let animatedLayer = null;
     const targetPuppets = new Map();
+    const targetEnvelopeObjects = new Map();
     const firstTimeElement = timeLayers[0].element;
     for (const child of Array.from(sourceRoot.children)) {
       const timeMatch = labelOf(child).match(/^time=/);
@@ -437,13 +552,21 @@
           animatedLayer.appendChild(clone);
           targetPuppets.set(name, { element: clone, parts: directParts(clone) });
         }
+        for (const object of directEnvelopeObjects(sourceDocument, child)) {
+          const name = labelOf(object);
+          if (!name) throw new Error("A top-level Envelope Deformation group has no inkscape:label");
+          if (targetEnvelopeObjects.has(name)) throw new Error(`Duplicate Envelope Deformation object label ${name} in the first keyframe`);
+          const clone = object.cloneNode(true);
+          animatedLayer.appendChild(clone);
+          targetEnvelopeObjects.set(name, { element: clone });
+        }
         stage.appendChild(animatedLayer);
       } else if (child.localName !== "namedview") {
         stage.appendChild(child.cloneNode(true));
       }
     }
     if (!animatedLayer) throw new Error("Could not create the animated layer");
-    if (targetPuppets.size === 0) throw new Error("The first keyframe contains no puppet=<name> group");
+    if (targetPuppets.size === 0 && targetEnvelopeObjects.size === 0) throw new Error("The first keyframe contains no puppet=<name> group or top-level Envelope Deformation object");
 
     const frames = timeLayers.map(({ element, time }) => {
       const puppets = new Map();
@@ -451,7 +574,20 @@
         const name = labelOf(puppet).slice(7);
         puppets.set(name, { element: puppet, parts: directParts(puppet) });
       }
-      return { time, layer: element, puppets };
+      const envelopeObjects = new Map();
+      for (const object of directEnvelopeObjects(sourceDocument, element)) {
+        const name = labelOf(object);
+        if (!name) throw new Error(`Keyframe ${time} contains an unlabelled Envelope Deformation object`);
+        if (envelopeObjects.has(name)) throw new Error(`Keyframe ${time} contains duplicate Envelope Deformation object ${name}`);
+        envelopeObjects.set(name, {
+          label: name,
+          element: object,
+          envelope: effectDefinition(sourceDocument, object),
+          paths: Array.from(object.querySelectorAll("path")),
+          worldTransform: matrixString(matrixToAncestor(object, sourceRoot))
+        });
+      }
+      return { time, layer: element, puppets, envelopeObjects };
     });
 
     for (const [name, target] of targetPuppets) {
@@ -462,6 +598,44 @@
           if (!sourcePuppet.parts.has(partName)) throw new Error(`Keyframe ${frame.time} puppet=${name} is missing part ${partName}`);
         }
       }
+    }
+
+    for (const name of targetEnvelopeObjects.keys()) {
+      for (const frame of frames) {
+        if (!frame.envelopeObjects.has(name)) throw new Error(`Keyframe ${frame.time} is missing Envelope Deformation object ${name}`);
+      }
+    }
+
+    const envelopeAnimations = new Map();
+    for (const [name, target] of targetEnvelopeObjects) {
+      const objects = frames.map(frame => frame.envelopeObjects.get(name));
+      const firstObject = objects[0];
+      const targetPaths = Array.from(target.element.querySelectorAll("path"));
+      if (firstObject.paths.length !== targetPaths.length) throw new Error(`Target clone path count changed for Envelope Deformation object ${name}`);
+      const paths = firstObject.paths.map((firstPath, index) => {
+        const original = originalPathOf(firstPath);
+        if (!original) throw new Error(`Path ${firstPath.id || index + 1} in ${name} has no inkscape:original-d`);
+        const localToObject = matrixWithin(firstPath, firstObject.element);
+        for (const object of objects.slice(1)) {
+          if (object.paths.length !== firstObject.paths.length) throw new Error(`Path count changed for ${name}`);
+          const candidate = object.paths[index];
+          if (originalPathOf(candidate) !== original) throw new Error(`Original path changed for ${firstPath.id || index + 1} in ${name}`);
+          const candidateMatrix = matrixWithin(candidate, object.element);
+          if (candidateMatrix.some((value, matrixIndex) => Math.abs(value - localToObject[matrixIndex]) > 1e-8)) {
+            throw new Error(`Nested transform changed for ${firstPath.id || index + 1} in ${name}`);
+          }
+        }
+        return {
+          original,
+          target: targetPaths[index],
+          localToObject,
+          objectToLocal: matrixInverse(localToObject)
+        };
+      });
+      const bbox = EnvelopeMorph.bboxFromPaths(paths.map(item => ({ data: item.original, matrix: item.localToObject })));
+      validatePrefixEffects(objects, bbox);
+      envelopeAnimations.set(name, { name, target: target.element, objects, paths, bbox });
+      note("INFO", `Envelope object ${name}: ${paths.length} paths, effects ${objects.map(object => object.envelope.id).join(" → ")}`);
     }
 
     const firstFrame = frames[0];
@@ -475,11 +649,13 @@
     }
     note("INFO", `Document canvas ${pixelWidth}x${pixelHeight}; viewBox ${viewBox.join(" ")}`);
     note("INFO", `Keyframes ${frames.map(frame => (frame.time + minimumTime).toFixed(6)).join(", ")} seconds`);
-    note("INFO", `Puppets ${Array.from(targetPuppets.keys()).join(", ")}`);
+    note("INFO", `Puppets ${targetPuppets.size ? Array.from(targetPuppets.keys()).join(", ") : "none"}`);
+    note("INFO", `Envelope objects ${targetEnvelopeObjects.size ? Array.from(targetEnvelopeObjects.keys()).join(", ") : "none"}`);
+    if (targetEnvelopeObjects.size) note("INFO", "Envelope phase interpolation is linear; ordinary actor easing remains unchanged");
     describeTinyChanges(frames, pixelWidth / viewBox[2], pixelHeight / viewBox[3]);
 
     document.getElementById("stage-host").appendChild(stage);
-    return { stage, animatedLayer, frames, targetPuppets, width: pixelWidth, height: pixelHeight, span };
+    return { stage, animatedLayer, frames, targetPuppets, targetEnvelopeObjects, envelopeAnimations, width: pixelWidth, height: pixelHeight, span };
   }
 
   function easing(value) {
@@ -488,7 +664,7 @@
   }
 
   function createPlayer(animation) {
-    const { frames, targetPuppets, span, animatedLayer } = animation;
+    const { frames, targetPuppets, envelopeAnimations, span, animatedLayer } = animation;
     const options = config.options;
     const cycleDuration = options.loopMode === "pingpong" ? span * 2 : span;
     const duration = options.startHold + options.endHold + cycleDuration * options.loops + options.loopDelay * Math.max(0, options.loops - 1);
@@ -536,6 +712,20 @@
           const secondPart = secondPuppet.parts.get(partName);
           applyElementTree(targetPart, firstPart, secondPart, fraction);
         }
+      }
+
+      const layerMatrix = parseTransform(animatedLayer.getAttribute("transform") || "");
+      const inverseLayerMatrix = matrixInverse(layerMatrix);
+      for (const [name, animationObject] of envelopeAnimations) {
+        const firstObject = first.envelopeObjects.get(name);
+        const secondObject = second.envelopeObjects.get(name);
+        applyAttributes(animationObject.target, firstObject.element, secondObject.element, fraction);
+        const mapper = EnvelopeMorph.createMapper(firstObject.envelope, secondObject.envelope, raw, animationObject.bbox);
+        for (const path of animationObject.paths) {
+          path.target.setAttribute("d", EnvelopeMorph.deformPath(path.original, mapper, path.localToObject, path.objectToLocal));
+        }
+        const worldTransform = parseTransform(interpolateTransform(firstObject.worldTransform, secondObject.worldTransform, fraction));
+        animationObject.target.setAttribute("transform", matrixString(matrixMultiply(inverseLayerMatrix, worldTransform)));
       }
     }
 
