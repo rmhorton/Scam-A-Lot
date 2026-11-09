@@ -19,8 +19,8 @@ ToonScape SVG Animator
 
 Compile an Inkscape SVG containing time=<seconds> layers into a p5.js-driven
 animation preview, or render it to MP4/WebM when Playwright and ffmpeg are
-available. ToonScape supports articulated puppet parts and compatible
-Inkscape Envelope Deformation effects.
+available. Labelled actors may combine ordinary SVG transforms, articulated
+parts, and compatible Inkscape Envelope Deformation effects on one timeline.
 
 Usage:
   svg-puppet INPUT.svg [options]
@@ -149,13 +149,11 @@ function inspectSvg(svgText) {
     .filter(value => value !== undefined)
     .map(Number)
     .sort((a, b) => a - b);
-  const puppets = [...new Set(labels.filter(label => label.startsWith("puppet=")).map(label => label.slice(7)))];
   const envelopeEffects = [...svgText.matchAll(/\beffect\s*=\s*"envelope"/g)].length;
 
   if (times.length < 2) throw new Error("SVG must contain at least two layers labelled time=<seconds>");
   if (new Set(times).size !== times.length) throw new Error("Duplicate time=<seconds> layer values are not allowed");
-  if (puppets.length === 0 && envelopeEffects === 0) throw new Error("No puppet=<name> group or Inkscape Envelope Deformation effect was found in the SVG");
-  return { width, height, viewBox, times, puppets, envelopeEffects };
+  return { width, height, viewBox, times, envelopeEffects };
 }
 
 function buildReadme(inputName, config, inspection) {
@@ -166,7 +164,6 @@ function buildReadme(inputName, config, inspection) {
 
 Source: ${inputName}
 Keyframe times: ${inspection.times.join(", ")} seconds
-Puppets: ${inspection.puppets.length ? inspection.puppets.join(", ") : "none"}
 Envelope Deformation definitions: ${inspection.envelopeEffects}
 Loop mode: ${config.loopMode}
 Loops: ${config.loops}
@@ -182,6 +179,14 @@ Loop semantics
 once and does not visibly repeat; this is equivalent to a one-shot mode.
 In pingpong mode, one iteration plays forward and then backward.
 
+Video frame timing
+------------------
+The renderer emits the frame budget implied by duration and --fps: one second
+at 30 fps is exactly 30 frames. The final keyframe is a time boundary. Give its
+pose duration with a later keyframe or --end-hold 0.033333 to show it for one
+30 fps frame. HTML playback is quantized to the same frame grid, regardless of
+whether the browser display refreshes at 60 or 120 Hz.
+
 Canvas and off-page artwork
 ---------------------------
 The visible canvas is exactly the SVG document/viewBox region. Artwork outside
@@ -191,13 +196,18 @@ does not enlarge the rendered canvas.
 Authoring conventions
 ---------------------
 * Top-level keyframe layers: time=<seconds>
-* Puppet group inside each keyframe: puppet=<name>
-* Every labelled direct child of a puppet group is an animated part.
-* Matching puppet and part labels identify the same object across keyframes.
+* Each labelled direct child of a time layer is an actor. The label itself is
+  its identity; prefixes such as puppet= or inflatable= are unnecessary.
+* Actor copies must retain the same SVG element hierarchy in each keyframe.
+  Nested transforms, path geometry, styles, opacity, and gradients interpolate.
+* Inkscape rotation centres are already encoded in the authored transform
+  matrices. ToonScape recovers and preserves those pivots for every nested
+  element, including groups and clones.
 * Positions, transforms, opacity, paths, and small changes are treated as
   intentional. Diagnostics report suspicious differences but do not alter them.
-* A labelled top-level group that references one compatible Inkscape Envelope
-  Deformation effect is detected automatically and matched by label.
+* A labelled actor that references one compatible Inkscape Envelope
+  Deformation effect is detected automatically. It may hand off to ordinary
+  transform animation at a later keyframe by removing the path effect there.
 * Envelope boundaries interpolate linearly to preserve constant wave speed;
   --easing continues to control ordinary transforms, styles, and puppet parts.
 * Inkscape display:none on time layers is ignored, because layer visibility is
@@ -329,7 +339,12 @@ async function renderVideo(previewDir, outputPath, options, quiet) {
       console.log(`Duration: ${metadata.duration.toFixed(6)} seconds`);
       for (const item of metadata.diagnostics) console.log(item);
     }
-    const frameCount = Math.max(1, Math.round(metadata.duration * options.fps));
+    // A video frame occupies an interval; a zero-duration endpoint is not an
+    // additional frame.  Appending the closing endpoint here would make, for
+    // example, a one-second 30 fps render contain 31 encoded frames.  Authors
+    // who want the final pose visible should give it time with a later
+    // keyframe or --end-hold.
+    const frameCount = Math.max(1, Math.ceil(metadata.duration * options.fps - 1e-9));
     const digits = String(Math.max(0, frameCount - 1)).length;
     const stage = page.locator("#stage");
     for (let index = 0; index < frameCount; index += 1) {
@@ -378,7 +393,6 @@ async function main() {
   if (!options.quiet) {
     console.log(`Input: ${svgPath}`);
     console.log(`Keyframes: ${inspection.times.join(", ")} seconds`);
-    console.log(`Puppets: ${inspection.puppets.length ? inspection.puppets.join(", ") : "none"}`);
     console.log(`Envelope Deformation definitions: ${inspection.envelopeEffects}`);
   }
   writePreview(svgPath, previewDir, options, inspection);

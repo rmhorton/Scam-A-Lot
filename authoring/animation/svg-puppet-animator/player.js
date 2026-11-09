@@ -26,6 +26,28 @@
     return element.getAttributeNS(INKSCAPE_NS, "label") || element.getAttribute("inkscape:label") || "";
   }
 
+  function parsedLabel(elementOrText) {
+    const text = typeof elementOrText === "string" ? elementOrText : labelOf(elementOrText);
+    const fields = String(text || "").split(";").map(field => field.trim()).filter(Boolean);
+    const name = fields.shift() || "";
+    const directives = new Map();
+    for (const field of fields) {
+      const equals = field.indexOf("=");
+      if (equals < 0) directives.set(field, "yes");
+      else directives.set(field.slice(0, equals).trim(), field.slice(equals + 1).trim());
+    }
+    return { name, directives };
+  }
+
+  function directiveIsNo(parsed, name) {
+    return String(parsed.directives.get(name) || "").toLowerCase() === "no";
+  }
+
+  function directiveIsYes(parsed, name) {
+    const value = String(parsed.directives.get(name) || "").toLowerCase();
+    return value === "yes" || value === "true" || value === "1";
+  }
+
   function originalPathOf(element) {
     return element.getAttributeNS(INKSCAPE_NS, "original-d") || element.getAttribute("inkscape:original-d") || "";
   }
@@ -333,9 +355,85 @@
     return a + difference * t;
   }
 
+  function affineFixedPoint(matrix) {
+    const [a, b, c, d, e, f] = matrix;
+    const determinant = (1 - a) * (1 - d) - b * c;
+    if (Math.abs(determinant) < 1e-9) return null;
+    return [
+      ((1 - d) * e + c * f) / determinant,
+      (b * e + (1 - a) * f) / determinant
+    ];
+  }
+
+  // Interpolate the *relative* affine transform whenever it is a rotation
+  // (including a rotation conjugated by non-uniform scaling).  Inkscape bakes
+  // a moved rotation centre into the matrix translation.  Decomposing the two
+  // absolute matrices independently loses that centre and makes articulated
+  // parts swing loose.  A relative transform has a recoverable fixed point;
+  // taking a fractional matrix power around it preserves the authored pivot.
+  function interpolatePivotTransform(firstMatrix, secondMatrix, t) {
+    let delta;
+    try {
+      delta = matrixMultiply(secondMatrix, matrixInverse(firstMatrix));
+    } catch {
+      return null;
+    }
+    const [a, b, c, d] = delta;
+    const determinant = a * d - b * c;
+    if (!(determinant > 1e-12)) return null;
+    const scale = Math.sqrt(determinant);
+    const normalized = [a / scale, b / scale, c / scale, d / scale];
+    let cosine = (normalized[0] + normalized[3]) / 2;
+    if (cosine < -1 - 1e-7 || cosine > 1 + 1e-7) return null;
+    cosine = Math.max(-1, Math.min(1, cosine));
+    let angle = Math.acos(cosine);
+    const orientation = normalized[1] - normalized[2];
+    if (orientation < 0) angle = -angle;
+    const sine = Math.sin(angle);
+    if (Math.abs(sine) < 1e-7) return null;
+
+    const j = [
+      (normalized[0] - cosine) / sine,
+      normalized[1] / sine,
+      normalized[2] / sine,
+      (normalized[3] - cosine) / sine
+    ];
+    // For a real elliptic transform J^2 = -I.  Reject matrices that only
+    // happen to have a plausible trace and use the ordinary fallback.
+    const j2 = [
+      j[0] * j[0] + j[2] * j[1],
+      j[1] * j[0] + j[3] * j[1],
+      j[0] * j[2] + j[2] * j[3],
+      j[1] * j[2] + j[3] * j[3]
+    ];
+    if (Math.max(Math.abs(j2[0] + 1), Math.abs(j2[1]), Math.abs(j2[2]), Math.abs(j2[3] + 1)) > 1e-5) return null;
+
+    const pivot = affineFixedPoint(delta);
+    if (!pivot) return null;
+    const partialScale = scale ** t;
+    const partialCosine = Math.cos(angle * t);
+    const partialSine = Math.sin(angle * t);
+    const linear = [
+      partialScale * (partialCosine + partialSine * j[0]),
+      partialScale * partialSine * j[1],
+      partialScale * partialSine * j[2],
+      partialScale * (partialCosine + partialSine * j[3])
+    ];
+    const partial = [
+      linear[0], linear[1], linear[2], linear[3],
+      pivot[0] - linear[0] * pivot[0] - linear[2] * pivot[1],
+      pivot[1] - linear[1] * pivot[0] - linear[3] * pivot[1]
+    ];
+    return matrixMultiply(partial, firstMatrix);
+  }
+
   function interpolateTransform(a, b, t) {
-    const first = decomposeMatrix(parseTransform(a));
-    const second = decomposeMatrix(parseTransform(b));
+    const firstMatrix = parseTransform(a);
+    const secondMatrix = parseTransform(b);
+    const pivotMatrix = interpolatePivotTransform(firstMatrix, secondMatrix, t);
+    if (pivotMatrix) return matrixString(pivotMatrix);
+    const first = decomposeMatrix(firstMatrix);
+    const second = decomposeMatrix(secondMatrix);
     const matrix = composeMatrix({
       x: lerp(first.x, second.x, t),
       y: lerp(first.y, second.y, t),
@@ -398,13 +496,23 @@
   }
 
   function applyAttributes(target, firstElement, secondElement, t, { ignoreDisplay = false } = {}) {
+    const current = attributeMap(target);
     const first = attributeMap(firstElement);
     const second = attributeMap(secondElement);
-    const names = new Set([...first.keys(), ...second.keys()]);
+    // Include the target's current attributes so a later seek can remove
+    // state left by the preceding pose.  Without this, an attribute that is
+    // absent from both source keyframes (notably a deployed clone's transform
+    // when returning to time zero) survives indefinitely in the runtime DOM.
+    const names = new Set([...current.keys(), ...first.keys(), ...second.keys()]);
     for (const name of names) {
-      if (NEVER_TWEEN.has(name) || name.startsWith("xmlns")) continue;
+      if (NEVER_TWEEN.has(name) || name.startsWith("xmlns") || name.startsWith("data-toonscape-")) continue;
       let value;
-      if (name === "transform") value = interpolateTransform(first.get(name) || "", second.get(name) || "", t);
+      if (name === "transform" && !first.has(name) && !second.has(name)) value = undefined;
+      else if (name === "transform") value = interpolateTransform(first.get(name) || "", second.get(name) || "", t);
+      // A cloned <use> must keep pointing at the matching element inside the
+      // runtime actor.  Keyframe copies have different Inkscape IDs, so
+      // adopting their href would point outside the runtime clone.
+      else if ((name === "href" || name === "xlink:href") && target.localName === "use") value = target.getAttribute(name) || first.get(name);
       else if (name === "href" || name === "xlink:href") value = t < 0.5 ? first.get(name) : second.get(name);
       else if (name === "style") value = interpolateStyle(first.get(name), second.get(name), t, ignoreDisplay);
       else if (name === "opacity") value = interpolateString(first.get(name) || "1", second.get(name) || "1", t);
@@ -510,18 +618,32 @@
     return document;
   }
 
-  function directPuppets(layer) {
-    return Array.from(layer.querySelectorAll("g")).filter(element => labelOf(element).startsWith("puppet="));
+  function directActors(layer) {
+    const actors = new Map();
+    for (const element of Array.from(layer.children)) {
+      const name = parsedLabel(element).name;
+      if (!name) continue;
+      if (actors.has(name)) throw new Error(`${labelOf(layer)} contains duplicate actor ${name}`);
+      actors.set(name, element);
+    }
+    return actors;
   }
 
-  function directEnvelopeObjects(document, layer) {
-    return Array.from(layer.children).filter(element => element.localName === "g" && referencesEnvelope(document, element));
+  function treeSignature(element) {
+    return `${element.localName}(${Array.from(element.children).map(treeSignature).join(",")})`;
   }
 
-  function directParts(puppet) {
-    return new Map(Array.from(puppet.children)
-      .map(element => [labelOf(element), element])
-      .filter(([label]) => label));
+  function identityEnvelope(bbox) {
+    const { minX, minY, maxX, maxY } = bbox;
+    return {
+      bendpath1: `M ${minX} ${minY} L ${maxX} ${minY}`,
+      bendpath2: `M ${maxX} ${minY} L ${maxX} ${maxY}`,
+      bendpath3: `M ${minX} ${maxY} L ${maxX} ${maxY}`,
+      bendpath4: `M ${minX} ${minY} L ${minX} ${maxY}`,
+      xx: true,
+      yy: true,
+      prefixEffects: []
+    };
   }
 
   function shallowClone(element) {
@@ -537,47 +659,6 @@
 
   function opacityOf(element) {
     return Number(parseStyle(element.getAttribute("style") || "").opacity ?? element.getAttribute("opacity") ?? 1);
-  }
-
-  function describeTinyChanges(frames, pixelScaleX, pixelScaleY) {
-    for (let frameIndex = 0; frameIndex < frames.length - 1; frameIndex += 1) {
-      const firstFrame = frames[frameIndex];
-      const secondFrame = frames[frameIndex + 1];
-      for (const [puppetName, firstPuppet] of firstFrame.puppets) {
-        const secondPuppet = secondFrame.puppets.get(puppetName);
-        if (!secondPuppet) continue;
-        const firstRoot = decomposeMatrix(matrixMultiply(parseTransform(firstFrame.layer.getAttribute("transform")), parseTransform(firstPuppet.element.getAttribute("transform"))));
-        const secondRoot = decomposeMatrix(matrixMultiply(parseTransform(secondFrame.layer.getAttribute("transform")), parseTransform(secondPuppet.element.getAttribute("transform"))));
-        const rootPixels = Math.hypot((secondRoot.x - firstRoot.x) * pixelScaleX, (secondRoot.y - firstRoot.y) * pixelScaleY);
-        const rootDegrees = Math.abs((secondRoot.rotation - firstRoot.rotation) * 180 / Math.PI);
-        const rootScalePercent = 100 * Math.max(Math.abs(secondRoot.scaleX - firstRoot.scaleX), Math.abs(secondRoot.scaleY - firstRoot.scaleY));
-        if (rootPixels > 0.001 && rootPixels <= 6 && rootDegrees <= 0.2 && rootScalePercent <= 0.25) {
-          note("INFO", `possible tiny edit preserved: puppet=${puppetName} root moves ${rootPixels.toFixed(2)} px between ${firstFrame.time.toFixed(6)} and ${secondFrame.time.toFixed(6)}`);
-        }
-
-        for (const [partName, firstPart] of firstPuppet.parts) {
-          const secondPart = secondPuppet.parts.get(partName);
-          if (!secondPart || firstPart.localName !== secondPart.localName) continue;
-          if ((firstPart.getAttribute("d") || "") !== (secondPart.getAttribute("d") || "")) continue;
-          const x1 = Number(firstPart.getAttribute("x") || 0);
-          const y1 = Number(firstPart.getAttribute("y") || 0);
-          const x2 = Number(secondPart.getAttribute("x") || 0);
-          const y2 = Number(secondPart.getAttribute("y") || 0);
-          const pixels = Math.hypot((x2 - x1) * pixelScaleX, (y2 - y1) * pixelScaleY);
-          const firstTransform = decomposeMatrix(parseTransform(firstPart.getAttribute("transform")));
-          const secondTransform = decomposeMatrix(parseTransform(secondPart.getAttribute("transform")));
-          const degrees = Math.abs((secondTransform.rotation - firstTransform.rotation) * 180 / Math.PI);
-          const scalePercent = 100 * Math.max(Math.abs(secondTransform.scaleX - firstTransform.scaleX), Math.abs(secondTransform.scaleY - firstTransform.scaleY));
-          const widthPixels = Math.abs(Number(secondPart.getAttribute("width") || 0) - Number(firstPart.getAttribute("width") || 0)) * pixelScaleX;
-          const heightPixels = Math.abs(Number(secondPart.getAttribute("height") || 0) - Number(firstPart.getAttribute("height") || 0)) * pixelScaleY;
-          const changed = pixels > 0.001 || degrees > 0.001 || scalePercent > 0.001 || widthPixels > 0.001 || heightPixels > 0.001 || Math.abs(opacityOf(firstPart) - opacityOf(secondPart)) > 0.0001;
-          const tiny = pixels <= 3 && degrees <= 0.2 && scalePercent <= 0.25 && widthPixels <= 3 && heightPixels <= 3;
-          if (changed && tiny) {
-            note("INFO", `possible tiny edit preserved: ${puppetName}/${partName} changes by ${pixels.toFixed(2)} px, ${degrees.toFixed(3)} degrees`);
-          }
-        }
-      }
-    }
   }
 
   function buildAnimation() {
@@ -609,8 +690,7 @@
     stage.setAttribute("overflow", "hidden");
 
     let animatedLayer = null;
-    const targetPuppets = new Map();
-    const targetEnvelopeObjects = new Map();
+    const targetActors = new Map();
     const firstTimeElement = timeLayers[0].element;
     for (const child of Array.from(sourceRoot.children)) {
       const timeMatch = labelOf(child).match(/^time=/);
@@ -618,19 +698,10 @@
         if (child !== firstTimeElement) continue;
         animatedLayer = shallowClone(child);
         animatedLayer.setAttribute("style", removeDisplay(animatedLayer.getAttribute("style") || ""));
-        for (const puppet of directPuppets(child)) {
-          const name = labelOf(puppet).slice(7);
-          const clone = puppet.cloneNode(true);
+        for (const [name, actor] of directActors(child)) {
+          const clone = actor.cloneNode(true);
           animatedLayer.appendChild(clone);
-          targetPuppets.set(name, { element: clone, parts: directParts(clone) });
-        }
-        for (const object of directEnvelopeObjects(sourceDocument, child)) {
-          const name = labelOf(object);
-          if (!name) throw new Error("A top-level Envelope Deformation group has no inkscape:label");
-          if (targetEnvelopeObjects.has(name)) throw new Error(`Duplicate Envelope Deformation object label ${name} in the first keyframe`);
-          const clone = object.cloneNode(true);
-          animatedLayer.appendChild(clone);
-          targetEnvelopeObjects.set(name, { element: clone });
+          targetActors.set(name, clone);
         }
         stage.appendChild(animatedLayer);
       } else if (child.localName !== "namedview") {
@@ -638,78 +709,70 @@
       }
     }
     if (!animatedLayer) throw new Error("Could not create the animated layer");
-    if (targetPuppets.size === 0 && targetEnvelopeObjects.size === 0) throw new Error("The first keyframe contains no puppet=<name> group or top-level Envelope Deformation object");
 
     const frames = timeLayers.map(({ element, time }) => {
-      const puppets = new Map();
-      for (const puppet of directPuppets(element)) {
-        const name = labelOf(puppet).slice(7);
-        puppets.set(name, { element: puppet, parts: directParts(puppet) });
-      }
-      const envelopeObjects = new Map();
-      for (const object of directEnvelopeObjects(sourceDocument, element)) {
-        const name = labelOf(object);
-        if (!name) throw new Error(`Keyframe ${time} contains an unlabelled Envelope Deformation object`);
-        if (envelopeObjects.has(name)) throw new Error(`Keyframe ${time} contains duplicate Envelope Deformation object ${name}`);
-        envelopeObjects.set(name, {
-          label: name,
-          element: object,
-          envelope: effectDefinition(sourceDocument, object),
-          paths: Array.from(object.querySelectorAll("path")),
-          worldTransform: matrixString(matrixToAncestor(object, sourceRoot))
+      const actors = new Map();
+      for (const [name, actor] of directActors(element)) {
+        actors.set(name, {
+          element: actor,
+          paths: Array.from(actor.querySelectorAll("path")),
+          envelope: referencesEnvelope(sourceDocument, actor) ? effectDefinition(sourceDocument, actor) : null
         });
       }
-      return { time, layer: element, puppets, envelopeObjects };
+      return { time, layer: element, actors };
     });
 
-    for (const [name, target] of targetPuppets) {
+    if (targetActors.size === 0) throw new Error("The first time layer has no labelled direct-child actors");
+
+    document.getElementById("stage-host").appendChild(stage);
+
+    for (const [name, target] of targetActors) {
+      const signature = treeSignature(target);
       for (const frame of frames) {
-        const sourcePuppet = frame.puppets.get(name);
-        if (!sourcePuppet) throw new Error(`Keyframe ${frame.time} is missing puppet=${name}`);
-        for (const partName of target.parts.keys()) {
-          if (!sourcePuppet.parts.has(partName)) throw new Error(`Keyframe ${frame.time} puppet=${name} is missing part ${partName}`);
-        }
+        const source = frame.actors.get(name);
+        if (!source) throw new Error(`Keyframe ${frame.time} is missing actor ${name}`);
+        if (treeSignature(source.element) !== signature) throw new Error(`Actor ${name} changes its SVG element structure at keyframe ${frame.time}`);
       }
     }
 
-    for (const name of targetEnvelopeObjects.keys()) {
-      for (const frame of frames) {
-        if (!frame.envelopeObjects.has(name)) throw new Error(`Keyframe ${frame.time} is missing Envelope Deformation object ${name}`);
-      }
-    }
-
-    const envelopeAnimations = new Map();
+    const actorAnimations = new Map();
     const stageDefs = ensureStageDefs(stage);
     let runtimeGradientNumber = 0;
-    for (const [name, target] of targetEnvelopeObjects) {
-      const objects = frames.map(frame => frame.envelopeObjects.get(name));
-      const firstObject = objects[0];
-      const targetPaths = Array.from(target.element.querySelectorAll("path"));
-      if (firstObject.paths.length !== targetPaths.length) throw new Error(`Target clone path count changed for Envelope Deformation object ${name}`);
-      const paths = firstObject.paths.map((firstPath, index) => {
-        const original = originalPathOf(firstPath);
-        if (!original) throw new Error(`Path ${firstPath.id || index + 1} in ${name} has no inkscape:original-d`);
-        const localToObject = matrixWithin(firstPath, firstObject.element);
-        for (const object of objects.slice(1)) {
-          if (object.paths.length !== firstObject.paths.length) throw new Error(`Path count changed for ${name}`);
-          const candidate = object.paths[index];
-          if (originalPathOf(candidate) !== original) throw new Error(`Original path changed for ${firstPath.id || index + 1} in ${name}`);
-          const candidateMatrix = matrixWithin(candidate, object.element);
-          if (candidateMatrix.some((value, matrixIndex) => Math.abs(value - localToObject[matrixIndex]) > 1e-8)) {
-            throw new Error(`Nested transform changed for ${firstPath.id || index + 1} in ${name}`);
+    for (const [name, target] of targetActors) {
+      const sources = frames.map(frame => frame.actors.get(name));
+      const animation = { name, target, sources, envelope: null };
+      const envelopeIndexes = sources.map((source, index) => source.envelope ? index : -1).filter(index => index >= 0);
+      if (!envelopeIndexes.length) {
+        actorAnimations.set(name, animation);
+        continue;
+      }
+
+      const lastEnvelopeIndex = Math.max(...envelopeIndexes);
+      const canonicalIndex = sources.findIndex((source, index) => index > lastEnvelopeIndex && !source.envelope);
+      const geometryIndex = canonicalIndex >= 0 ? canonicalIndex : envelopeIndexes[0];
+      const geometrySource = sources[geometryIndex];
+      const targetPaths = Array.from(target.querySelectorAll("path"));
+      if (geometrySource.paths.length !== targetPaths.length) throw new Error(`Target clone path count changed for actor ${name}`);
+      const paths = geometrySource.paths.map((geometryPath, index) => {
+        let original = geometryPath.getAttribute("d") || "";
+        for (const source of sources) {
+          const explicit = originalPathOf(source.paths[index]);
+          if (explicit) {
+            if (canonicalIndex < 0) original = explicit;
+            else if (explicit !== original) throw new Error(`Actor ${name} path ${geometryPath.id || index + 1} has inconsistent original geometry`);
           }
         }
-        return {
-          original,
-          target: targetPaths[index],
-          localToObject,
-          objectToLocal: matrixInverse(localToObject)
-        };
+        if (!original) throw new Error(`Actor ${name} path ${geometryPath.id || index + 1} has no usable path geometry`);
+        const localToObject = matrixWithin(geometryPath, geometrySource.element);
+        return { original, target: targetPaths[index], localToObject, objectToLocal: matrixInverse(localToObject) };
       });
       const bbox = EnvelopeMorph.bboxFromPaths(paths.map(item => ({ data: item.original, matrix: item.localToObject })));
-      validatePrefixEffects(objects, bbox);
-      const roleMaps = objects.map(object => gradientRoleMap(object.element));
-      const targetRoles = gradientRoleMap(target.element);
+      const actualEnvelopeObjects = sources.filter(source => source.envelope).map(source => ({ label: name, envelope: source.envelope }));
+      validatePrefixEffects(actualEnvelopeObjects, bbox);
+      const envelopeStates = sources.map(source => source.envelope || identityEnvelope(bbox));
+
+      const roleMaps = sources.map(source => gradientRoleMap(source.element));
+      const targetRoles = gradientRoleMap(target);
       const firstRoles = roleMaps[0];
       const gradientAnimations = [];
       for (const [role] of firstRoles) {
@@ -729,22 +792,23 @@
         targetGradient.setAttribute("data-toonscape-runtime-gradient", `${name}:${role}`);
         stageDefs.appendChild(targetGradient);
         setPaintReference(targetElement, runtimeId);
-        gradientAnimations.push({ role, target: targetGradient, sources: sourceGradients });
+        gradientAnimations.push({ role, target: targetGradient, targetElement, runtimeId, sources: sourceGradients });
       }
       for (const roles of roleMaps.slice(1)) {
         for (const role of roles.keys()) {
           if (!firstRoles.has(role)) throw new Error(`${name} introduces gradient role ${role} after the first keyframe`);
         }
       }
-      envelopeAnimations.set(name, { name, target: target.element, objects, paths, bbox, gradientAnimations });
-      note("INFO", `Envelope object ${name}: ${paths.length} paths, effects ${objects.map(object => object.envelope.id).join(" → ")}`);
-      if (gradientAnimations.length) note("INFO", `Envelope object ${name}: animated gradients ${gradientAnimations.map(item => item.role).join(", ")}`);
+      animation.envelope = { paths, bbox, states: envelopeStates, gradientAnimations };
+      actorAnimations.set(name, animation);
+      note("INFO", `Actor ${name}: envelope deformation on ${paths.length} paths, then ordinary transforms`);
+      if (gradientAnimations.length) note("INFO", `Actor ${name}: animated gradients ${gradientAnimations.map(item => item.role).join(", ")}`);
     }
 
     const firstFrame = frames[0];
-    for (const [name, puppet] of firstFrame.puppets) {
-      const opacity = opacityOf(puppet.element);
-      if (opacity !== 1) note("NOTICE", `puppet=${name} begins with opacity ${opacity}`);
+    for (const [name, actor] of firstFrame.actors) {
+      const opacity = opacityOf(actor.element);
+      if (opacity !== 1) note("NOTICE", `actor ${name} begins with opacity ${opacity}`);
     }
     for (const frame of frames) {
       const styleOpacity = Number(parseStyle(frame.layer.getAttribute("style") || "").opacity ?? frame.layer.getAttribute("opacity") ?? 1);
@@ -752,13 +816,12 @@
     }
     note("INFO", `Document canvas ${pixelWidth}x${pixelHeight}; viewBox ${viewBox.join(" ")}`);
     note("INFO", `Keyframes ${frames.map(frame => (frame.time + minimumTime).toFixed(6)).join(", ")} seconds`);
-    note("INFO", `Puppets ${targetPuppets.size ? Array.from(targetPuppets.keys()).join(", ") : "none"}`);
-    note("INFO", `Envelope objects ${targetEnvelopeObjects.size ? Array.from(targetEnvelopeObjects.keys()).join(", ") : "none"}`);
-    if (targetEnvelopeObjects.size) note("INFO", "Envelope phase interpolation is linear; ordinary actor easing remains unchanged");
-    describeTinyChanges(frames, pixelWidth / viewBox[2], pixelHeight / viewBox[3]);
+    note("INFO", `Actors ${Array.from(targetActors.keys()).join(", ")}`);
+    if (Array.from(actorAnimations.values()).some(animation => animation.envelope)) {
+      note("INFO", "Envelope interpolation is linear; ordinary actor transforms use the selected easing");
+    }
 
-    document.getElementById("stage-host").appendChild(stage);
-    return { stage, animatedLayer, frames, targetPuppets, targetEnvelopeObjects, envelopeAnimations, width: pixelWidth, height: pixelHeight, span };
+    return { stage, animatedLayer, frames, actorAnimations, width: pixelWidth, height: pixelHeight, span };
   }
 
   function easing(value) {
@@ -767,11 +830,16 @@
   }
 
   function createPlayer(animation) {
-    const { frames, targetPuppets, envelopeAnimations, span, animatedLayer } = animation;
+    const { frames, actorAnimations, span, animatedLayer } = animation;
     const options = config.options;
     const cycleDuration = options.loopMode === "pingpong" ? span * 2 : span;
     const duration = options.startHold + options.endHold + cycleDuration * options.loops + options.loopDelay * Math.max(0, options.loops - 1);
     let playing = true;
+    // playbackElapsed follows wall-clock time. elapsed is the discrete frame
+    // currently displayed. Keeping them separate makes an HTML preview use
+    // the same frame grid as an MP4 render instead of revealing extra
+    // in-between poses on a 60/120 Hz monitor.
+    let playbackElapsed = 0;
     let elapsed = 0;
 
     function timelineTimeAt(seconds) {
@@ -792,6 +860,11 @@
     }
 
     function applyTimelineTime(time) {
+      // Inkscape labels are decimal text, so a nominal 30 fps time may be
+      // written as 5.0667 while the frame grid is 5.066666.... Land exactly
+      // on such nearby authored poses instead of leaving a microscopic tween.
+      const nearbyKeyframe = frames.find(frame => Math.abs(frame.time - time) <= 1e-4);
+      if (nearbyKeyframe) time = nearbyKeyframe.time;
       let first = frames[0];
       let second = frames.at(-1);
       for (let index = 0; index < frames.length - 1; index += 1) {
@@ -806,41 +879,36 @@
       const fraction = easing(raw);
       applyAttributes(animatedLayer, first.layer, second.layer, fraction, { ignoreDisplay: true });
 
-      for (const [name, target] of targetPuppets) {
-        const firstPuppet = first.puppets.get(name);
-        const secondPuppet = second.puppets.get(name);
-        applyAttributes(target.element, firstPuppet.element, secondPuppet.element, fraction);
-        for (const [partName, targetPart] of target.parts) {
-          const firstPart = firstPuppet.parts.get(partName);
-          const secondPart = secondPuppet.parts.get(partName);
-          applyElementTree(targetPart, firstPart, secondPart, fraction);
-        }
-      }
+      const firstIndex = frames.indexOf(first);
+      const secondIndex = frames.indexOf(second);
+      for (const animationObject of actorAnimations.values()) {
+        const firstActor = animationObject.sources[firstIndex];
+        const secondActor = animationObject.sources[secondIndex];
+        applyElementTree(animationObject.target, firstActor.element, secondActor.element, fraction);
 
-      const layerMatrix = parseTransform(animatedLayer.getAttribute("transform") || "");
-      const inverseLayerMatrix = matrixInverse(layerMatrix);
-      for (const [name, animationObject] of envelopeAnimations) {
-        const firstObject = first.envelopeObjects.get(name);
-        const secondObject = second.envelopeObjects.get(name);
-        applyAttributes(animationObject.target, firstObject.element, secondObject.element, fraction);
-        const mapper = EnvelopeMorph.createMapper(firstObject.envelope, secondObject.envelope, raw, animationObject.bbox);
-        for (const path of animationObject.paths) {
+        const envelope = animationObject.envelope;
+        const envelopeActive = envelope && (firstActor.envelope || secondActor.envelope) && !(raw >= 1 - 1e-10 && !secondActor.envelope);
+        if (!envelopeActive) continue;
+        const mapper = EnvelopeMorph.createMapper(envelope.states[firstIndex], envelope.states[secondIndex], raw, envelope.bbox);
+        for (const path of envelope.paths) {
           path.target.setAttribute("d", EnvelopeMorph.deformPath(path.original, mapper, path.localToObject, path.objectToLocal));
         }
-        for (const gradient of animationObject.gradientAnimations) {
-          const firstGradient = gradient.sources[frames.indexOf(first)];
-          const secondGradient = gradient.sources[frames.indexOf(second)];
-          applyElementTree(gradient.target, firstGradient, secondGradient, raw);
+        for (const gradient of envelope.gradientAnimations) {
+          applyElementTree(gradient.target, gradient.sources[firstIndex], gradient.sources[secondIndex], raw);
+          setPaintReference(gradient.targetElement, gradient.runtimeId);
         }
-        const worldTransform = parseTransform(interpolateTransform(firstObject.worldTransform, secondObject.worldTransform, fraction));
-        animationObject.target.setAttribute("transform", matrixString(matrixMultiply(inverseLayerMatrix, worldTransform)));
       }
     }
 
-    function seekSeconds(seconds) {
+    function displaySeconds(seconds) {
       elapsed = Math.max(0, Math.min(duration, Number(seconds) || 0));
       applyTimelineTime(timelineTimeAt(elapsed));
       updateControls();
+    }
+
+    function seekSeconds(seconds) {
+      playbackElapsed = Math.max(0, Math.min(duration, Number(seconds) || 0));
+      displaySeconds(playbackElapsed);
     }
 
     function updateControls() {
@@ -850,25 +918,34 @@
       if (clock) clock.value = `${elapsed.toFixed(3)} / ${duration.toFixed(3)} s`;
     }
 
-    document.getElementById("play")?.addEventListener("click", () => { if (elapsed >= duration) elapsed = 0; playing = true; });
+    document.getElementById("play")?.addEventListener("click", () => {
+      if (playbackElapsed >= duration) seekSeconds(0);
+      playing = true;
+    });
     document.getElementById("pause")?.addEventListener("click", () => { playing = false; });
-    document.getElementById("restart")?.addEventListener("click", () => { elapsed = 0; playing = true; seekSeconds(0); });
+    document.getElementById("restart")?.addEventListener("click", () => { playing = true; seekSeconds(0); });
     document.getElementById("scrubber")?.addEventListener("input", event => { playing = false; seekSeconds(Number(event.target.value) * duration); });
 
     new p5(p => {
       p.setup = () => {
         p.noCanvas();
-        p.frameRate(60);
+        // The scheduler may run faster than the requested output rate, but
+        // displaySeconds below is called only on exact output-frame times.
+        p.frameRate(Math.max(60, options.fps));
         seekSeconds(0);
       };
       p.draw = () => {
         if (!playing) return;
-        elapsed += Math.min(0.1, p.deltaTime / 1000);
-        if (elapsed >= duration) {
-          elapsed = duration;
+        playbackElapsed += Math.min(0.1, p.deltaTime / 1000);
+        if (playbackElapsed >= duration) {
+          playbackElapsed = duration;
           playing = false;
+          displaySeconds(duration);
+          return;
         }
-        seekSeconds(elapsed);
+        const frame = Math.floor(playbackElapsed * options.fps + 1e-9);
+        const frameTime = frame / options.fps;
+        if (Math.abs(frameTime - elapsed) > 1e-9) displaySeconds(frameTime);
       };
     });
 
