@@ -1,6 +1,6 @@
 {
   "name": "svg-puppet-animator",
-  "version": "0.5.1",
+  "version": "0.6.1",
   "private": true,
   "type": "module",
   "bin": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "help": "node ./svg-puppet.mjs --help",
-    "test": "node ./smoke-test.mjs && node ./make-wave-smoke-test.mjs && node ./gradient-player-smoke-test.mjs && node ./actor-player-smoke-test.mjs"
+    "test": "node ./smoke-test.mjs && node ./make-wave-smoke-test.mjs && node ./gradient-player-smoke-test.mjs && node ./actor-player-smoke-test.mjs && node ./deformation-gradient-player-smoke-test.mjs && node ./gif-output-smoke-test.mjs"
   },
   "dependencies": {
     "jsdom": "27.4.0"

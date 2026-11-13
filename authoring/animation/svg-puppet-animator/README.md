@@ -1,10 +1,10 @@
 # ToonScape SVG Animator
 
 `svg-puppet` compiles an Inkscape SVG with `time=<seconds>` layers into a
-self-contained browser preview. It can also render MP4 or WebM when Playwright,
+self-contained browser preview. It can also render MP4, WebM, or GIF when Playwright,
 a Chromium-family browser, and ffmpeg are installed.
 
-Current version: **0.5.1**
+Current version: **0.6.1**
 
 ## Install
 
@@ -97,6 +97,41 @@ Generated flag files may mark painted paths with
 `data-toonscape-gradient-role`. ToonScape creates stable runtime gradients and
 interpolates their coordinates and stops alongside the envelope.
 
+## Deformation-aware Inkscape gradients
+
+ToonScape can carry ordinary linear and radial Inkscape gradients through an
+Envelope Deformation. Label each gradient-painted path consistently in every
+keyframe; no XML attributes or special actor type are required:
+
+```text
+time=0
+└── red_menace
+    ├── body
+    ├── face_gradient       opacity 0
+    └── belly_gradient      opacity 0
+time=5
+└── red_menace
+    ├── body
+    ├── face_gradient       intended final opacity
+    └── belly_gradient      intended final opacity
+```
+
+During an envelope tween, ToonScape maps the labelled gradient's coordinate
+system through the same deformation as its path. Linear gradients remain
+linear and radial gradients become the best local elliptical approximation to
+the nonlinear envelope. At every authored keyframe, ToonScape uses the exact
+gradient drawn in Inkscape; the approximation applies only between keyframes.
+
+For an inflation effect, a practical workflow is to keep the material colors
+in solid base paths and put white/black/transparent lighting gradients in
+separate labelled paths. Set those lighting paths to opacity 0 in the flat
+pose and to their intended opacity in the inflated pose. Inherited Inkscape
+gradient stops are supported. Convert painted objects to paths and keep the
+usual Inkscape `userSpaceOnUse` gradient coordinates.
+
+The bundled `examples/red-menace-deformation-aware-gradients.svg` demonstrates
+six independently labelled linear and radial lighting overlays.
+
 ## Usage
 
 ```bash
@@ -138,6 +173,19 @@ For MP4:
 ./svg-puppet.mjs windmill-inflate_deploy_spin.svg \
   -o windmill.mp4 --loop-mode repeat --loops 1 --fps 30
 ```
+
+For an animated GIF, use a `.gif` output filename:
+
+```bash
+./svg-puppet.mjs windmill-inflate_deploy_spin.svg \
+  -o windmill.gif --loop-mode repeat --loops 1 --fps 30
+```
+
+GIF output uses a generated 256-color palette with motion-aware dithering.
+The GIF repeats indefinitely; `--loops` controls how many authored animation
+iterations are included within each repeat. GIF frame delays have centisecond
+precision, so MP4 or WebM remains preferable when exact timing, gradients, or
+partial transparency matter.
 
 ## Traveling-wave flag generator
 

@@ -6,6 +6,7 @@ import path from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
+import { mediaCodecArgs } from "./media-codecs.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const VENDOR_P5 = path.join(SCRIPT_DIR, "vendor", "p5.min.js");
@@ -18,7 +19,7 @@ function usage(exitCode = 0) {
 ToonScape SVG Animator
 
 Compile an Inkscape SVG containing time=<seconds> layers into a p5.js-driven
-animation preview, or render it to MP4/WebM when Playwright and ffmpeg are
+animation preview, or render it to MP4, WebM, or GIF when Playwright and ffmpeg are
 available. Labelled actors may combine ordinary SVG transforms, articulated
 parts, and compatible Inkscape Envelope Deformation effects on one timeline.
 
@@ -26,7 +27,7 @@ Usage:
   svg-puppet INPUT.svg [options]
 
 Options:
-  -o, --output PATH          Preview directory, .mp4 file, or .webm file
+  -o, --output PATH          Preview directory, .mp4, .webm, or .gif file
                              (default: INPUT-animation)
       --loop-mode MODE       repeat or pingpong (default: repeat)
       --loops N              Number of complete iterations (default: 1)
@@ -34,10 +35,10 @@ Options:
                              (default: 0)
       --start-hold SECONDS   Hold the first pose before playback (default: 0)
       --end-hold SECONDS     Hold the ending pose after playback (default: 0)
-      --fps N                Video-rendering frame rate (default: 30)
+      --fps N                Rendered output frame rate (default: 30)
       --easing NAME          linear or ease-in-out-sine
                              (default: ease-in-out-sine)
-      --keep-preview         Keep the generated preview beside a video
+      --keep-preview         Keep the generated preview beside rendered media
       --quiet                Suppress informational diagnostics
   -h, --help                 Show this help
 
@@ -49,11 +50,12 @@ Loop semantics:
 Timing and canvas:
   Timing comes from the time=<seconds> layer labels in the SVG. The visible
   canvas is exactly the SVG document/viewBox region. Artwork outside the page
-  remains available for animation but is clipped from the rendered video.
+  remains available for animation but is clipped from the rendered output.
 
 Examples:
   svg-puppet JD.svg -o JD-preview --loop-mode pingpong --loops 5
   svg-puppet JD.svg -o JD.mp4 --loop-mode pingpong --loops 5 --fps 30
+  svg-puppet JD.svg -o JD.gif --loop-mode pingpong --loops 1 --fps 30
   svg-puppet cannon.svg -o cannon.mp4 --loop-mode repeat --loops 5
 `;
   console.log(text.trim());
@@ -168,7 +170,7 @@ Envelope Deformation definitions: ${inspection.envelopeEffects}
 Loop mode: ${config.loopMode}
 Loops: ${config.loops}
 Approximate duration: ${duration.toFixed(6)} seconds
-Video frame rate: ${config.fps} fps
+Output frame rate: ${config.fps} fps
 
 Open index.html in a modern browser. The preview includes play, pause, restart,
 and timeline controls.
@@ -179,8 +181,8 @@ Loop semantics
 once and does not visibly repeat; this is equivalent to a one-shot mode.
 In pingpong mode, one iteration plays forward and then backward.
 
-Video frame timing
-------------------
+Rendered frame timing
+---------------------
 The renderer emits the frame budget implied by duration and --fps: one second
 at 30 fps is exactly 30 frames. The final keyframe is a time boundary. Give its
 pose duration with a later keyframe or --end-hold 0.033333 to show it for one
@@ -357,10 +359,7 @@ async function renderVideo(previewDir, outputPath, options, quiet) {
       }
     }
 
-    const isWebm = outputPath.toLowerCase().endsWith(".webm");
-    const codecArgs = isWebm
-      ? ["-c:v", "libvpx-vp9", "-pix_fmt", "yuv420p"]
-      : ["-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-movflags", "+faststart"];
+    const codecArgs = mediaCodecArgs(outputPath);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     const ffmpeg = spawnSync("ffmpeg", [
       "-y", "-framerate", String(options.fps),
@@ -385,9 +384,9 @@ async function main() {
   const inspection = inspectSvg(svgText);
   const defaultOutput = path.join(path.dirname(svgPath), `${path.basename(svgPath, path.extname(svgPath))}-animation`);
   const outputPath = path.resolve(options.output ?? defaultOutput);
-  const video = /\.(mp4|webm)$/i.test(outputPath);
-  const previewDir = video
-    ? (options.keepPreview ? outputPath.replace(/\.(mp4|webm)$/i, "-preview") : fs.mkdtempSync(path.join(os.tmpdir(), "svg-puppet-preview-")))
+  const renderedMedia = /\.(mp4|webm|gif)$/i.test(outputPath);
+  const previewDir = renderedMedia
+    ? (options.keepPreview ? outputPath.replace(/\.(mp4|webm|gif)$/i, "-preview") : fs.mkdtempSync(path.join(os.tmpdir(), "svg-puppet-preview-")))
     : outputPath;
 
   if (!options.quiet) {
@@ -396,7 +395,7 @@ async function main() {
     console.log(`Envelope Deformation definitions: ${inspection.envelopeEffects}`);
   }
   writePreview(svgPath, previewDir, options, inspection);
-  if (video) {
+  if (renderedMedia) {
     try {
       await renderVideo(previewDir, outputPath, options, options.quiet);
       if (!options.quiet) console.log(`Video: ${outputPath}`);

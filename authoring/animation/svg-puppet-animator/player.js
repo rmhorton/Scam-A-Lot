@@ -147,8 +147,13 @@
 
   function gradientRoleMap(object) {
     const result = new Map();
-    for (const element of object.querySelectorAll("[data-toonscape-gradient-role]")) {
-      const role = element.getAttribute("data-toonscape-gradient-role")?.trim();
+    for (const element of object.querySelectorAll("*")) {
+      const explicitRole = element.getAttribute("data-toonscape-gradient-role")?.trim();
+      // Generated wave files carry an explicit machine-readable role.  For
+      // ordinary Inkscape artwork, a labelled path with a gradient fill is
+      // enough: the label is the role.  This keeps the authoring workflow in
+      // the Layers and Objects panel and avoids XML editing.
+      const role = explicitRole || (paintReferenceId(element) ? parsedLabel(element).name : "");
       if (!role) continue;
       if (result.has(role)) throw new Error(`${labelOf(object) || object.id} contains duplicate gradient role ${role}`);
       result.set(role, element);
@@ -163,13 +168,45 @@
     if (!gradient || !["linearGradient", "radialGradient"].includes(gradient.localName)) {
       throw new Error(`${objectName} gradient role ${role} references missing or unsupported paint server #${id}`);
     }
-    if (gradient.hasAttribute("href") || gradient.hasAttribute("xlink:href")) {
-      throw new Error(`${objectName} gradient role ${role} uses an inherited gradient; expand its stops before animating it`);
+    return resolvedGradient(document, gradient, objectName, role);
+  }
+
+  function gradientHref(element) {
+    return element.getAttribute("href") || element.getAttribute("xlink:href") || "";
+  }
+
+  function resolvedGradient(document, gradient, objectName, role) {
+    const chain = [];
+    const seen = new Set();
+    let current = gradient;
+    while (current) {
+      if (seen.has(current.id)) throw new Error(`${objectName} gradient role ${role} has a circular gradient reference`);
+      seen.add(current.id);
+      chain.push(current);
+      const href = gradientHref(current);
+      if (!href) break;
+      if (!href.startsWith("#")) throw new Error(`${objectName} gradient role ${role} uses unsupported external gradient reference ${href}`);
+      current = document.getElementById(href.slice(1));
+      if (!current || !["linearGradient", "radialGradient"].includes(current.localName)) {
+        throw new Error(`${objectName} gradient role ${role} references missing or unsupported paint server ${href}`);
+      }
     }
-    if (!gradient.querySelectorAll(":scope > stop").length) {
-      throw new Error(`${objectName} gradient role ${role} has no direct gradient stops`);
+
+    const resolved = document.createElementNS(SVG_NS, gradient.localName);
+    // SVG gradient inheritance is per attribute: the nearest definition wins.
+    // Apply the base first and then successively override it toward the leaf.
+    for (const item of chain.slice().reverse()) {
+      for (const attribute of Array.from(item.attributes)) {
+        if (["id", "href", "xlink:href"].includes(attribute.name)) continue;
+        resolved.setAttribute(attribute.name, attribute.value);
+      }
     }
-    return gradient;
+    const stopSource = chain.find(item => Array.from(item.children).some(child => child.localName === "stop"));
+    if (!stopSource) throw new Error(`${objectName} gradient role ${role} has no gradient stops`);
+    for (const stop of Array.from(stopSource.children).filter(child => child.localName === "stop")) {
+      resolved.appendChild(stop.cloneNode(true));
+    }
+    return resolved;
   }
 
   function validateGradientSequence(objectName, role, gradients) {
@@ -183,6 +220,16 @@
       if (children.length !== firstChildren.length || children.some((child, index) => child.localName !== firstChildren[index].localName)) {
         throw new Error(`${objectName} gradient role ${role} changes its stop structure between keyframes`);
       }
+    }
+  }
+
+  function applyGradientDefinition(target, source) {
+    applyAttributes(target, source, source, 0);
+    while (target.firstChild) target.removeChild(target.firstChild);
+    for (const child of Array.from(source.children)) {
+      const clone = child.cloneNode(true);
+      clone.removeAttribute("id");
+      target.appendChild(clone);
     }
   }
 
@@ -290,6 +337,70 @@
 
   function matrixString(matrix) {
     return `matrix(${matrix.map(value => Number(value.toFixed(10))).join(" ")})`;
+  }
+
+  function numericGradientCoordinate(gradient, name, fallback) {
+    const value = gradient.getAttribute(name);
+    if (value === null || value === "") return fallback;
+    if (/%\s*$/.test(value)) {
+      throw new Error(`Gradient ${name} percentages are not yet supported for deformation-aware Inkscape gradients`);
+    }
+    const number = Number(value);
+    if (!Number.isFinite(number)) throw new Error(`Gradient ${name} is not numeric: ${value}`);
+    return number;
+  }
+
+  function gradientReferenceGeometry(gradient) {
+    if ((gradient.getAttribute("gradientUnits") || "objectBoundingBox") !== "userSpaceOnUse") {
+      throw new Error("Deformation-aware gradients must use Inkscape's userSpaceOnUse coordinates");
+    }
+    if (gradient.localName === "radialGradient") {
+      const cx = numericGradientCoordinate(gradient, "cx", 0.5);
+      const cy = numericGradientCoordinate(gradient, "cy", 0.5);
+      const radius = Math.abs(numericGradientCoordinate(gradient, "r", 0.5));
+      return { center: [cx, cy], step: Math.max(1e-3, radius * 0.025) };
+    }
+    const x1 = numericGradientCoordinate(gradient, "x1", 0);
+    const y1 = numericGradientCoordinate(gradient, "y1", 0);
+    const x2 = numericGradientCoordinate(gradient, "x2", 1);
+    const y2 = numericGradientCoordinate(gradient, "y2", 0);
+    return {
+      center: [(x1 + x2) / 2, (y1 + y2) / 2],
+      step: Math.max(1e-3, Math.hypot(x2 - x1, y2 - y1) * 0.025)
+    };
+  }
+
+  function mappedGradientTransform(gradient, mapper, localToObject, objectToLocal) {
+    const originalTransform = parseTransform(gradient.getAttribute("gradientTransform") || "");
+    const { center, step } = gradientReferenceGeometry(gradient);
+    const mapPoint = point => matrixApply(
+      objectToLocal,
+      mapper(matrixApply(localToObject, matrixApply(originalTransform, point)))
+    );
+    const origin = mapPoint(center);
+    const xPoint = mapPoint([center[0] + step, center[1]]);
+    const yPoint = mapPoint([center[0], center[1] + step]);
+    const a = (xPoint[0] - origin[0]) / step;
+    const b = (xPoint[1] - origin[1]) / step;
+    const c = (yPoint[0] - origin[0]) / step;
+    const d = (yPoint[1] - origin[1]) / step;
+    const e = origin[0] - a * center[0] - c * center[1];
+    const f = origin[1] - b * center[0] - d * center[1];
+    return [a, b, c, d, e, f];
+  }
+
+  function applyDeformedGradientGeometry(target, canonical, mapper, localToObject, objectToLocal) {
+    const geometryAttributes = canonical.localName === "radialGradient"
+      ? ["cx", "cy", "r", "fx", "fy", "fr"]
+      : ["x1", "y1", "x2", "y2"];
+    for (const name of geometryAttributes) {
+      if (canonical.hasAttribute(name)) target.setAttribute(name, canonical.getAttribute(name));
+      else target.removeAttribute(name);
+    }
+    target.setAttribute("gradientUnits", "userSpaceOnUse");
+    target.setAttribute("gradientTransform", matrixString(
+      mappedGradientTransform(canonical, mapper, localToObject, objectToLocal)
+    ));
   }
 
   function pointPair(value) {
@@ -646,6 +757,22 @@
     };
   }
 
+  function envelopeIdentityError(state, bbox) {
+    const mapper = EnvelopeMorph.createMapper(state, state, 0.5, bbox, { inkscapeOriginHack: false });
+    const { minX, minY, maxX, maxY } = bbox;
+    const middleX = (minX + maxX) / 2;
+    const middleY = (minY + maxY) / 2;
+    const samples = [
+      [minX, minY], [middleX, minY], [maxX, minY],
+      [minX, middleY], [middleX, middleY], [maxX, middleY],
+      [minX, maxY], [middleX, maxY], [maxX, maxY]
+    ];
+    return Math.max(...samples.map(point => {
+      const mapped = mapper(point);
+      return Math.hypot(mapped[0] - point[0], mapped[1] - point[1]);
+    }));
+  }
+
   function shallowClone(element) {
     const clone = element.cloneNode(false);
     while (clone.firstChild) clone.removeChild(clone.firstChild);
@@ -771,6 +898,12 @@
       validatePrefixEffects(actualEnvelopeObjects, bbox);
       const envelopeStates = sources.map(source => source.envelope || identityEnvelope(bbox));
 
+      let gradientGeometryIndex = canonicalIndex;
+      if (gradientGeometryIndex < 0) {
+        const errors = envelopeStates.map(state => envelopeIdentityError(state, bbox));
+        gradientGeometryIndex = errors.indexOf(Math.min(...errors));
+      }
+
       const roleMaps = sources.map(source => gradientRoleMap(source.element));
       const targetRoles = gradientRoleMap(target);
       const firstRoles = roleMaps[0];
@@ -781,10 +914,22 @@
           if (!element) throw new Error(`${name} is missing gradient role ${role} at keyframe ${frames[frameIndex].time}`);
           return element;
         });
+        const deformationAware = !sourceElements[0].hasAttribute("data-toonscape-gradient-role");
         const sourceGradients = sourceElements.map(element => referencedGradient(sourceDocument, element, name, role));
-        validateGradientSequence(name, role, sourceGradients);
+        // Generated traveling-wave gradients intentionally animate their stop
+        // arrays, so their topology must match.  Hand-authored Inkscape
+        // lighting instead uses the canonical (usually inflated) gradient
+        // between keyframes; collapsed-pose gradients may be stale or have a
+        // different inherited stop list while the overlay is invisible.
+        if (!deformationAware) validateGradientSequence(name, role, sourceGradients);
         const targetElement = targetRoles.get(role);
         if (!targetElement) throw new Error(`Target clone for ${name} is missing gradient role ${role}`);
+        const pathGeometry = paths.find(item => item.target === targetElement);
+        if (deformationAware && !pathGeometry) {
+          throw new Error(`${name} gradient ${role} must paint a path inside the envelope actor`);
+        }
+        const canonicalGradient = sourceGradients[gradientGeometryIndex];
+        if (deformationAware) gradientReferenceGeometry(canonicalGradient);
         const runtimeId = `toonscape-runtime-gradient-${runtimeGradientNumber++}`;
         const targetGradient = sourceGradients[0].cloneNode(true);
         targetGradient.setAttribute("id", runtimeId);
@@ -792,7 +937,12 @@
         targetGradient.setAttribute("data-toonscape-runtime-gradient", `${name}:${role}`);
         stageDefs.appendChild(targetGradient);
         setPaintReference(targetElement, runtimeId);
-        gradientAnimations.push({ role, target: targetGradient, targetElement, runtimeId, sources: sourceGradients });
+        gradientAnimations.push({
+          role, target: targetGradient, targetElement, runtimeId,
+          sources: sourceGradients, canonicalGradient, deformationAware,
+          localToObject: pathGeometry?.localToObject,
+          objectToLocal: pathGeometry?.objectToLocal
+        });
       }
       for (const roles of roleMaps.slice(1)) {
         for (const role of roles.keys()) {
@@ -803,6 +953,8 @@
       actorAnimations.set(name, animation);
       note("INFO", `Actor ${name}: envelope deformation on ${paths.length} paths, then ordinary transforms`);
       if (gradientAnimations.length) note("INFO", `Actor ${name}: animated gradients ${gradientAnimations.map(item => item.role).join(", ")}`);
+      const deformationAware = gradientAnimations.filter(item => item.deformationAware);
+      if (deformationAware.length) note("INFO", `Actor ${name}: deformation-aware Inkscape gradients ${deformationAware.map(item => item.role).join(", ")}`);
     }
 
     const firstFrame = frames[0];
@@ -888,13 +1040,37 @@
 
         const envelope = animationObject.envelope;
         const envelopeActive = envelope && (firstActor.envelope || secondActor.envelope) && !(raw >= 1 - 1e-10 && !secondActor.envelope);
-        if (!envelopeActive) continue;
-        const mapper = EnvelopeMorph.createMapper(envelope.states[firstIndex], envelope.states[secondIndex], raw, envelope.bbox);
-        for (const path of envelope.paths) {
-          path.target.setAttribute("d", EnvelopeMorph.deformPath(path.original, mapper, path.localToObject, path.objectToLocal));
+        if (!envelope) continue;
+        const exactAuthoredPose = raw <= 1e-10 || raw >= 1 - 1e-10;
+        const mapper = envelopeActive && !exactAuthoredPose
+          ? EnvelopeMorph.createMapper(envelope.states[firstIndex], envelope.states[secondIndex], raw, envelope.bbox)
+          : null;
+        if (mapper) {
+          for (const path of envelope.paths) {
+            path.target.setAttribute("d", EnvelopeMorph.deformPath(path.original, mapper, path.localToObject, path.objectToLocal));
+          }
         }
         for (const gradient of envelope.gradientAnimations) {
-          applyElementTree(gradient.target, gradient.sources[firstIndex], gradient.sources[secondIndex], raw);
+          const exactSource = raw <= 1e-10
+            ? gradient.sources[firstIndex]
+            : (raw >= 1 - 1e-10 ? gradient.sources[secondIndex] : null);
+          if (exactSource) {
+            // Keyframes are authoritative.  Preserve the exact Inkscape
+            // gradient there, including its original transform.
+            applyGradientDefinition(gradient.target, exactSource);
+          } else {
+            if (gradient.deformationAware && mapper) {
+              applyGradientDefinition(gradient.target, gradient.canonicalGradient);
+            } else {
+              applyElementTree(gradient.target, gradient.sources[firstIndex], gradient.sources[secondIndex], raw);
+            }
+            if (gradient.deformationAware && mapper) {
+              applyDeformedGradientGeometry(
+                gradient.target, gradient.canonicalGradient, mapper,
+                gradient.localToObject, gradient.objectToLocal
+              );
+            }
+          }
           setPaintReference(gradient.targetElement, gradient.runtimeId);
         }
       }
